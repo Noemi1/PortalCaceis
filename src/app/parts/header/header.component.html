@@ -1,1 +1,47 @@
-<p>header works!</p>
+<header class="header navbar navbar-expand justfy-content-between">
+	<div class="h-100 d-flex justify-content-between align-items-center menu-small-container pr-5" style="z-index: 2;background: #cc0000;">
+        <a class="navbar-brand">
+            <img src="./../../../assets/img/logo-caceis-white.png" alt="Logo Santanter Caceis" class="header__logo">
+        </a>
+        <button class="menu-small" (click)="toggleMenu()" *ngIf="isMobile">
+            <span class="menu-opened" *ngIf="!menuOpen"><fa-icon [icon]="faBars"></fa-icon></span>
+            <span class="menu-closed" *ngIf="menuOpen"><fa-icon [icon]="faTimes"></fa-icon></span>
+        </button>
+    </div>
+	<nav class="navbar-nav" [class.active]="menuOpen && isMobile">
+		<a class="nav-item nav-link">Usuários caceis</a>
+		<a class="nav-item nav-link">Autorizações PJ</a>
+		<div class="nav-item dropdown">
+			<a class="nav-link nav-item dropdown-toggle" id="compartilhamento" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+				Compartilhamento
+			</a>
+			<ul class="dropdown-menu" aria-labelledby="compartilhamento">
+				<a class="dropdown-item">
+                    <span>Meus consentimentos</span>
+					<small class="d-flex align-items-center justify-content-center font-5">
+                        <fa-icon [icon]="faCircle"></fa-icon>
+					</small>
+				</a>
+			</ul>
+		</div>
+		<div class="nav-item dropdown">
+			<a class="nav-link nav-item dropdown-toggle noafter" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<fa-icon [icon]="faCog"></fa-icon>
+			</a>
+			<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+				<li>
+                    <a class="dropdown-item">
+                        <span>Perfil</span> 
+                        <fa-icon [icon]="faUser"></fa-icon>
+                    </a>
+				</li>
+				<li>
+                    <a class="dropdown-item" (click)="logout()">
+                        <span>Sair</span> 
+                        <fa-icon [icon]="faSignOutAlt"></fa-icon>
+                    </a>
+                </li>
+			</ul>
+		</div>
+	</nav>
+</header>
