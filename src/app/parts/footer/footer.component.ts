@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-footer',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  year = new Date().getFullYear();
+  Role = Role;
+  isLoggedIn = false;
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
