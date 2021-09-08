@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faBars, faBell, faChevronRight, faCircle, faCog, faEnvelope, faTimes, faTv, faUser } from '@fortawesome/free-solid-svg-icons';
-import { Menu } from 'src/app/utils/menu';
+import { Menu } from '../../../../utils/menu';
 
 @Component({
 	selector: 'app-menu',
@@ -31,7 +31,6 @@ export class MenuLateralComponent implements OnInit {
 
 	toggleMenu(){
 		this.menu.setOpen(!this.menuOpen);		
-		console.log(this.menu.getOpen().value)
 	}
 
 }

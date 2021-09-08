@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './parts/home/home.component';
-import { InitialComponent } from './parts/initial/initial.component';
+
+const root = () =>import('./sistemas/portal-caceis/portal-caceis.module').then(x => x.PortalCaceisModule)
+const openFinance = () =>import('./sistemas/open-finance/open-finance.module').then(x => x.OpenFinanceModule)
 
 const routes: Routes = [
-	{ path: '', component: HomeComponent, children: [
-		{ path: '', component: InitialComponent },
-	] },
+	{ path: '', redirectTo: 'portal', pathMatch: 'full' },
+	{ path: 'portal', loadChildren: root },
+	{ path: 'open-finance', loadChildren: openFinance },
 	
 ];
 
