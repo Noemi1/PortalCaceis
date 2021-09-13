@@ -1,0 +1,47 @@
+<section class="login">
+    <header class="login__header small">
+        <div class="logo__bg" style="background-image: url(./../../../assets/img/logo-caceis-black.png)"></div>
+    </header>
+    <div class="login__inner">
+        <div class="login__inner-logo  col-lg-12 col-md-12 col-sm-12 col-12">
+            <h3>Login</h3>
+            <!-- <div class="img">
+            </div> -->
+            <!-- <img src="./../../../../assets/img/logo-caceis.png" alt="Logo Caceis"> -->
+            <div style="background-image: url(./../../../assets/img/logo-caceis.png)"></div>
+        </div>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="form login__form">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12 pb-0 mb-3">
+                <input class="form-control cpf" type="documento" documento name="documento" id="documento" placeholder="CPF/CNPJ" required #documento="ngModel" [(ngModel)]="login.documento" />
+                <p class="error text-danger" *ngIf="documento.touched && documento.errors && documento.errors.required">Esse campo é obrigatório</p>
+            </div>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12 pb-0 mb-3">
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Senha"  #password="ngModel" [(ngModel)]="login.password"/>
+                <p class="error text-danger" *ngIf="password.touched && password.errors && password.errors.required">Esse campo é obrigatório</p>
+            </div>
+            <div class="d-flex align-items-center col-lg-12 col-md-12 col-sm-12 col-12 pb-0 ">
+                <input type="checkbox" id="togglePassword"  #togglePassword/>
+                <label for="togglePassword" class="mb-0" style="margin-left: 5px;"><span id="textSenha">Exibir</span> senha</label>
+            </div>
+            <div class="form-row col-lg-12" *ngIf="loginErro">
+                <p class="text-red col-lg-12 alert-danger">{{loginErro}}</p>
+            </div>
+            <div class="form-footer col-lg-12 col-md-12 col-sm-12 col-12 mt-3">
+                <p class="text-message"></p>
+                <button type="submit" class="btn btn-entrar" id="btn-login" [disabled]="form.invalid || loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Entrar
+                </button>
+            </div>
+            <div class="text-center mt-3">
+                <p>Clique <a class="link" routerLink="/account/register">aqui</a> se ainda não possui uma conta</p>
+            </div>
+            <div class="form-footer esqueceu-senha col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="">
+                    <p>Esqueceu a senha?</p>
+                    <a class="link" routerLink="/account/forgot-password">Recuperar Senha</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

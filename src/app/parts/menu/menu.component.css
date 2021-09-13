@@ -4,7 +4,7 @@
     height: 50px;
     display: flex;
     align-items: center;
-    padding: 5px 0;
+    padding: 5px 10px 5px 0;
     background-color: #cc0000;
     z-index: 1;
 }
@@ -14,13 +14,28 @@
     height: 90%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-left: -210px;
+    margin-left: -170px;
 }
 
 .menu__logo img {
     width: auto;
     height: 90%;
+    margin-left: 15px;
+}
+
+.menu__logo-img {
+    width: 100%;
+    height: 100%;
+    background-size: 153px auto;
+    background-repeat: no-repeat;
+    background-position: 176px 5px;
+    opacity: 0.8;
+}
+
+.menu__logo.menu-open .menu__logo-img {
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: 10px;
 }
 
 .btn-menuAside {
@@ -38,7 +53,7 @@
 }
 
 .btn-menuAside:hover {
-    color: #caccd0;
+    color: #ffd9d9;
 }
 
 .btn-close {
@@ -66,7 +81,7 @@
     margin: 0 15px 0 0px;
     color: #ffd9d9;
     max-width: 350px;
-    width: 100%;
+    width: 50vw;
 }
 
 .menu__search::placeholder {
@@ -97,8 +112,8 @@
 }
 
 .menu__button:hover, .menu__button:active, .menu__button:focus {
-    color: #caccd0;
-    background: #522e2e;
+    color: #ffffff;
+    background: #ffffff45;
 }
 
 .menu__button svg, svg, .fas {
@@ -110,7 +125,7 @@
     top: 50px;
     width: 220px;
     height: calc(100vh - 50px);
-    background: #f5f5f5;
+    background: #cc0000;
     box-shadow: 1px 1px 15px 0px #0000000a;
     z-index: 1;
     transform: translateX(-100%);
@@ -120,13 +135,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-flow: column;
-    padding: 25px 15px 10px;
+    padding: 10px 5px;
+    width: 100%;
+    background: #d01414;
+    margin: 0px auto;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .menu__user .menu__user-photo, .menu__user img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-size: cover;
     background-position: center;
@@ -134,44 +155,54 @@
     background-color: white;
 }
 
-.menu__user h5 {
-    font-size: 15px;
-    margin-top: 9px;
-    color: #242939;
+.menu__user-text {
+    margin-left: 15px;
 }
 
-.menu__user hr {
+.menu__user h5 {
+    font-size: 15px;
+    margin-top: 0;
+    color: #ffffff;
+}
+
+.menu__user p {
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.menu__aside hr {
     width: 100%;
-    margin: 15px 0 0;
-    color: #dcdada;
+    margin: 0 0 0;
+    color: #dc5353;
     opacity: 1;
 }
 
 .menu__nav p {
-    font-family: Bold;
+    font-family: SemiBold;
     text-transform: uppercase;
     font-size: 12px;
-    color: #797979;
+    color: #ffffff;
     margin-bottom: 5px;
-    margin-top: -4px;
+    margin-top: 15px;
     padding: 0 15px;
 }
 
 .menu__nav-link {
-    width: 90%;
+    width: 95%;
     display: flex;
-    text-decoration: none;
-    color: #272727;
-    padding: 6px 0;
-    background: whitesmoke;
+    flex-flow: column;
     margin: 0 auto;
+    padding: 6px 0;
+    color: #ffffff;
+    text-decoration: none;
 }
 
 .menu__nav-link .content {
     width: 100%;
     display: flex;
-    background: #c7c7c78c;
     padding: 6px 15px;
+    position: relative;
+    z-index: 1;
 }
 
 .menu__nav-link .text {
@@ -204,18 +235,36 @@
 
 .menu__nav-link .submenu {
     width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #e6e6e6;
     margin: 0 auto;
+    position: relative;
+    flex-flow: row;
+    /* transform: translateY(-100%);
+    z-index: 0;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute; */
 }
 
+/* .menu__nav-link .submenu.active {
+    position: relative;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+} */
+
 .menu__nav-link .submenu .menu__nav-link {
-    background-color: #dcc4c4;
     padding: 6px 21px;
     width: 100%;
+    flex-flow: row;
+    margin: 5px auto;
+    color: #ffffff;
+    /* border: 1px #f5f5f5 solid; */
+    transition: .2s;
+    background: #ffffff14;
+}
+
+.menu__nav-link .submenu .menu__nav-link:hover {
+    background: #ffffff2b;
 }
 
 .menu__nav-link .submenu .menu__nav-link .icon {
@@ -226,12 +275,12 @@
 }
 
 .menu__nav-link.menu__nav-link--submenu.active .content {
-    background: #d32525;
+    /* background: #211e1e; */
     color: #fff;
 }
 
 .menu__nav-link.menu__nav-link--submenu .menu__nav-link .text {
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .menu__logo.menu-open {
