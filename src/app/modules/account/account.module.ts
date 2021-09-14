@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AccountComponent } from './account.component';
 import { FormsModule } from '@angular/forms';
+import { SenhaAlertModule } from 'src/app/parts/senha-alert/senha-alert.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     AccountRoutingModule,
     FormsModule,
+    SenhaAlertModule
   ],
   bootstrap: [AccountComponent]
 })

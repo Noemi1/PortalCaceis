@@ -25,7 +25,7 @@
                     <label>Senha:</label>
                     <div class="position-relative">
                         <input type="password" class="form-control" #senha="ngModel" id="password" name="password" [(ngModel)]="register.password" required minlength="8"  data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?"/>
-                        <!-- <app-senha-alert></app-senha-alert> -->
+                        <app-senha-alert></app-senha-alert>
                     </div>
                     <div *ngIf="senha.touched">
                         <div *ngIf="senha.errors">
@@ -42,7 +42,7 @@
                     <label>Confirmar senha:</label>
                     <div class="position-relative">
                         <input type="password" class="form-control" #confirmPassword="ngModel" id="confirmPassword" name="confirmPassword" [(ngModel)]="register.confirmPassword" required minlength="8"  [readonly]="senha.value == '' || senha.invalid"/>
-                        <!-- <app-senha-alert></app-senha-alert> -->
+                        <app-senha-alert></app-senha-alert>
                     </div>
                     <div *ngIf="confirmPassword.touched">
                         <div *ngIf="confirmPassword.errors">

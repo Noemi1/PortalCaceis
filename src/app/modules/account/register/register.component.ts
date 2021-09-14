@@ -9,7 +9,6 @@ import { Password } from 'src/app/utils';
 	styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
-
 	loading = false;
 	register = new RegisterRequest;
 	error = undefined;
