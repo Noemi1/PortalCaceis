@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Password } from 'src/app/utils';
-import { Login } from 'src/app/models/login.model';
+import { LoginRequest } from 'src/app/models/login.model';
 
 @Component({
 	selector: 'app-login',
@@ -10,7 +10,7 @@ import { Login } from 'src/app/models/login.model';
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
-	login = new Login;
+	login = new LoginRequest;
 	loading = false;
 	loginErro = undefined;
 
