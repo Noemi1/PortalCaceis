@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-footer',

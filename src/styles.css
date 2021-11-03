@@ -19,6 +19,7 @@
     box-sizing: border-box;
     transition: .4s;
     font-family: Regular, sans-serif;
+    font-size: 14px;
 }
 
 *::-webkit-scrollbar {

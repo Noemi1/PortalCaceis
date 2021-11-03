@@ -16,12 +16,7 @@ export class HeaderComponent implements OnInit {
 	menuOpen = false;
 	isMobile = false;
 
-	faCircle = faCircle;
-	faSignOutAlt = faSignOutAlt;
-	faUser = faUser;
-	faCog = faCog;
-	faBars = faBars;
-	faTimes = faTimes;
+
 	constructor() { }
 
 	ngOnInit(): void {

@@ -12,18 +12,17 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-    z-index: 1;
+    z-index: 0;
 }
 
 .main__body {
-    z-index: 1;
+    z-index: -1;
     position: relative;
     min-height: calc(100vh - 50px - 31px);
     background: #dcdada;
     position: relative;
     padding: 50px 30px 30px;
     margin-bottom: 0;
-    z-index: 0;
     box-sizing: content-box;
     max-width: 100vw;
     overflow-x: hidden;
