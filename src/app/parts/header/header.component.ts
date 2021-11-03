@@ -4,7 +4,7 @@ import { faBars, faCircle, faCog, faSignOutAlt, faTimes, faUser } from '@fortawe
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.css']
+	styleUrls: ['./header.component.css', './grey.component.css']
 })
 export class HeaderComponent implements OnInit {
 

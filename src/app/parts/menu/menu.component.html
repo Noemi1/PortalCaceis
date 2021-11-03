@@ -30,6 +30,8 @@
     </div>
     <aside class="menu__aside" [class.menu-open]="menuOpen">
         <hr>
+        <p-megaMenu [model]="items" orientation="vertical">
+        </p-megaMenu>
         <div class="menu__user">
             <div class="menu__user-photo" style="background-image: url(./../../../assets/img/perfil.jpg);"></div>
             <div class="menu__user-text">
@@ -37,72 +39,5 @@
                 <p>Administrador</p>
             </div>
         </div>
-        <nav class="menu__nav">
-            <p>Navegação</p>
-            <a class="menu__nav-link">
-                <div class="content">
-                    <span class="icon">
-                        <fa-icon [icon]="faTv"></fa-icon>
-                    </span>
-                    <span class="text">Dashboard</span>
-                </div>
-            </a>
-            <a class="menu__nav-link menu__nav-link--submenu" #user>
-                <div class="content" (click)="toggleSubmenu(user)">
-                    <span class="icon">
-                        <fa-icon [icon]="faTv"></fa-icon>
-                    </span>
-                    <span class="text">Usuários</span>
-                    <span class="arrow">
-                        <fa-icon [icon]="faChevronRight"></fa-icon>
-                    </span>
-                </div>
-                <div class="submenu" style="display: none;">
-                    <a class="menu__nav-link">
-                        <!-- <span class="icon">
-                            <fa-icon [icon]="faCircle"></fa-icon>
-                        </span> -->
-                        <span class="text">1 Usuários</span>
-                    </a>
-                    <a class="menu__nav-link">
-                        <!-- <span class="icon">
-                            <fa-icon [icon]="faCircle"></fa-icon>
-                        </span> -->
-                        <span class="text">1 Usuários</span>
-                    </a>
-                    <a class="menu__nav-link">
-                        <!-- <span class="icon">
-                            <fa-icon [icon]="faCircle"></fa-icon>
-                        </span> -->
-                        <span class="text">1 Usuários</span>
-                    </a>
-                    <a class="menu__nav-link">
-                        <!-- <span class="icon">
-                            <fa-icon [icon]="faCircle"></fa-icon>
-                        </span> -->
-                        <span class="text">1 Usuários</span>
-                    </a>
-                </div>
-            </a>
-            <a class="menu__nav-link menu__nav-link--submenu" #contas>
-                <div class="content" (click)="toggleSubmenu(contas)">
-                    <span class="icon">
-                        <fa-icon [icon]="faTv"></fa-icon>
-                    </span>
-                    <span class="text">Contas</span>
-                    <span class="arrow">
-                        <fa-icon [icon]="faChevronRight"></fa-icon>
-                    </span>
-                </div>
-                <div class="submenu" style="display: none;">
-                    <a class="menu__nav-link">
-                        <!-- <span class="icon">
-                            <fa-icon [icon]="faCircle"></fa-icon>
-                        </span> -->
-                        <span class="text">1 Contas</span>
-                    </a>
-                </div>
-            </a>
-        </nav>
     </aside>
 </div>

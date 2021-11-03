@@ -1,0 +1,81 @@
+.theme.grey-theme .menu__top {
+    background-color: #1c1c1c;
+}
+
+.theme.grey-theme .btn-menuAside {
+    color: #adadad;
+}
+
+.theme.grey-theme .btn-menuAside:hover {
+    color: #adadad;
+}
+
+.theme.grey-theme .btn-close {
+    color: #adadad;
+}
+
+.theme.grey-theme .menu__search {
+    background: #2d2d2d;
+    color: #adadad;
+}
+
+.theme.grey-theme .menu__search::placeholder {
+    color: #adadad;
+}
+
+.theme.grey-theme .menu__button {
+    color: #adadad;
+    border: 1px #2d2d2d solid;
+    background-color: #2d2d2d;
+}
+
+.theme.grey-theme .menu__button:hover, .theme.grey-theme .menu__button:active, .theme.grey-theme .menu__button:focus {
+    color: #ffffff;
+    background: #ffffff45;
+}
+
+.theme.grey-theme .menu__aside {
+    background: #cc0000;
+    box-shadow: 1px 1px 15px 0px #0000000a;
+}
+
+.theme.grey-theme .menu__user {
+    background: #d01414;
+}
+
+.theme.grey-theme .menu__user .menu__user-photo, .theme.grey-theme .menu__user img {
+    background-color: white;
+}
+
+.theme.grey-theme .menu__user h5 {
+    color: #ffffff;
+}
+
+.theme.grey-theme .menu__user p {
+    color: #ffffff;
+}
+
+.theme.grey-theme .menu__aside hr {
+    color: #dc5353;
+}
+
+.theme.grey-theme .menu__nav p {
+    color: #ffffff;
+}
+
+.theme.grey-theme .menu__nav-link {
+    color: #ffffff;
+}
+
+.theme.grey-theme .menu__nav-link .submenu .menu__nav-link {
+    color: #ffffff;
+    background: #ffffff14;
+}
+
+.theme.grey-theme .menu__nav-link .submenu .menu__nav-link:hover {
+    background: #ffffff2b;
+}
+
+.theme.grey-theme .menu__nav-link.menu__nav-link--submenu.active .content {
+    color: #fff;
+}
