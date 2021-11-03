@@ -11,6 +11,15 @@
                 <fa-icon [icon]="faTimes"></fa-icon>
             </span>
         </button>
+        
+        <button class="btn-menuAside" (click)="toggleMenu()" [class.menu-open]="menuOpen">
+            <span class="btn-open">
+                <fa-icon [icon]="faBars"></fa-icon>
+            </span>
+            <span class="btn-close">
+                <fa-icon [icon]="faTimes"></fa-icon>
+            </span>
+        </button>
         <input type="text" class="menu__search" placeholder="Pesquisar...">
         <div class="menu__end">
             <a class="menu__button">
