@@ -1,0 +1,10 @@
+<div class="popover" 
+    [class.top]="position == 'Top'"
+    [class.bottom]="position == 'Bottom'" 
+    [class.right]="position == 'Right'">
+    <span class="popover-icon"  [class.bottom]="position == 'Bottom'" [class.right]="position == 'Right'"></span>
+    <p><strong>Sua senha deve:</strong></p>
+    <p>conter entre 8 e 16 caracteres</p>
+    <p>conter números (123)</p>
+    <p>conter caracteres especiais (@-/)</p>
+</div>

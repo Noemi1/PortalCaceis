@@ -9,10 +9,7 @@ import { Role } from 'src/app/models/role';
 export class FooterComponent implements OnInit {
 
   year = new Date().getFullYear();
-  Role = Role;
-  isLoggedIn = false;
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }

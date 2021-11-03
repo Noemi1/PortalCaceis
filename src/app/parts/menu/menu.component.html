@@ -1,0 +1,43 @@
+<div class="menu">
+    <div class="menu__top">
+        <div class="menu__logo" [class.menu-open]="menuOpen">
+            <div class="menu__logo-img" style="background-image: url(./../../../assets/img/logo-caceis-white.png);"></div>
+            <!-- <img src="./../../../assets/img/logo-caceis-white.png" alt="Logo caceis"> -->
+        </div>
+        <button class="btn-menuAside" (click)="toggleMenu()" [class.menu-open]="menuOpen">
+            <span class="btn-open">
+                <fa-icon [icon]="faBars"></fa-icon>
+            </span>
+            <span class="btn-close">
+                <fa-icon [icon]="faTimes"></fa-icon>
+            </span>
+        </button>
+        <input type="text" class="menu__search" placeholder="Pesquisar...">
+        <div class="menu__end">
+            <a class="menu__button">
+                <fa-icon [icon]="faBell"></fa-icon>
+            </a>
+            <a class="menu__button">
+                <fa-icon [icon]="faEnvelope"></fa-icon>
+            </a>
+            <a class="menu__button">
+                <fa-icon [icon]="faUser"></fa-icon>
+            </a>
+            <a class="menu__button">
+                <fa-icon [icon]="faCog"></fa-icon>
+            </a>
+        </div>
+    </div>
+    <aside class="menu__aside" [class.menu-open]="menuOpen">
+        <hr>
+        <p-megaMenu [model]="items" orientation="vertical">
+        </p-megaMenu>
+        <div class="menu__user">
+            <div class="menu__user-photo" style="background-image: url(./../../../assets/img/perfil.jpg);"></div>
+            <div class="menu__user-text">
+                <h5>Noemi C. Almeida</h5>
+                <p>Administrador</p>
+            </div>
+        </div>
+    </aside>
+</div>

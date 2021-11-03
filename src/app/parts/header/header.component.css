@@ -1,7 +1,7 @@
 .header {
     padding: 0 8px;
     margin: 0;
-    background-color: #cc0000;
+    background: #cc0000;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,9 +10,9 @@
 }
 
 .navbar-brand {
-    width: auto;
-    height: 50px;
     padding: 0;
+    height: 50px;
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,71 +94,7 @@
     color: #fff;
     background: #ffffff1c;
 }
-
-.menu-small {
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn-menuMobile {
     display: none;
 }
 
-
-@media (max-width: 600px) {
-    .menu-small {
-        display: flex;
-    }
-    .navbar-nav {
-        position: absolute;
-        top: 0%;
-        right: 0;
-        transform: translateY(-100%);
-        display: flex;
-        flex-flow: column!important;
-        width: 100%;
-        height: unset!important;
-        background: #252525;
-        z-index: 0;
-        transition: .5s;
-    }
-    .navbar-nav a {
-        width: 100%;
-        justify-content: flex-end;
-        flex-flow: row-reverse;
-    }
-    .nav-item {
-        display: block!important;
-    }
-    .dropdown-toggle.show {
-        background: #191919;
-    }
-    .navbar-expand .navbar-nav .dropdown-menu {
-        transform: none;
-        background: #3a3737;
-        position: static;
-        text-align: left;
-    }
-    .dropdown-menu {
-        position: static;
-    }
-    .dropdown-item fa-icon {
-        margin-left: 0;
-        margin-right: 13px;
-    }
-    .navbar-expand .navbar-nav .nav-link:hover, 
-    .nav-link:hover {
-        background-color: #00000021;
-    }
-    .navbar-nav.active {
-        top: 100%;
-        transform: none;
-    }
-    .header {
-        padding: 0;
-    }
-    .menu-small-container {
-        width: 100%;
-    }
-}

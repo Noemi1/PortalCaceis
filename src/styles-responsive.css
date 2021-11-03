@@ -1,0 +1,32 @@
+@media (max-width: 600px) {
+    .login__inner-logo .img {
+        transform: none;
+        position: static;
+        order: -1;
+        margin: 0 0 15px 0;
+    }
+    .login__inner {
+        border-top: 0;
+        padding: 10px 0;
+        border-bottom: 0;
+        box-shadow: 2px -2px 3px #0000005e, 6px -6px 0px #cfcece, 9px -7px 5px #00000085;
+    }
+    .login__inner-logo {
+        border: none;
+        width: 100%;
+        flex-flow: column;
+    }
+    .solicitacao__efetivada-content {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        width: 93%;
+        margin: auto;
+    }
+    .solicitacao__box-title {
+        margin: 5px 9px;
+    }
+    .page__header {
+        margin: auto;
+    }
+}

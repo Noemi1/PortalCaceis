@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Password } from 'src/app/utils';
+import { LoginRequest } from 'src/app/models/login.model';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+	login = new LoginRequest;
+	loading = false;
+	loginErro = undefined;
 
-  ngOnInit(): void {
-  }
+	constructor(
+		private password: Password
+	) { }
 
+	ngOnInit(): void {
+	}
+
+	ngAfterViewInit(): void {
+		this.password.togglePassword();
+	}
+
+	onSubmit(form: NgForm) {
+	}
 }

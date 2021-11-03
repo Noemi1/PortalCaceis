@@ -1,12 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faBars, faCircle, faCog, faSignOutAlt, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
-import { MenuItem } from 'primeng/api';
-import * as $ from 'jquery';
 
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.css']
+	styleUrls: ['./header.component.css', './grey.component.css']
 })
 export class HeaderComponent implements OnInit {
 	faCircle = faCircle;
@@ -18,33 +16,15 @@ export class HeaderComponent implements OnInit {
 	menuOpen = false;
 	isMobile = false;
 
+	faCircle = faCircle;
+	faSignOutAlt = faSignOutAlt;
+	faUser = faUser;
+	faCog = faCog;
+	faBars = faBars;
+	faTimes = faTimes;
 	constructor() { }
 
 	ngOnInit(): void {
-		this.getWindowSize();
-	
-	}
-	logout() {
-
-	}
-
-	toggleMenu() {
-		if (this.isMobile) {
-			this.menuOpen = !this.menuOpen;
-		}
-		console.log(this.isMobile)
-		console.log(this.menuOpen)
-	}
-
-	@HostListener('window:resize')
-	getWindowSize() {
-		var size = $(window).width() ?? 0;
-		if(size < 600) {
-			this.isMobile = true;
-		} else {
-			this.isMobile = false;
-			this.menuOpen = false;
-		}
 	}
 
 }

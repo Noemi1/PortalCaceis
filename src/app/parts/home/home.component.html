@@ -1,3 +1,9 @@
-<main class="main">
-    <router-outlet></router-outlet>
+<!-- <app-header></app-header> -->
+<app-menu></app-menu>
+<main class="main" [class.menu-open]="menuOpen">
+    <div class="main__bg" style="background-image: url(./../../assets/img/logo-caceis.png);"></div>
+    <div class="main__body">
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
 </main>

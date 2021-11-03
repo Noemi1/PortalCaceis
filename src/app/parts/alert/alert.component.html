@@ -1,0 +1,53 @@
+<div *ngIf="alerts.length > 0" style="z-index: 3;position: relative;">
+    <div *ngFor="let alert of alerts" >
+        <div [class.alert-bg]="alert.background" (click)="removeAlert(alert)"></div>
+        
+        <!-- RegisterResponse Type -->
+        <div *ngIf="alert.type == AlertType.RegisterResponse">
+            <div class="{{cssClasses(alert)}} d-flex align-items-between  flex-column">
+                <a class="btn-close" (click)="removeAlert(alert)">&times;</a>
+                <div class="d-flex flex-column h-100">
+                    <p>{{alert.message}}</p>
+                </div>
+                <div class="d-flex justify-content-end mt-auto">
+                    <a class="btn btn-primary mx-0" routerLink="./account/login">Ok</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Info Type -->
+        <div *ngIf="alert.type == AlertType.Info">
+            <div class="{{cssClasses(alert)}} d-flex align-items-between  flex-column">
+                <a class="btn-close" (click)="removeAlert(alert)">&times;</a>
+                <div class="d-flex flex-column h-100">
+                    <p>{{alert.message}}</p>
+                </div>
+                <div class="d-flex justify-content-end mt-auto">
+                    <button class="btn btn-primary mx-0" (click)="removeAlert(alert)">Ok</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Error Type -->
+        <div *ngIf="alert.type == AlertType.Error">
+            <div class="{{cssClasses(alert)}} alert-error">
+                <div class="alert-header">
+                    <p>Ocorreu um erro</p>
+                    <a class="btn-close" (click)="removeAlert(alert)">&times;</a>
+                </div>
+                <div class="d-flex flex-column ">
+                    <p>{{alert.message}}</p>
+                    <div class="d-flex justify-content-end mt-auto">
+                        <button class="btn btn-primary mx-0" (click)="removeAlert(alert)">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Others Types -->
+        <div class="{{cssClasses(alert)}}" *ngIf="alert.type != AlertType.RegisterResponse && alert.type != AlertType.Error">
+            <a class="close" (click)="removeAlert(alert)">&times;</a>
+            <span [innerHTML]="alert.message"></span>
+        </div>
+
+    </div>
+</div>
