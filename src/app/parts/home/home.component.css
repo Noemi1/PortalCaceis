@@ -24,7 +24,6 @@
 .main__body {
     z-index: -1;
     min-height: calc(100vh - 50px + 19px);
-    background: #f2f2f2;
     position: relative;
     padding: 62px 30px 30px;
     bottom: 0;
@@ -40,6 +39,7 @@
     margin-left: auto;
     margin-right: 0;
     transition: .4s;
+    padding: 70px 35px 35px;
 }
 
 
@@ -55,4 +55,8 @@
     height: 100%;
     right: 0;
     transition: .4s;
+}
+
+.main__body.modal-open {
+    z-index: 1;
 }

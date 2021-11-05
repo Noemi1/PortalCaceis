@@ -299,6 +299,7 @@
     color: #d1d1d1;
     padding: 11px 21px;
     margin: 6px 0;
+    font-size: 14px;
 }
 
 :host>>>.p-megamenu .p-menuitem-link:hover {
@@ -398,4 +399,12 @@
 .btn-menuPin:hover, .btn-menuPin:focus, .btn-menuPin:active {
     color: #fff;
     background-color: #ffffff5e;
+}
+
+aside.menu__aside.menu-open.menu-pin.modal-open {
+    z-index: 0;
+}
+
+.menu__top.modal-open {
+    z-index: 1;
 }

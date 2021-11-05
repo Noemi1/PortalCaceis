@@ -1,0 +1,71 @@
+<div class="page">
+    <header class="page__header">
+        <p class="page__header-voltar">
+            <a routerLink="/">
+                <span style="margin-right: 8px;">
+                    <fa-icon [icon]="faChevronLeft"></fa-icon>
+                </span>
+                <strong>Voltar</strong>
+            </a>
+        </p>
+        <h3 class="d-flex align-items-center">
+            <strong>Arquivos</strong>
+            <a routerLink="./cadastrar" class="btn btn-gray ml-auto" title="Adicionar arquivo">
+                Adicionar arquivo
+            </a>
+        </h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus id perspiciatis voluptates enim officia ad </p>
+    </header>
+    <div class="page__body">
+        <div class="table-content">
+            <table class="table table-borderless table-striped table-selectable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nome</th>
+                        <th>Descricao</th>
+                        <th>Origem</th>
+                        <th>Destino</th>
+                        <th>Cadastrado por</th>
+                        <th>Data Cadastro</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of pageOfItems" [class.selected]="item == selected"> 
+                        <td></td>
+                        <td (click)="selectItem(item)">{{ item.nome }}</td>
+                        <td (click)="selectItem(item)">{{ item.descricao }}</td>
+                        <td (click)="selectItem(item)">{{ item.caminhoOrigem }}</td>
+                        <td (click)="selectItem(item)">{{ item.caminhoDestino }}</td>
+                        <td (click)="selectItem(item)">{{ item.usuario }}</td>
+                        <td (click)="selectItem(item)">{{ item.dataCadastro | date }}</td>
+                        <td class="td-actions">
+                            <div class="actions ml-auto">
+                                <button class="actions__toggle" [class.active]="item == selected">
+                                    <span class="icon icon-ellipsis" (click)="selectItem(item)">
+                                        <fa-icon [icon]="faEllipsisV"></fa-icon>
+                                    </span>
+                                    <span class="icon icon-times" (click)="unselectItem()">
+                                        <fa-icon [icon]="faTimes"></fa-icon>
+                                    </span>
+                                </button>
+                                <div class="actions__nav" [class.active]="item == selected">
+                                    <div class="actions__nav-inner" *ngIf="item == selected">
+                                        <a class="actions__nav-link">Editar</a>
+                                        <a class="actions__nav-link">Excluir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer pb-2 pt-3 px-0 bg-transparent d-flex justify-content-end">
+            <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

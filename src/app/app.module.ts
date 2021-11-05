@@ -6,18 +6,18 @@ import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app.routing';
 import { FooterComponent } from './parts/footer/footer.component';
-import { HeaderComponent } from './parts/header/header.component';
 import { HomeComponent } from './parts/home/home.component';
 import { MenuLateralComponent } from './parts/menu/menu.component';
 import { AlertComponent } from './parts/alert/alert.component';
 import {MenuModule} from 'primeng/menu';
 import {MegaMenuModule} from 'primeng/megamenu';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    HeaderComponent,
     MenuLateralComponent,
     HomeComponent,
     AlertComponent,
@@ -29,6 +29,8 @@ import {MegaMenuModule} from 'primeng/megamenu';
     FontAwesomeModule,
     MenuModule,
     MegaMenuModule,
+    ToastrModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

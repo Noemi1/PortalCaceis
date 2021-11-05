@@ -3,6 +3,7 @@ import { faBars, faBell, faChevronRight, faCircle, faCog, faEnvelope, faLock, fa
 import * as $ from 'jquery';
 import { Menu } from 'src/app/utils';
 import { MegaMenuItem } from 'primeng/api';  //required when using MegaMenu
+import { ModalOpen } from 'src/app/utils/modal-open';
 
 @Component({
 	selector: 'app-menu',
@@ -60,15 +61,16 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 	];
 
 	constructor(
-		public menu: Menu
+		public menu: Menu,
+		public modal: ModalOpen
 	) {
 		this.menu.getOpen().subscribe(open => {
 			this.menuOpen = open ?? false;
 		})
 		this.menu.getPin().subscribe(pin => {
 			this.menuPin = pin ?? false;
-			
 		})
+		this.modal.openSubject.subscribe(res => console.log(res));
 	}
 
 	ngOnInit(): void {

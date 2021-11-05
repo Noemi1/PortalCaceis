@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from 'src/app/utils/menu';
+import { ModalOpen } from 'src/app/utils/modal-open';
 
 @Component({
 	selector: 'app-home',
@@ -10,10 +11,12 @@ export class HomeComponent implements OnInit {
 	menuOpen = false;
 	menuPin = false;
 	constructor(
-		public menu: Menu
+		public menu: Menu,
+		public modal: ModalOpen
 	) { 
 		this.menu.getOpen().subscribe(res => this.menuOpen = res || false);
 		this.menu.getPin().subscribe(res => this.menuPin = res || false);
+		this.modal.openSubject.subscribe()
 	}
 
 	ngOnInit(): void {

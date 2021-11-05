@@ -1,0 +1,89 @@
+<div class="modal" [class.active]="modalOpen">
+    <div class="modal__bg" (click)="voltar()"></div>
+    <div class="modal__inner" style="max-width: 800px;">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="text-orange">
+                    <strong>Adicionar arquivo</strong>
+                </h3>
+                <a (click)="voltar()" class="modal__header-close btn-close">
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="modal__body">
+                <form #form="ngForm" (ngSubmit)="create(form)">
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label for="nome">Nome: <span class="text-red fw-bold">*</span></label>
+                            <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="objeto.nome" required>
+                            <div *ngIf="nome.errors">
+                                <p class="error text-danger" *ngIf="nome.touched && nome.errors.required">Esse campo é obrigatório.</p>
+                                <p class="error text-danger" *ngIf="nome.touched && !nome.errors.required">E-mail inválido.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                            <label for="caminhoOrigem">Caminho de Origem: <span class="text-red fw-bold">*</span></label>
+                            <input type="text" class="form-control" name="caminhoOrigem" id="caminhoOrigem" #caminhoOrigem="ngModel" [(ngModel)]="objeto.caminhoOrigem" required>
+                            <div *ngIf="caminhoOrigem.errors">
+                                <p class="error text-danger" *ngIf="caminhoOrigem.touched && caminhoOrigem.errors.required">Esse campo é obrigatório.</p>
+                                <p class="error text-danger" *ngIf="caminhoOrigem.touched && !caminhoOrigem.errors.required">E-mail inválido.</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                            <label for="caminhoDestino">Caminho de Destino: <span class="text-red fw-bold">*</span></label>
+                            <input type="text" class="form-control" name="caminhoDestino" id="caminhoDestino" #caminhoDestino="ngModel" [(ngModel)]="objeto.caminhoDestino" required>
+                            <div *ngIf="caminhoDestino.errors">
+                                <p class="error text-danger" *ngIf="caminhoDestino.touched && caminhoDestino.errors.required">Esse campo é obrigatório.</p>
+                                <p class="error text-danger" *ngIf="caminhoDestino.touched && !caminhoDestino.errors.required">E-mail inválido.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                            <label for="acessoTipo_Origem_Id">Tipo de acesso de Origem: <span class="text-red fw-bold">*</span></label>
+                            <select type="text" class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #acessoTipo_Origem_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Origem_Id" required>
+                                <option value="">Selecione</option>
+                                <option [value]="item.id" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
+                            </select>
+                            <div *ngIf="acessoTipo_Origem_Id.errors">
+                                <p class="error text-danger" *ngIf="acessoTipo_Origem_Id.touched && acessoTipo_Origem_Id.errors.required">Esse campo é obrigatório.</p>
+                                <p class="error text-danger" *ngIf="acessoTipo_Origem_Id.touched && !acessoTipo_Origem_Id.errors.required">E-mail inválido.</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                            <label for="acessoTipo_Destino_Id">Tipo de acesso de Destino: <span class="text-red fw-bold">*</span></label>
+                            <select type="text" class="form-control" name="acessoTipo_Destino_Id" id="acessoTipo_Destino_Id" #acessoTipo_Destino_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Destino_Id" required>
+                                <option value="">Selecione</option>
+                                <option [value]="item.id" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
+                            </select>
+                            <div *ngIf="acessoTipo_Destino_Id.errors">
+                                <p class="error text-danger" *ngIf="acessoTipo_Destino_Id.touched && acessoTipo_Destino_Id.errors.required">Esse campo é obrigatório.</p>
+                                <p class="error text-danger" *ngIf="acessoTipo_Destino_Id.touched && !acessoTipo_Destino_Id.errors.required">E-mail inválido.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label for="descricao">Descrição: <span class="text-red fw-bold">*</span></label>
+                            <textarea class="form-control" name="descricao" id="descricao" #descricao="ngModel" [(ngModel)]="objeto.descricao" required></textarea>
+                            <div *ngIf="descricao.errors">
+                                <p class="error text-danger" *ngIf="descricao.touched && descricao.errors.required">Esse campo é obrigatório.</p>
+                                <p class="error text-danger" *ngIf="descricao.touched && !descricao.errors.required">E-mail inválido.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="d-flex col-md-1 col-sm-12 p-0 ml-auto" >
+                            <p class="text-red" *ngIf="erro">{{erro}}</p>
+                            <button class="btn btn-dark ml-auto w-100" [disabled]="form.invalid">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

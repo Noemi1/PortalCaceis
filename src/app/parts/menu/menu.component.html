@@ -34,7 +34,7 @@
             </button>
         </div>
     </div>
-    <aside class="menu__aside" [class.menu-open]="menuOpen" [class.menu-pin]="menuPin">
+    <aside class="menu__aside" [class.menu-open]="menuOpen" [class.menu-pin]="menuPin" [class.modal-open]="modal.openSubject.value">
         <hr>
         <p-megaMenu [model]="items" orientation="vertical">
         </p-megaMenu>
