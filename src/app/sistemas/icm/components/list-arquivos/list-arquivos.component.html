@@ -53,7 +53,7 @@
                                 <div class="actions__nav" [class.active]="item == selected">
                                     <div class="actions__nav-inner" *ngIf="item == selected">
                                         <a class="actions__nav-link" [routerLink]="['editar']"  [queryParams]="{ id: crypto.encrypt(item.id.toString())}">Editar</a>
-                                        <a class="actions__nav-link" [routerLink]="['editar']"  [queryParams]="{ id: crypto.encrypt(item.id.toString())}">Excluir</a>
+                                        <a class="actions__nav-link" [routerLink]="['excluir']"  [queryParams]="{ id: crypto.encrypt(item.id.toString())}">Excluir</a>
                                     </div>
                                 </div>
                             </div>

@@ -659,7 +659,9 @@ td:hover, td.selected, .selected td {
 }
 
 .actions__nav-link:hover {
+    text-decoration: none;
     background: #e3e3e3;
+    color: #272626;
 }
 
 .actions__nav.active {

@@ -45,8 +45,8 @@
                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
                             <label for="acessoTipo_Origem_Id">Tipo de acesso de Origem: <span class="text-red fw-bold">*</span></label>
                             <select type="text" class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #acessoTipo_Origem_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Origem_Id" required>
-                                <option value="">Selecione</option>
-                                <option [value]="item.id" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
+                                <option>Selecione</option>
+                                <option [value]="item.id | number" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
                             </select>
                             <div *ngIf="acessoTipo_Origem_Id.errors">
                                 <p class="error text-danger" *ngIf="acessoTipo_Origem_Id.touched && acessoTipo_Origem_Id.errors.required">Esse campo é obrigatório.</p>
@@ -56,8 +56,8 @@
                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
                             <label for="acessoTipo_Destino_Id">Tipo de acesso de Destino: <span class="text-red fw-bold">*</span></label>
                             <select type="text" class="form-control" name="acessoTipo_Destino_Id" id="acessoTipo_Destino_Id" #acessoTipo_Destino_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Destino_Id" required>
-                                <option value="">Selecione</option>
-                                <option [value]="item.id" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
+                                <option>Selecione</option>
+                                <option [value]="item.id | number" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
                             </select>
                             <div *ngIf="acessoTipo_Destino_Id.errors">
                                 <p class="error text-danger" *ngIf="acessoTipo_Destino_Id.touched && acessoTipo_Destino_Id.errors.required">Esse campo é obrigatório.</p>
