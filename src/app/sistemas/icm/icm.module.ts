@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ArquivosService } from './services/arquivos.service';
 import { HttpClient } from '@angular/common/http';
+import { Crypto } from 'src/app/utils/cryptojs';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { HttpClient } from '@angular/common/http';
 		ToastrModule,
 	],
 	providers: [
-		ArquivosService
+		ArquivosService,
+		Crypto
 	]
 })
 export class ICMModule { }

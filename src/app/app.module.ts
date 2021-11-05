@@ -13,6 +13,7 @@ import {MenuModule} from 'primeng/menu';
 import {MegaMenuModule} from 'primeng/megamenu';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
+import { Crypto } from './utils/cryptojs';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     ToastrModule.forRoot(),
     HttpClientModule
   ],
-  providers: [],
+  providers: [Crypto],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
