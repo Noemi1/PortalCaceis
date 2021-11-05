@@ -51,7 +51,7 @@ export class CreateArquivosComponent implements OnInit {
 			return false;
 		}
 
-		this.arquivosService.create(this.objeto)
+		this.arquivosService.create(this.objeto as ArquivoRequest)
 			.toPromise()
 			.then(res => {
 				this.toastr.success('Operação realizada com sucesso!!');
