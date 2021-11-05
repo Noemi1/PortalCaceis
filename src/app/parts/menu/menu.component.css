@@ -16,6 +16,9 @@
     align-items: center;
     margin-left: -170px;
 }
+.menu__logo.menu-open {
+    margin-left: 0px;
+}
 
 .menu__logo img {
     width: auto;
@@ -56,7 +59,9 @@
 .btn-menuAside:hover {
     color: #ffd9d9;
 }
-
+.btn-menuAside.menu-open.menu-pin {
+    margin-left: -45px;
+}
 .btn-close {
     color: #ffd9d9;
     background: none;
@@ -68,7 +73,7 @@
 }
 
 .btn-menuAside.menu-open .btn-close {
-    display: block;
+    display: flex;
 }
 
 .btn-menuAside.menu-open .btn-open {
@@ -375,8 +380,22 @@
 }
 
 :host>>>.p-megamenu .p-megamenu-submenu-header {
-    /* padding: 6px 15px; */
     padding: 0;
-    /* background: #e6e6e6; */
     border-radius: 0;
+}
+.btn-menuPin {
+    background-color: #ffffff2e;
+    border: none;
+    color: #f5aeae;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-15px);
+    padding: 5px 8px;
+    border-radius: 3px;
+}
+
+.btn-menuPin:hover, .btn-menuPin:focus, .btn-menuPin:active {
+    color: #fff;
+    background-color: #ffffff5e;
 }

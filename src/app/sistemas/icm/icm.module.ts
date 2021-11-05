@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ICMRoutingModule } from './icm-routing.module';
-import { ListArquivosComponent } from 'src/app/list-arquivos/list-arquivos.component';
-import { CreateArquivoComponent } from 'src/app/create-arquivo/create-arquivo.component';
-import { EditArquivoComponent } from 'src/app/edit-arquivo/edit-arquivo.component';
-import { DeleteArquivoComponent } from 'src/app/delete-arquivo/delete-arquivo.component';
+import { ICMRoutingModule } from './icm.routing';
+import { ListArquivosComponent } from './list-arquivos/list-arquivos.component';
+import { EditArquivosComponent } from './edit-arquivos/edit-arquivos.component';
+import { CreateArquivosComponent } from './create-arquivos/create-arquivos.component';
+import { DeleteArquivosComponent } from './delete-arquivos/delete-arquivos.component';
+import { IcmComponent } from './icm.component';
 
 
 @NgModule({
 	declarations: [
 		ListArquivosComponent,
-		CreateArquivoComponent,
-		EditArquivoComponent,
-		DeleteArquivoComponent,
+		EditArquivosComponent,
+		CreateArquivosComponent,
+		DeleteArquivosComponent,
+  IcmComponent
 	],
 	imports: [
 		CommonModule,

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { faBars, faBell, faChevronRight, faCircle, faCog, faEnvelope, faTimes, faTv, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faChevronRight, faCircle, faCog, faEnvelope, faLock, faLockOpen, faTimes, faTv, faUser } from '@fortawesome/free-solid-svg-icons';
 import * as $ from 'jquery';
 import { Menu } from 'src/app/utils';
 import { MegaMenuItem } from 'primeng/api';  //required when using MegaMenu
@@ -19,6 +19,8 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 	faTv = faTv;
 	faChevronRight = faChevronRight;
 	faCircle = faCircle;
+	faLock = faLock;
+	faLockOpen = faLockOpen;
 
 	menuOpen = false;
 	menuPin = false;
@@ -29,7 +31,28 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 			items: [
 				[
 					{ items: [
+						{ label: 'Home', routerLink: '/ICM' },
 						{ label: 'Gestão de Arquivos', routerLink: '/ICM/gestao-de-arquivos' }
+					] },
+				],
+			],
+		},
+		{
+			label: 'JUD',
+			items: [
+				[
+					{ items: [
+						{ label: 'Link', routerLink: '/JUD' }
+					] },
+				]
+			],
+		},
+		{
+			label: 'Open Finance',
+			items: [
+				[
+					{ items: [
+						{ label: 'Link', routerLink: '/JUD' }
 					] },
 				]
 			],
@@ -44,6 +67,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 		})
 		this.menu.getPin().subscribe(pin => {
 			this.menuPin = pin ?? false;
+			
 		})
 	}
 
