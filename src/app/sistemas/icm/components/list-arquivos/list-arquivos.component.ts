@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faChevronLeft, faEllipsisV, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Crypto } from 'src/app/utils/cryptojs';
 import { ArquivoResponse } from '../../models/arquivo.model';
 import { ArquivosService } from '../../services/arquivos.service';
 
@@ -22,7 +23,8 @@ export class ListArquivosComponent implements OnInit {
 	constructor(
 		private router: Router,
         private route: ActivatedRoute,
-		private arquivosService: ArquivosService
+		private arquivosService: ArquivosService,
+		public crypto: Crypto
 	) { }
 
 	ngOnInit() {

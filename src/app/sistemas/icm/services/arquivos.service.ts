@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse } from '../models/arquivo.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
+import { Crypto } from 'src/app/utils/cryptojs';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,7 +17,6 @@ export class ArquivosService {
 	listTipos: BehaviorSubject<ArquivoAcessoTipoResponse[]> = new BehaviorSubject<ArquivoAcessoTipoResponse[]>([]);
 
 	constructor(
-		private router: Router,
 		private http: HttpClient,
 	) { }
 
