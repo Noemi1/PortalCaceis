@@ -79,7 +79,7 @@
                     <div class="d-flex">
                         <div class="d-flex col-md-1 col-sm-12 p-0 ml-auto" >
                             <p class="text-red" *ngIf="erro">{{erro}}</p>
-                            <button class="btn btn-dark ml-auto w-100" [disabled]="form.invalid">Salvar</button>
+                            <button type="submit" class="btn btn-dark ml-auto w-100" [disabled]="form.invalid || loading">Salvar</button>
                         </div>
                     </div>
                 </form>

@@ -21,18 +21,18 @@ export class ArquivosService {
 	) { }
 
 	getTipos(){
-		return this.http.get<ArquivoAcessoTipoResponse[]>(this.url)
+		return this.http.get<ArquivoAcessoTipoResponse[]>(this.url + '/arquivoacessotipo')
 		.pipe(map(list => {
 			this.listTipos.next(list)
 		}));
 	}
 
 	getTipo(id: number){
-		return this.http.get<ArquivoAcessoTipoResponse>(this.url + `/${id}`);
+		return this.http.get<ArquivoAcessoTipoResponse>(this.url + `/arquivoacessotipo/GetById?id${id}`);
 	}
 
 	getList(){
-		return this.http.get<ArquivoResponse[]>(this.url)
+		return this.http.get<ArquivoResponse[]>(this.url + '/arquivo')
 			.pipe(map(list => {
 				this.list.next(list)
 				return list;
@@ -40,11 +40,11 @@ export class ArquivosService {
 	}
 
 	get(id: number){
-		return this.http.get<ArquivoResponse>(this.url + `/${id}`);
+		return this.http.get<ArquivoResponse>(this.url + `/arquivo/getbyid?id=${id}`);
 	}
 
 	create(model: ArquivoRequest){
-		return this.http.post<ArquivoResponse>(this.url, model);
+		return this.http.post<ArquivoResponse>(this.url + `/arquivo`, model);
 	}
 
 	edit(model: ArquivoRequest){
