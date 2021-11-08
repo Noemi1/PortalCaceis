@@ -15,6 +15,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { Crypto } from './utils/cryptojs';
 import { Format } from './utils/format';
+import { Password } from './utils';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { Format } from './utils/format';
     ToastrModule.forRoot(),
     HttpClientModule
   ],
-  providers: [Crypto, Format],
+  providers: [Crypto, Format, Password],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

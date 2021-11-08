@@ -23,9 +23,9 @@
                 <input type="checkbox" id="togglePassword"  #togglePassword/>
                 <label for="togglePassword" class="mb-0" style="margin-left: 5px;"><span id="textSenha">Exibir</span> senha</label>
             </div>
-            <div class="form-row col-lg-12" *ngIf="loginErro">
-                <p class="text-red col-lg-12 alert-danger">{{loginErro}}</p>
-            </div>
+            <ul class="form-row col-lg-12" *ngIf="erro">
+                <li class="text-red col-lg-12 alert-danger" *ngFor="let item of erro">{{item}}</li>
+            </ul>
             <div class="form-footer col-lg-12 col-md-12 col-sm-12 col-12 mt-3">
                 <p class="text-message"></p>
                 <button type="submit" class="btn btn-entrar" id="btn-login" [disabled]="form.invalid || loading">

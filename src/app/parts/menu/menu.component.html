@@ -1,7 +1,17 @@
-<div class="menu"  [class.modal-open]="modal.openSubject.value">
+<div class="menu" [class.modal-open]="modal.openSubject.value">
     <div class="menu__top" [class.modal-open]="modal.openSubject.value">
         <div class="menu__logo" [class.menu-open]="menuOpen">
-            <div class="menu__logo-img" style="background-image: url(./../../../assets/img/logo-caceis-white.png);"></div>
+            <div class="menu__logo-img" style="background-image: url(./../../../assets/img/logo-caceis-white.png);">
+            </div>
+
+            <button class="menu__button" *ngIf="menuOpen" (click)="togglePinMenu()">
+                <span class="btn-lock" *ngIf="menuPin">
+                    <fa-icon [icon]="faLock"></fa-icon>
+                </span>
+                <span class="btn-lock-open" *ngIf="!menuPin">
+                    <fa-icon [icon]="faLockOpen"></fa-icon>
+                </span>
+            </button>
         </div>
 
         <button class="btn-menuAside" (click)="toggleMenu()" [class.menu-open]="menuOpen">
@@ -12,37 +22,42 @@
                 <fa-icon [icon]="faTimes"></fa-icon>
             </span>
         </button>
-        
+
         <input type="text" class="menu__search" placeholder="Pesquisar...">
         <div class="menu__end">
-            <a class="menu__button">
-                <fa-icon [icon]="faBell"></fa-icon>
-            </a>
             <a class="menu__button">
                 <fa-icon [icon]="faEnvelope"></fa-icon>
             </a>
             <a class="menu__button">
                 <fa-icon [icon]="faUser"></fa-icon>
             </a>
-            <button class="menu__button" (click)="togglePinMenu()">
-                <span class="btn-lock" *ngIf="menuPin">
-                    <fa-icon [icon]="faLock"></fa-icon>
-                </span>
-                <span class="btn-lock-open" *ngIf="!menuPin">
-                    <fa-icon [icon]="faLockOpen"></fa-icon>
-                </span>
-            </button>
+            <a class="menu__button" title="Sair">
+                <!-- <fa-icon [icon]="faSignOutAlt"></fa-icon> -->
+                <!-- <i class="pi pi-sign-out"></i> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                    <path fill-rule="evenodd"
+                        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                </svg>
+            </a>
         </div>
     </div>
-    <aside class="menu__aside" [class.menu-open]="menuOpen" [class.menu-pin]="menuPin" [class.modal-open]="modal.openSubject.value">
+    <aside class="menu__aside" [class.menu-open]="menuOpen" [class.menu-pin]="menuPin"
+        [class.modal-open]="modal.openSubject.value">
         <hr>
         <p-megaMenu [model]="items" orientation="vertical">
         </p-megaMenu>
         <div class="menu__user">
-            <div class="menu__user-photo" style="background-image: url(./../../../assets/img/perfil.jpg);"></div>
+            <!-- <div class="menu__user-photo" style="background-image: url(./../../../assets/img/perfil.jpg);"></div> -->
+            <button class="menu__user-alterarSenha">
+                <fa-icon [icon]="faKey"></fa-icon>
+            </button>
             <div class="menu__user-text">
                 <h5>Noemi C. Almeida</h5>
                 <p>Administrador</p>
+                <!-- <p><button class="btn btn-dark">Alterar senha</button></p> -->
             </div>
         </div>
     </aside>

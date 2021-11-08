@@ -1,7 +1,6 @@
 export class LoginRequest {
     documento: string = '';
     password: string = '';
-    account_Ping_Id?: number;
 }
 
 export class LoginResponse {
@@ -13,8 +12,8 @@ export class LoginResponse {
     updated: Date = new Date;
     isVerified: boolean = false;
     jwtToken: string = '';
-    refreshToken: string = '';
     account_Ping_Request?: number;
+    refreshToken: string = '';
     ping_Id?: number;
-    PF?: boolean;
+    PF: boolean = true;
 }

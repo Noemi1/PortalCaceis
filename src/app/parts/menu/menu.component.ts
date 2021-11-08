@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { faBars, faBell, faChevronRight, faCircle, faCog, faEnvelope, faLock, faLockOpen, faTimes, faTv, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faChevronRight, faCircle, faCog, faEnvelope, faLock, faLockOpen, faTimes, faTv, faUser, faCogs, faSignOutAlt, faKey } from '@fortawesome/free-solid-svg-icons';
 import * as $ from 'jquery';
 import { Menu } from 'src/app/utils';
 import { MegaMenuItem } from 'primeng/api';  //required when using MegaMenu
@@ -22,6 +22,8 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 	faCircle = faCircle;
 	faLock = faLock;
 	faLockOpen = faLockOpen;
+	faSignOutAlt = faSignOutAlt;
+	faKey = faKey;
 
 	menuOpen = false;
 	menuPin = false;
@@ -92,5 +94,8 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 		this.menu.setPin(!this.menuPin);
 	}
 
+	logout(){
+		
+	}
 
 }
