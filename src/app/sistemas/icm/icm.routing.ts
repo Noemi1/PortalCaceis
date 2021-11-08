@@ -10,8 +10,8 @@ const routes: Routes = [
 	{ path: '', component: IcmComponent },
 	{ path: 'gestao-de-arquivos', component:  ListArquivosComponent, children: [
 		{ path: 'cadastrar', component: CreateArquivosComponent },
-		{ path: 'editar/<:id>', component: EditArquivosComponent },
-		{ path: 'excluir/<:id>', component: DeleteArquivosComponent }
+		{ path: 'editar', component: EditArquivosComponent },
+		{ path: 'excluir', component: DeleteArquivosComponent }
 	]}
 ];
 

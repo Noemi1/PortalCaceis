@@ -16,6 +16,19 @@ export class ArquivoResponse {
     caminhoDestino: string = '';
     usuario: string = '';
     dataCadastro: Date = new Date;
+    idEncrypted: string = '';
+    acessoTipo_Origem_Id: number = 0;
+    acessoTipo_Destino_Id: number = 0;
+}
+
+export class ArquivoUpdateRequest {
+	id: number = 0;
+	nome: string = '';
+	descricao: string = '';
+	acessoTipo_Origem_Id: number = 0;
+	acessoTipo_Destino_Id: number = 0;
+	caminhoOrigem: string = '';
+	caminhoDestino: string = '';
 }
 
 export class ArquivoAcessoTipoResponse

@@ -1,5 +1,5 @@
-<div class="menu">
-    <div class="menu__top">
+<div class="menu"  [class.modal-open]="modal.openSubject.value">
+    <div class="menu__top" [class.modal-open]="modal.openSubject.value">
         <div class="menu__logo" [class.menu-open]="menuOpen">
             <div class="menu__logo-img" style="background-image: url(./../../../assets/img/logo-caceis-white.png);"></div>
         </div>

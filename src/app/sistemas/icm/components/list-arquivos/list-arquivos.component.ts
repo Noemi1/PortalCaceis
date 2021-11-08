@@ -15,7 +15,7 @@ export class ListArquivosComponent implements OnInit {
 	faPlus = faPlus;
 	faEllipsisV = faEllipsisV;
 	faTimes = faTimes;
-	loading = false;
+	loading = true;
 	items: Array<any> = [];
 	pageOfItems: Array<ArquivoResponse> = [];
 	selected?: any;
@@ -23,21 +23,24 @@ export class ListArquivosComponent implements OnInit {
 	constructor(
 		private router: Router,
         private route: ActivatedRoute,
-		private arquivosService: ArquivosService,
+		public arquivosService: ArquivosService,
 		public crypto: Crypto
-	) { }
+	) { 
+		this.arquivosService.list.subscribe();
+	}
 
 	ngOnInit() {
-		this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}` }));
 
 		this.arquivosService.getList().subscribe(res => {
-			this.pageOfItems = res;
+			this.arquivosService.list.next(res);
+			this.items = res;
+			this.loading = false;
 		});
+		this.items = this.pageOfItems;
 		this.arquivosService.getTipos().subscribe();
 	}
 
 	onChangePage(pageOfItems: Array<any>) {
-		// update current page of items
 		this.pageOfItems = pageOfItems;
 	}
 
@@ -49,12 +52,5 @@ export class ListArquivosComponent implements OnInit {
 		this.selected = undefined;
 	}
 
-	navigate(url: string[], queryParams: object) {
-		this.router.navigate(url, 
-			{ 
-				queryParams: queryParams,
-				relativeTo: this.route
-			})
-	}
 
 }

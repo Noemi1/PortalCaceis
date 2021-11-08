@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ArquivosService } from './services/arquivos.service';
 import { HttpClient } from '@angular/common/http';
-import { Crypto } from 'src/app/utils/cryptojs';
 
 
 @NgModule({
@@ -30,7 +29,6 @@ import { Crypto } from 'src/app/utils/cryptojs';
 		FontAwesomeModule,
 		JwPaginationModule,
 		FormsModule,
-		ToastrModule,
 	],
 	providers: [
 		ArquivosService,

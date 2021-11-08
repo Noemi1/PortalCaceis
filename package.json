@@ -28,6 +28,7 @@
     "jquery": "^3.6.0",
     "jw-angular-pagination": "^1.2.0",
     "ngx-toastr": "^14.1.4",
+    "path": "^0.12.7",
     "primeicons": "^4.1.0",
     "primeng": "^12.2.1",
     "rxjs": "~6.6.0",

@@ -5,8 +5,8 @@ import { BehaviorSubject } from "rxjs";
 	providedIn: 'root'
 })
 export class ModalOpen {
-    openSubject = new BehaviorSubject<boolean | undefined>(undefined)
-    getOpen(): BehaviorSubject<boolean | undefined> {
+    openSubject = new BehaviorSubject<boolean>(false)
+    getOpen(): BehaviorSubject<boolean> {
         let value = this.openSubject.value ?? localStorage.getItem('menuOpen') === 'true' ? true : false;
         if(this.openSubject.value != undefined) {
             return this.openSubject;

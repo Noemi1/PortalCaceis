@@ -25,6 +25,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 
 	menuOpen = false;
 	menuPin = false;
+	modalOpen = false;
 
 	items: MegaMenuItem[] = [
 		{
@@ -70,7 +71,9 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 		this.menu.getPin().subscribe(pin => {
 			this.menuPin = pin ?? false;
 		})
-		this.modal.openSubject.subscribe(res => console.log(res));
+		this.modal.openSubject.subscribe(open => {
+			this.modalOpen = open;
+		});
 	}
 
 	ngOnInit(): void {

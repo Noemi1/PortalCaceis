@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse } from '../models/arquivo.model';
+import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest } from '../models/arquivo.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
@@ -18,6 +18,7 @@ export class ArquivosService {
 
 	constructor(
 		private http: HttpClient,
+		private crypto: Crypto
 	) { }
 
 	getTipos(){
@@ -34,6 +35,10 @@ export class ArquivosService {
 	getList(){
 		return this.http.get<ArquivoResponse[]>(this.url + '/arquivo')
 			.pipe(map(list => {
+				list.forEach(item => {
+					item.idEncrypted = this.crypto.encrypt(item.id);
+					return item;
+				})
 				this.list.next(list)
 				return list;
 			}));
@@ -47,12 +52,12 @@ export class ArquivosService {
 		return this.http.post<ArquivoResponse>(this.url + `/arquivo`, model);
 	}
 
-	edit(model: ArquivoRequest){
-		return this.http.put<ArquivoResponse>(this.url, model);
+	edit(model: ArquivoUpdateRequest){
+		return this.http.put<ArquivoResponse>(this.url + `/arquivo`, model);
 	}
 
 	delete(id: number){
-		return this.http.delete<ArquivoResponse>(this.url + `/${id}`);
+		return this.http.delete<any>(this.url + `/arquivo?id=${id}`);
 	}
 
 }
