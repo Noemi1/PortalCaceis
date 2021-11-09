@@ -9,8 +9,8 @@ import { FooterComponent } from './parts/footer/footer.component';
 import { HomeComponent } from './parts/home/home.component';
 import { MenuLateralComponent } from './parts/menu/menu.component';
 import { AlertComponent } from './parts/alert/alert.component';
-import {MenuModule} from 'primeng/menu';
-import {MegaMenuModule} from 'primeng/megamenu';
+import { MenuModule } from 'primeng/menu';
+import { MegaMenuModule } from 'primeng/megamenu';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { Crypto } from './utils/cryptojs';
@@ -18,24 +18,24 @@ import { Format } from './utils/format';
 import { Password } from './utils';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FooterComponent,
-    MenuLateralComponent,
-    HomeComponent,
-    AlertComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    FontAwesomeModule,
-    MenuModule,
-    MegaMenuModule,
-    ToastrModule.forRoot(),
-    HttpClientModule
-  ],
-  providers: [Crypto, Format, Password],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		FooterComponent,
+		MenuLateralComponent,
+		HomeComponent,
+		AlertComponent,
+	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		AppRoutingModule,
+		FontAwesomeModule,
+		MenuModule,
+		MegaMenuModule,
+		ToastrModule.forRoot(),
+		HttpClientModule
+	],
+	providers: [Crypto, Format, Password],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,8 +8,7 @@ import { AccountService } from '../services/account.service';
 @Injectable({
 	providedIn: 'root'
 })
-export class RoleGuard implements CanActivateChild {
-	canActivate = false;
+export class RoleGuard implements CanActivate, CanActivateChild {
 	
 	constructor(
 		private router: Router,
@@ -18,7 +17,20 @@ export class RoleGuard implements CanActivateChild {
 		private toastrService: ToastrService
 	) { }
 
+	canActivate(
+		route: ActivatedRouteSnapshot,
+		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+		return this.funcao(route, state);
+	}
+
 	canActivateChild(
+		route: ActivatedRouteSnapshot,
+		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+		return this.funcao(route, state);
+	}
+
+
+	funcao (
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
@@ -28,6 +40,7 @@ export class RoleGuard implements CanActivateChild {
 
 		if (route.data.roles) {
 			var includes = route.data.roles.map(x => x.toLowerCase()).includes(urlSplit) && account?.sistemas.map(x => x.sigla.toLowerCase()).includes(urlSplit);
+			
 			if(includes) {
 				return true
 			}

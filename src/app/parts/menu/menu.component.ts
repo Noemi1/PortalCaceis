@@ -47,6 +47,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 			this.modalOpen = open;
 		});
 		this.accountService.getAccount().subscribe(res => {
+			this.items = [];
 			let siglas = res?.sistemas.map(x => x.sigla.toLowerCase()) || []
 			if(siglas.includes('icm')) {
 				this.items.push(
@@ -62,6 +63,14 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 					{ label: 'JUD', items: [ [
 						{ items: [
 							{ label: 'Link', routerLink: '/JUD' }
+						] } ] ] 
+					})
+			}
+			if(siglas.includes('corp')) {
+				this.items.push(
+					{ label: 'Sistema', items: [ [
+						{ items: [
+							{ label: 'Perfis', routerLink: '/corp/perfil' }
 						] } ] ] 
 					})
 			}

@@ -68,15 +68,7 @@ export class AccountService {
 
 	logout(){
 		this.setAccount(undefined);
-		this.router.navigate(['account/acessar'])
-		// return this.http.post(`${this.baseUrl}/account/logout`, this.account.value?.jwtToken)
-		// 	.toPromise()
-		// 	.then(res => {
-
-		// 	})
-		// 	.catch(res => {
-				
-		// 	})
+		this.router.navigate(['account/acessar']);
 	}
 
 
