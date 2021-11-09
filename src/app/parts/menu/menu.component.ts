@@ -30,39 +30,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 	menuPin = false;
 	modalOpen = false;
 
-	items: MegaMenuItem[] = [
-		{
-			label: 'Cloud Transfer',
-			items: [
-				[
-					{ items: [
-						// { label: 'Home', routerLink: '/ICM' },
-						{ label: 'Histórico de transferências', routerLink: '/cloud-transfer/historico-de-transferencia' }
-					] },
-				],
-			],
-		},
-		{
-			label: 'JUD',
-			items: [
-				[
-					{ items: [
-						{ label: 'Link', routerLink: '/JUD' }
-					] },
-				]
-			],
-		},
-		// {
-		// 	label: 'Open Finance',
-		// 	items: [
-		// 		[
-		// 			{ items: [
-		// 				{ label: 'Link', routerLink: '/JUD' }
-		// 			] },
-		// 		]
-		// 	],
-		// },
-	];
+	items: MegaMenuItem[] = [];
 
 	constructor(
 		public menu: Menu,
@@ -78,6 +46,26 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 		this.modal.openSubject.subscribe(open => {
 			this.modalOpen = open;
 		});
+		this.accountService.getAccount().subscribe(res => {
+			let siglas = res?.sistemas.map(x => x.sigla.toLowerCase()) || []
+			if(siglas.includes('icm')) {
+				this.items.push(
+					{ label: 'Cloud Transfer', items: [ [
+								{ items: [
+									{ label: 'Histórico de transferências', routerLink: '/icm/historico-de-transferencia' }
+								] }
+							] ]
+					});
+			}
+			if(siglas.includes('jud')) {
+				this.items.push(
+					{ label: 'JUD', items: [ [
+						{ items: [
+							{ label: 'Link', routerLink: '/JUD' }
+						] } ] ] 
+					})
+			}
+		})
 	}
 
 	ngOnInit(): void {

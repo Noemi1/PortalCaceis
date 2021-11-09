@@ -25,15 +25,10 @@
 
         <input type="text" class="menu__search" placeholder="Pesquisar...">
         <div class="menu__end">
-            <!-- <a class="menu__button">
-                <fa-icon [icon]="faEnvelope"></fa-icon>
-            </a> -->
             <a class="menu__button">
                 <fa-icon [icon]="faUser"></fa-icon>
             </a>
-            <a class="menu__button" title="Sair">
-                <!-- <fa-icon [icon]="faSignOutAlt"></fa-icon> -->
-                <!-- <i class="pi pi-sign-out"></i> -->
+            <a class="menu__button" title="Sair" (click)="logout()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -50,14 +45,12 @@
         <p-megaMenu [model]="items" orientation="vertical">
         </p-megaMenu>
         <div class="menu__user">
-            <!-- <div class="menu__user-photo" style="background-image: url(./../../../assets/img/perfil.jpg);"></div> -->
             <button class="menu__user-alterarSenha">
                 <fa-icon [icon]="faKey"></fa-icon>
             </button>
             <div class="menu__user-text">
                 <h5>Noemi C. Almeida</h5>
                 <p>Administrador</p>
-                <!-- <p><button class="btn btn-dark">Alterar senha</button></p> -->
             </div>
         </div>
     </aside>

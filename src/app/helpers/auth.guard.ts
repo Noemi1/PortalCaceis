@@ -12,10 +12,11 @@ export class AuthGuard implements CanActivate {
 		private router: Router,
 		private accountService: AccountService
 	) { }
+
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
+			
 		const account = this.accountService.accountValue;
 		if(account != undefined) {
 			return true;
@@ -23,5 +24,4 @@ export class AuthGuard implements CanActivate {
         this.router.navigate(['/account/acessar'], { queryParams: { returnUrl: state.url }});
 		return false;
 	}
-
 }

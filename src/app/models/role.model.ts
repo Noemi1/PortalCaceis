@@ -1,4 +1,11 @@
+export class AccountSistema {
+    sistema_Id = 0;
+    sigla = ''
+}
+
 export enum Role {
-    Admin,
-    Etc
+    Corp = 'Corp',
+    ICM = 'ICM',
+    JUD = 'JUD',
+
 }

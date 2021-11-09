@@ -7,7 +7,7 @@ import { IcmComponent } from './components/icm.component';
 import { ListArquivosComponent } from './components/list-arquivos/list-arquivos.component';
 
 const routes: Routes = [
-	{ path: '', component: IcmComponent },
+	{ path: '', redirectTo: 'historico-de-transferencia' },
 	{ path: 'historico-de-transferencia', component:  ListArquivosComponent, children: [
 		{ path: 'cadastrar', component: CreateArquivosComponent },
 		{ path: 'editar', component: EditArquivosComponent },

@@ -47,6 +47,10 @@ export class AlertService {
         this.subject.next(alert);
     }
 
+
+    removeAlert(alert: Alert) {
+        this.clear(alert.id)
+    }
     // clear alerts
     clear(id = this.defaultId) {
         this.subject.next(new Alert({ id }));

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Password } from 'src/app/utils';
-import { LoginRequest } from 'src/app/models/login.model';
+import { AccountRequest } from 'src/app/models/login.model';
 import { AccountService } from 'src/app/services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,7 @@ import { Format } from 'src/app/utils/format';
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
-	login = new LoginRequest;
+	login = new AccountRequest;
 	loading = false;
 	erro: any[] = [];
 	submitted = false;

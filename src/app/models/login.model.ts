@@ -1,19 +1,21 @@
-export class LoginRequest {
+export class AccountRequest {
     documento: string = '';
     password: string = '';
 }
 
-export class LoginResponse {
+export class AccountResponse {
     id: number = 0;
     documento: string = '';
-    nome: string = '';
-    role: string = '';
     created: Date = new Date;
     updated: Date = new Date;
     isVerified: boolean = false;
     jwtToken: string = '';
-    account_Ping_Request?: number;
     refreshToken: string = '';
-    ping_Id?: number;
-    PF: boolean = true;
+    sistemas: AccountSistemaResponse[] = [];
+}
+
+export class AccountSistemaResponse {
+    sistema_Id: number = 0;
+    sigla: string = '';
+
 }
