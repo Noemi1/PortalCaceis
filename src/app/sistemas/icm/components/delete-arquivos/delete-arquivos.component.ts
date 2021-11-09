@@ -32,14 +32,11 @@ export class DeleteArquivosComponent implements OnInit {
 		if (this.route.snapshot.queryParams['id']) {
 			let id = this.route.snapshot.queryParams['id'];
 			this.id = this.crypto.decrypt(id);
-			console.log(this.id)
-			console.log(id)
 		} else {
 			this.voltar();
 		}
 		
 		this.arquivosService.get(this.id).subscribe(res => {
-			console.log(res)
 			this.loadingObject = false;
 			setTimeout(() => {
 				this.modal.setOpen(true);
