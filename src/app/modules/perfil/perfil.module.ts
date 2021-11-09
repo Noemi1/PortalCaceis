@@ -10,6 +10,7 @@ import { PerfilRoutingModule } from './perfil.routing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JwPaginationModule } from 'jw-angular-pagination';
 import { AppComponent } from 'src/app/app.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AppComponent } from 'src/app/app.component';
 		CommonModule,
 		PerfilRoutingModule,
 		FontAwesomeModule,
-		JwPaginationModule
+		JwPaginationModule,
+		FormsModule
 	],
 	bootstrap: [AppComponent]
 })
