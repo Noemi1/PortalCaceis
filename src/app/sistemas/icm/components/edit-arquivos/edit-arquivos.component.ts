@@ -81,15 +81,15 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 			.toPromise()
 			.then(res => {
 				this.toastr.success('Operação realizada com sucesso!!');
-				this.toastr.success('Sucesso');
-				this.arquivosService.list.value.push(res);
+
+				this.arquivosService.getList().subscribe();
+				// this.arquivosService.list.value.push(res);
 				this.loading = false;
 				this.voltar();
 			})
 			.catch((err: HttpErrorResponse) => {
 				console.error('Erro:', err)
 				this.toastr.error('Erro');
-				this.toastr.error('Ocorreu um problema na operação. Tente mais tarde.');
 				this.loading = false;
 				if(err.status == 400) {
 					for (var [key, value] of Object.entries(err.error.errors)) {

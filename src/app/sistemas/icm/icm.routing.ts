@@ -8,7 +8,7 @@ import { ListArquivosComponent } from './components/list-arquivos/list-arquivos.
 
 const routes: Routes = [
 	{ path: '', component: IcmComponent },
-	{ path: 'gestao-de-arquivos', component:  ListArquivosComponent, children: [
+	{ path: 'historico-de-transferencia', component:  ListArquivosComponent, children: [
 		{ path: 'cadastrar', component: CreateArquivosComponent },
 		{ path: 'editar', component: EditArquivosComponent },
 		{ path: 'excluir', component: DeleteArquivosComponent }

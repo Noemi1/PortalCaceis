@@ -1,41 +1,51 @@
 import { JsonPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { Crypto } from 'src/app/utils/cryptojs';
 import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
 import { ArquivoRequest } from '../../models/arquivo.model';
 import { ArquivosService } from '../../services/arquivos.service';
-
+import * as $ from 'jquery';
 @Component({
 	selector: 'app-create-arquivos',
 	templateUrl: './create-arquivos.component.html',
 	styleUrls: ['./create-arquivos.component.css']
 })
-export class CreateArquivosComponent implements OnInit {
+export class CreateArquivosComponent implements OnInit, OnDestroy {
 
 	modalOpen = false;
 	objeto = new ArquivoRequest;
 	erro: any[] = [];
 	loading = false;
+	subscription: Subscription[] = [];
 	constructor(
 		private router: Router,
 		public arquivosService: ArquivosService,
 		private toastr: ToastrService,
 		private modal: ModalOpen,
-		public format: Format
+		public format: Format,
+		private crypto: Crypto
 	) {
-		this.modal.getOpen().subscribe(res => {
+		var getOpen = this.modal.getOpen().subscribe(res => {
 			this.modalOpen = res;
 		});
+		this.subscription.push(getOpen)
 	}
 
 	ngOnInit(): void {
 		setTimeout(() => {
 			this.modal.setOpen(true);
 		}, 200);
+	}
+	ngOnDestroy(){
+		this.subscription.forEach(subs => {
+			subs.unsubscribe()
+		});
 	}
 
 	voltar() {
@@ -59,7 +69,7 @@ export class CreateArquivosComponent implements OnInit {
 			.toPromise()
 			.then(res => {
 				this.toastr.success('Operação realizada com sucesso!!');
-				this.toastr.success('Sucesso');
+				res.idEncrypted = this.crypto.encrypt(res.id);
 				this.arquivosService.list.value.push(res);
 				this.loading = false;
 				this.voltar();
@@ -67,7 +77,6 @@ export class CreateArquivosComponent implements OnInit {
 			.catch((err: HttpErrorResponse) => {
 				console.error('Erro:', err)
 				this.toastr.error('Erro');
-				this.toastr.error('Ocorreu um problema na operação. Tente mais tarde.');
 				this.loading = false;
 				if (err.status == 400) {
 					for (var [key, value] of Object.entries(err.error.errors)) {

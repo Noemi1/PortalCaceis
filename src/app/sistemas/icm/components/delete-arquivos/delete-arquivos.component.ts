@@ -61,7 +61,6 @@ export class DeleteArquivosComponent implements OnInit {
 			.toPromise()
 			.then(res => {
 				this.toastr.success('Operação realizada com sucesso!!');
-				this.toastr.success('Sucesso');
 				this.arquivosService.getList().subscribe();
 				this.loading = false;
 				this.voltar();

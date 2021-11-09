@@ -11,22 +11,22 @@ import { Crypto } from '../utils/cryptojs';
 })
 export class AccountService {
 	baseUrl = environment.url;
-	private accountSubject: BehaviorSubject<LoginResponse>;
-	public account: Observable<LoginResponse>;
+	private accountSubject: BehaviorSubject<LoginResponse | undefined>;
+	public account: Observable<LoginResponse | undefined>;
 	isLoggedIn = new EventEmitter();
 
 	constructor(
 		private http: HttpClient,
 		private crypto: Crypto
 	) {
-		this.accountSubject = new BehaviorSubject<LoginResponse>(new LoginResponse);
+		this.accountSubject = new BehaviorSubject<LoginResponse | undefined>(undefined);
 		this.account = this.accountSubject.asObservable();
 	}
 
 	public get accountValue(): LoginResponse | undefined {
-		var account = localStorage.getItem('open-finance');
+		var account = localStorage.getItem('portal-caceis');
 		if (account != undefined && account != '') {
-			var accountObj = JSON.parse(account) as LoginResponse;
+			var accountObj = this.crypto.decrypt(account)
 			try {
 				this.accountSubject.next(accountObj);
 			} catch (err) {
@@ -39,6 +39,9 @@ export class AccountService {
 			return undefined;
 		}
 		return this.accountSubject.value;
+	}
+	public set accountValue(value: LoginResponse | undefined){
+		localStorage.setItem('portal-caceis', this.crypto.encrypt(value));
 	}
 
 	login(model: LoginRequest) {
@@ -53,7 +56,15 @@ export class AccountService {
 
 
 	logout(){
-		return this.http.post(`${this.baseUrl}/account/logout`, this.accountSubject.value.jwtToken)
+		this.accountSubject.next(undefined);
+		return this.http.post(`${this.baseUrl}/account/logout`, this.accountValue?.jwtToken)
+			.toPromise()
+			.then(res => {
+
+			})
+			.catch(res => {
+				
+			})
 	}
 
 

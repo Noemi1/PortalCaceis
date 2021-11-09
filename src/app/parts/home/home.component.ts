@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from 'src/app/services/account.service';
 import { Menu } from 'src/app/utils/menu';
 import { ModalOpen } from 'src/app/utils/modal-open';
 
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
 	menuPin = false;
 	constructor(
 		public menu: Menu,
-		public modal: ModalOpen
+		public modal: ModalOpen,
+		private accountService: AccountService
 	) { 
 		this.menu.getOpen().subscribe(res => this.menuOpen = res || false);
 		this.menu.getPin().subscribe(res => this.menuPin = res || false);
@@ -20,6 +22,8 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.accountService.accountValue
+
 	}
 
 }

@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import { Menu } from 'src/app/utils';
 import { MegaMenuItem } from 'primeng/api';  //required when using MegaMenu
 import { ModalOpen } from 'src/app/utils/modal-open';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
 	selector: 'app-menu',
@@ -31,12 +32,12 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 
 	items: MegaMenuItem[] = [
 		{
-			label: 'ICM',
+			label: 'Cloud Transfer',
 			items: [
 				[
 					{ items: [
-						{ label: 'Home', routerLink: '/ICM' },
-						{ label: 'Gestão de Arquivos', routerLink: '/ICM/gestao-de-arquivos' }
+						// { label: 'Home', routerLink: '/ICM' },
+						{ label: 'Histórico de transferências', routerLink: '/cloud-transfer/historico-de-transferencia' }
 					] },
 				],
 			],
@@ -51,21 +52,22 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 				]
 			],
 		},
-		{
-			label: 'Open Finance',
-			items: [
-				[
-					{ items: [
-						{ label: 'Link', routerLink: '/JUD' }
-					] },
-				]
-			],
-		},
+		// {
+		// 	label: 'Open Finance',
+		// 	items: [
+		// 		[
+		// 			{ items: [
+		// 				{ label: 'Link', routerLink: '/JUD' }
+		// 			] },
+		// 		]
+		// 	],
+		// },
 	];
 
 	constructor(
 		public menu: Menu,
-		public modal: ModalOpen
+		public modal: ModalOpen,
+		private accountService: AccountService
 	) {
 		this.menu.getOpen().subscribe(open => {
 			this.menuOpen = open ?? false;
@@ -95,7 +97,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 	}
 
 	logout(){
-		
+		this.accountService.logout();
 	}
 
 }
