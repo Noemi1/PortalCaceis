@@ -44,17 +44,22 @@ export class RoleGuard implements CanActivate, CanActivateChild {
 			if(includes) {
 				return true
 			}
+
+			
+			this.toastrService.error('Acesso não autorizado')
+			this.alertService.error('Acesso não autorizado', {
+				id: '654',
+				background: true,
+				button: 'OK',
+				buttonCallback: () => {
+					this.alertService.clear('654')
+				}
+			})
+			return false;
+
+		} else {
+			return true;
 		}
-		this.toastrService.error('Acesso não autorizado')
-		this.alertService.error('Acesso não autorizado', {
-			id: '654',
-			background: true,
-			button: 'OK',
-			buttonCallback: () => {
-				this.alertService.clear('654')
-			}
-		})
-		return false;
 	}
 
 }

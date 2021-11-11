@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { PerfilUpdateRequest } from 'src/app/models/perfil.model';
-import { PerfilService } from 'src/app/services/perfil.service';
+import { PerfilRequest, PerfilResponse, PerfilUpdateRequest } from 'src/app/sistemas/corp/models/perfil.model';
+import { PerfilService } from 'src/app/sistemas/corp/services/perfil.service';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
+import { AcessoResponse } from '../../../models/acessos.model';
+import { SistemaService } from '../../../services/sistema.service';
 
 @Component({
   selector: 'app-edit',
@@ -17,11 +19,12 @@ import { ModalOpen } from 'src/app/utils/modal-open';
 export class EditComponent implements OnInit {
 
 	modalOpen = false;
-	objeto: PerfilUpdateRequest = new PerfilUpdateRequest;
+	objeto: PerfilResponse = new PerfilResponse;
 	erro: any[] = [];
 	loading = false;
 	loadingObject = true;
 	id: number = 0;
+	perfilAcessos = [];
 
 
 	constructor(
@@ -31,7 +34,9 @@ export class EditComponent implements OnInit {
 		private toastr: ToastrService,
 		private modal: ModalOpen,
 		private crypto: Crypto,
-		public format: Format
+		public format: Format,
+		public sistemaService: SistemaService,
+
 	) {
 		this.modal.getOpen().subscribe(res => {
 			this.modalOpen = res;
@@ -43,14 +48,28 @@ export class EditComponent implements OnInit {
 			this.voltar();
 		}
 
-		this.perfilService.get(this.id).subscribe(res => {
+		this.perfilService.get(this.id).subscribe(perfil => {
 			this.loadingObject = false;
 			setTimeout(() => {
 				this.modal.setOpen(true);
 			}, 200);
-			this.objeto = res as unknown as PerfilUpdateRequest;
-			this.objeto.acessos = [];
+			this.objeto = perfil;
+
+			var idsAcessos = perfil.perfilAcessos.map(x => x.controllerPath_Id);
+			this.perfilService.listAcessos.value.map(a => {
+				a.checked = idsAcessos.includes(a.id);
+
+				var item = this.objeto.perfilAcessos.find(x => x.controllerPath_Id == a.id)
+				var index = this.objeto.perfilAcessos.findIndex(x => x.controllerPath_Id == a.id)
+				if(item != undefined && index != -1) {
+					item.checked = a.checked;
+					item.excluido = false;
+					item.controllerPath_Id = a.id;
+					this.objeto.perfilAcessos[index] = item;
+				};
+			});
 		});
+
 
 	}
 
@@ -61,10 +80,22 @@ export class EditComponent implements OnInit {
 	voltar() {
 		this.modal.setOpen(false);
 		setTimeout(() => {
-			this.router.navigate(['./']);
+			this.router.navigate(['./corp/perfil']);
 		}, 200);
 
 	}
+	toggleCheckbox(item: AcessoResponse) {
+		item.checked = !item.checked;
+		item.excluido = !item.checked;
+		var itemNew = this.objeto.perfilAcessos.find(x => x.controllerPath_Id == item.id)
+		var index = this.objeto.perfilAcessos.findIndex(x => x.controllerPath_Id == item.id)
+		if(itemNew != undefined && index != -1) {
+			itemNew.checked = item.checked;
+			itemNew.excluido = !item.checked;
+			this.objeto.perfilAcessos[index] = itemNew;
+		}
+	}
+
 	edit(form: NgForm) {
 		this.loading = true;
 		if (form.errors) {
@@ -75,7 +106,9 @@ export class EditComponent implements OnInit {
 			return false;
 		}
 
-		this.perfilService.edit(this.objeto)
+		var obj = { nome: this.objeto.nome, acessos: this.objeto.perfilAcessos}
+
+		this.perfilService.edit(this.objeto.id, obj)
 			.toPromise()
 			.then(res => {
 				this.toastr.success('Operação realizada com sucesso!!');

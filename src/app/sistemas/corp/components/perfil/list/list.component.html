@@ -1,0 +1,73 @@
+<div class="page">
+    <header class="page__header">
+        <p class="page__header-voltar">
+            <a routerLink="/">
+                <span style="margin-right: 8px;">
+                    <fa-icon [icon]="faChevronLeft"></fa-icon>
+                </span>
+                <strong>Voltar</strong>
+            </a>
+        </p>
+        <h3 class="d-flex align-items-center">
+            Perfis
+            <a routerLink="./cadastrar" class="btn btn-gray ml-auto" title="Adicionar arquivo">
+                Adicionar perfil
+            </a>
+        </h3>
+    </header>
+    <div class="page__body">
+        <p><small>{{perfilService.list.value.length}} resultados</small></p>
+        <div class="accordion" *ngIf="!loading && pageOfItems.length > 0">
+            <div class="accordion-item my-2" *ngFor="let item of pageOfItems">
+                <h2 class="accordion-header" [attr.id]="'heading-' + item.id">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapse-' + item.id" aria-expanded="true" [attr.aria-controls]="'collapse-' + item.id">
+                        <div class="d-flex w-100 align-items-center">
+                           <div class="d-flex flex-wrap px-0 flex-lg-row flex-lg-nowrap col-8">
+                                <p class="col-lg-5"><strong>Tipo:</strong> {{item.nome}}</p>
+                                <p class=""><strong>Sistema:</strong> {{item.sistema}}</p>
+                           </div>
+                            <p class="ml-auto d-flex justify-content-end mr-2">
+                                <!-- <a [routerLink]="['excluir']"
+                                [queryParams]="{ id: item.idEncrypted }" class="btn btn-dark"><small>Excluir</small></a> -->
+                                <a [routerLink]="['editar']"
+                                [queryParams]="{ id: item.idEncrypted }" class="btn btn-primary"><small>Editar</small></a>
+                            </p>
+                        </div>
+                    </button>
+                </h2>
+                <div [id]="'collapse-' + item.id" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading-' + item.id"
+                   [attr.data-bs-parent]="'#accordion-' + item.id">
+                    <div class="accordion-body">
+                        <table class="table table-borderless table-striped table-selectable" *ngIf="item.perfilAcessos.length > 0">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Path</th>
+                                    <th>Method</th>
+                                    <th>Descrição</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let path of item.perfilAcessos" [class.selected]="item == selected">
+                                    <td></td>
+                                    <td (click)="selectItem(item)">{{path.path }}</td>
+                                    <td (click)="selectItem(item)">{{path.httpMethod }}</td>
+                                    <td (click)="selectItem(item)">{{path.descricao }}</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p *ngIf="item.perfilAcessos.length == 0">Nenhum acessos para esse perfil</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer pb-2 pt-3 px-0 bg-transparent d-flex justify-content-end position-sticky"
+            style="left: 0;">
+            <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

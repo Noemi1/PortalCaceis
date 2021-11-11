@@ -1,11 +1,11 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AccountRequest, AccountResponse } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Crypto } from '../utils/cryptojs';
 import { Router } from '@angular/router';
+import { AccountRequest, AccountResponse } from '../models/login.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -25,8 +25,8 @@ export class AccountService {
 
 	public get accountValue():AccountResponse | undefined {
 		try {
-			var account = this.crypto.decrypt(localStorage.getItem('portal-caceis'));
-			account = account as AccountResponse | undefined;
+			var local_Storage = localStorage.getItem('portal-caceis');
+			var account = this.crypto.decrypt(local_Storage);
 			this.setAccount(account);
 			if(this.account == undefined)
 				this.isLoggedIn.emit(false);
@@ -40,7 +40,8 @@ export class AccountService {
 
 	getAccount(): BehaviorSubject<AccountResponse | undefined>{
 		try {
-			var account = this.crypto.decrypt(localStorage.getItem('portal-caceis'));
+			var local_Storage = localStorage.getItem('portal-caceis');
+			var account = this.crypto.decrypt(local_Storage);
 			account = account as AccountResponse | undefined;
 			if(this.account == undefined)
 				this.isLoggedIn.emit(false);
@@ -61,6 +62,7 @@ export class AccountService {
 			.pipe(map(account => {
 				localStorage.setItem('portal-caceis', this.crypto.encrypt(account))
 				this.setAccount(account);
+				this.isLoggedIn.emit(true)
 				return account;
 			}))
 	}

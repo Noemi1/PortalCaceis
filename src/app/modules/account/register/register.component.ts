@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { RegisterRequest } from 'src/app/models';
+import { RegisterRequest } from 'src/app/models/register-request.model';
 import { Password } from 'src/app/utils';
 
 @Component({

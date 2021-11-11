@@ -7,5 +7,4 @@ export enum Role {
     Corp = 'Corp',
     ICM = 'ICM',
     JUD = 'JUD',
-
 }

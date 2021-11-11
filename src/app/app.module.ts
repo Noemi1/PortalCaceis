@@ -12,10 +12,12 @@ import { AlertComponent } from './parts/alert/alert.component';
 import { MenuModule } from 'primeng/menu';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Crypto } from './utils/cryptojs';
 import { Format } from './utils/format';
 import { Password } from './utils';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 @NgModule({
 	declarations: [
@@ -35,7 +37,13 @@ import { Password } from './utils';
 		ToastrModule.forRoot(),
 		HttpClientModule
 	],
-	providers: [Crypto, Format, Password],
+	providers: [
+		Crypto, 
+		Format, 
+		Password,
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

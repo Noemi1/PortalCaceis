@@ -1,3 +1,8 @@
+.menu {
+    z-index: 2;
+    position: relative;
+}
+
 .menu__top {
     position: fixed;
     width: 100vw;
@@ -16,6 +21,7 @@
     align-items: center;
     margin-left: -170px;
 }
+
 .menu__logo.menu-open {
     margin-left: 0px;
 }
@@ -59,9 +65,11 @@
 .btn-menuAside:hover {
     color: #ffd9d9;
 }
+
 .btn-menuAside.menu-open.menu-pin {
     margin-left: -45px;
 }
+
 .btn-close {
     color: #ffd9d9;
     background: none;
@@ -269,7 +277,6 @@
 }
 
 .menu__nav-link.menu__nav-link--submenu.active .content {
-    /* background: #211e1e; */
     color: #fff;
 }
 
@@ -384,6 +391,7 @@
     padding: 0;
     border-radius: 0;
 }
+
 .btn-menuPin {
     background-color: #ffffff2e;
     border: none;
@@ -399,10 +407,6 @@
 .btn-menuPin:hover, .btn-menuPin:focus, .btn-menuPin:active {
     color: #fff;
     background-color: #ffffff5e;
-}
-
-aside.menu__aside.menu-open.menu-pin.modal-open {
-    z-index: 0;
 }
 
 .menu__top.modal-open {

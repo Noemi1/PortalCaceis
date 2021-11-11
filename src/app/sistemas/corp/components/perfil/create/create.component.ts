@@ -4,12 +4,14 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { PerfilRequest } from 'src/app/models/perfil.model';
-import { PerfilService } from 'src/app/services/perfil.service';
+import { PerfilRequest } from 'src/app/sistemas/corp/models/perfil.model';
+import { PerfilService } from 'src/app/sistemas/corp/services/perfil.service';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
-
+import { SistemaService } from '../../../services/sistema.service';
+import * as $ from 'jquery';
+import { AcessoResponse } from '../../../models/acessos.model';
 @Component({
 	selector: 'app-create',
 	templateUrl: './create.component.html',
@@ -22,18 +24,27 @@ export class CreateComponent implements OnInit {
 	erro: any[] = [];
 	loading = false;
 	subscription: Subscription[] = [];
+	selected?: any;
+
 	constructor(
 		private router: Router,
 		public perfilService: PerfilService,
 		private toastr: ToastrService,
 		private modal: ModalOpen,
 		public format: Format,
-		private crypto: Crypto
+		private crypto: Crypto,
+		public sistemaService: SistemaService
 	) {
 		var getOpen = this.modal.getOpen().subscribe(res => {
 			this.modalOpen = res;
 		});
-		this.subscription.push(getOpen)
+		var listAcessos = this.perfilService.listAcessos.subscribe();
+		var listSistemas = this.sistemaService.list.subscribe();
+
+		this.subscription.push(getOpen);
+		this.subscription.push(listAcessos);
+		this.subscription.push(listSistemas);
+		this.objeto.sistema_Id = 0;
 	}
 
 	ngOnInit(): void {
@@ -50,9 +61,21 @@ export class CreateComponent implements OnInit {
 	voltar() {
 		this.modal.setOpen(false);
 		setTimeout(() => {
-			this.router.navigate(['./']);
+			this.router.navigate(['./corp/perfil']);
 		}, 200);
 	}
+	toggleCheckbox(item: AcessoResponse) {
+		item.checked = !item.checked;
+		if(item.checked) {
+			this.objeto.accessControllers_Id.push(item.id)
+		} else {
+			var index = this.objeto.accessControllers_Id.findIndex(x => x == item.id);
+			if(index != -1) {
+				this.objeto.accessControllers_Id.splice(index, 1)
+			}
+		}
+	}
+
 	create(form: NgForm) {
 		this.loading = true;
 		if (form.errors) {
@@ -62,7 +85,7 @@ export class CreateComponent implements OnInit {
 			this.loading = false;
 			return false;
 		}
-
+		this.erro = [];
 		this.perfilService.create(this.objeto as PerfilRequest)
 			.toPromise()
 			.then(res => {
@@ -74,8 +97,8 @@ export class CreateComponent implements OnInit {
 			})
 			.catch((err: HttpErrorResponse) => {
 				console.error('Erro:', err)
-				this.toastr.error('Erro');
 				this.loading = false;
+				var oi  = typeof(err) 
 				if (err.status == 400) {
 					for (var [key, value] of Object.entries(err.error.errors)) {
 						this.erro.push(value)
@@ -86,6 +109,11 @@ export class CreateComponent implements OnInit {
 								${value}
 							</p>`);
 					}
+				} else if (typeof(err) == 'string') {
+					this.erro.push(err)
+					this.toastr.error(err);
+				} else {
+					this.toastr.error('Erro');
 				}
 			});
 		return true;

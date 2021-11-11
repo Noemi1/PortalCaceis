@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { PerfilResponse } from 'src/app/models/perfil.model';
-import { PerfilService } from 'src/app/services/perfil.service';
+import { PerfilResponse } from 'src/app/sistemas/corp/models/perfil.model';
+import { PerfilService } from 'src/app/sistemas/corp/services/perfil.service';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { ModalOpen } from 'src/app/utils/modal-open';
 
@@ -53,9 +53,10 @@ export class DeleteComponent implements OnInit {
 	voltar() {
 		this.modal.setOpen(false);
 		setTimeout(() => {
-			this.router.navigate(['./']);
+			this.router.navigate(['./corp/perfil']);
 		}, 200);
 	}
+	
 	delete() {
 		this.loading = true;
 		this.perfilService.delete(this.objeto.id)

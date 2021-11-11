@@ -1,0 +1,77 @@
+<div class="modal" [class.active]="modalOpen">
+    <div class="modal__bg" (click)="voltar()"></div>
+    <div class="modal__inner" style="max-width: 800px;">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="text-orange">Adicionar perfil</h3>
+                <a (click)="voltar()" class="modal__header-close btn-close">
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="modal__body">
+                <form #form="ngForm" (ngSubmit)="create(form)">
+                    <div class="d-flex justify-content-between col-lg-12 flex-wrap p-0">
+                        <div class="form-row">
+                            <div class="form-group col-lg-4 col-md-5 col-sm-12 col-12">
+                                <label for="nome">Nome: <span class="text-red fw-bold">*</span></label>
+                                <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="objeto.nome" required>
+                                <div *ngIf="nome.errors">
+                                    <p class="error text-danger" *ngIf="nome.touched && nome.errors.required">Esse campo é obrigatório.</p>
+                                    <p class="error text-danger" *ngIf="nome.touched && !nome.errors.required">E-mail inválido.</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-8 col-md-7 col-sm-12 col-12">
+                                <label for="sistema">Sistema: <span class="text-red fw-bold">*</span></label>
+                                <select class="form-control selectpicker" name="sistema" id="sistema" #sistema="ngModel" [(ngModel)]="objeto.sistema_Id" required>
+                                    <option value="0">Selecione</option>
+                                    <option [value]="item.id" *ngFor="let item of sistemaService.list.value">{{item.sigla}}</option>
+                                </select>
+                                <div *ngIf="sistema.errors">
+                                    <p class="error text-danger" *ngIf="sistema.touched && sistema.errors.required">Esse campo é obrigatório.</p>
+                                    <p class="error text-danger" *ngIf="sistema.touched && !sistema.errors.required">E-mail inválido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row col-lg-12 px-2">
+                            <table class="table table-striped table-selectable">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Path</th>
+                                        <th>Method</th>
+                                        <th>Descrição</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of perfilService.listAcessos.value" (click)="toggleCheckbox(item)" #element  [class.selected]="item.checked">
+                                        <td></td>
+                                        <td>{{ item.path }}</td>
+                                        <td>{{ item.httpMethod }}</td>
+                                        <td>{{ item.descricao }}</td>
+                                        <td>
+                                            <input type="checkbox" #input  [value]="item.id" [checked]="item.checked" name="accessControllers_Id[]" [id]="'accessControllers_Id-' + item.idEncrypted">
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul *ngIf="erro">
+                            <li class="text-red" *ngFor="let err of erro">{{err}}</li>
+                        </ul>
+                        <div class="d-flex col-sm-12 ml-auto mt-3">
+                            <button type="submit" class="btn btn-primary ml-auto"
+                                [disabled]="form.invalid || loading">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Salvar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>  

@@ -47,33 +47,47 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 			this.modalOpen = open;
 		});
 		this.accountService.getAccount().subscribe(res => {
-			this.items = [];
-			let siglas = res?.sistemas.map(x => x.sigla.toLowerCase()) || []
-			if(siglas.includes('icm')) {
-				this.items.push(
-					{ label: 'Cloud Transfer', items: [ [
-								{ items: [
-									{ label: 'Histórico de transferências', routerLink: '/icm/historico-de-transferencia' }
-								] }
-							] ]
-					});
+			if(res != undefined) {
+				this.items = [];
+				let siglas = res.sistemas.map(x => x.sigla.toLowerCase()) || []
+				if (siglas.includes('icm')) {5
+					this.items.push(
+						{
+							label: 'Cloud Transfer', items: [[
+								{
+									items: [
+										{ label: 'Histórico de transferências', routerLink: '/icm/historico-de-transferencia' }
+									]
+								}
+							]]
+						});
+				}
+				if (siglas.includes('jud')) {
+					this.items.push(
+						{
+							label: 'JUD', items: [[
+								{
+									items: [
+										{ label: 'Link', routerLink: '/JUD' }
+									]
+								}]]
+						})
+				}
+				if (siglas.includes('corp')) {
+					this.items.push(
+						{
+							label: 'Sistema', items: [[
+								{
+									items: [
+										{ label: 'Perfis', routerLink: '/corp/perfil' }
+									]
+								}]]
+						})
+				}
+			} else {
+				var oi = 'oi';
 			}
-			if(siglas.includes('jud')) {
-				this.items.push(
-					{ label: 'JUD', items: [ [
-						{ items: [
-							{ label: 'Link', routerLink: '/JUD' }
-						] } ] ] 
-					})
-			}
-			if(siglas.includes('corp')) {
-				this.items.push(
-					{ label: 'Sistema', items: [ [
-						{ items: [
-							{ label: 'Perfis', routerLink: '/corp/perfil' }
-						] } ] ] 
-					})
-			}
+			
 		})
 	}
 

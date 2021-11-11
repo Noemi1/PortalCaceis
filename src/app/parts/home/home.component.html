@@ -2,9 +2,9 @@
 
 <main class="main" [class.menu-open]="menuOpen" [class.menu-pin]="menuPin">
     <app-menu></app-menu>
+    <div class="main__bg" style="background-image: url(./../../assets/img/logo-caceis.png);"></div>
     <div class="main__body" [class.modal-open]="modal.openSubject.value"> 
-        <div class="main__bg" style="background-image: url(./../../assets/img/logo-caceis.png);"></div>
         <router-outlet></router-outlet>
     </div>
-    <app-footer></app-footer>
 </main>
+<app-footer></app-footer>
