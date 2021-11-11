@@ -9,41 +9,32 @@
             </a>
         </p>
         <h3 class="d-flex align-items-center">
-            Arquivos
-            <a routerLink="./cadastrar" class="btn btn-gray ml-auto" title="Adicionar arquivo">
-                Adicionar arquivo
-            </a>
+            Movimentações
         </h3>
     </header>
     <div class="page__body">
-        <p><small>{{arquivosService.list.value.length}} resultados</small></p>
+        <p><small>{{movimentacoesService.list.value.length}} resultados</small></p>
         <table class="table table-borderless table-striped table-selectable">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Nome</th>
-                    <th>Descricao</th>
-                    <th>Origem</th>
-                    <th>Destino</th>
-                    <th>Cadastrado por</th>
                     <th>Data Cadastro</th>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Caminho</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody *ngIf="!loading && arquivosService.list.value.length > 0">
-                <tr *ngFor="let item of arquivosService.list.value" [class.selected]="item == selected">
+            <tbody *ngIf="!loading && movimentacoesService.list.value.length > 0">
+                <tr class="table-row" *ngFor="let item of movimentacoesService.list.value" [class.selected]="item == selected">
                     <td></td>
+                    <td (click)="selectItem(item)">{{ item.dataHora | date : "dd/MM/yyyy" }}</td>
                     <td (click)="selectItem(item)">{{ item.nome }}</td>
-                    <td (click)="selectItem(item)">{{ item.descricao }}</td>
-                    <td (click)="selectItem(item)">{{ item.caminhoOrigem }}</td>
-                    <td (click)="selectItem(item)">{{ item.caminhoDestino }}</td>
-                    <td (click)="selectItem(item)">
-                        <span *ngIf="item.usuario">{{ item.usuario }}</span>
-                        <span *ngIf="!item.usuario">-</span>
-                    </td>
-                    <td (click)="selectItem(item)">{{ item.dataCadastro | date : "dd/MM/yyyy" }}</td>
+                    <td (click)="selectItem(item)">{{ item.movimento_Tipo }}</td>
+                    <td (click)="selectItem(item)">{{ item.caminho }}</td>
+
                     <td class="td-actions">
-                        <div class="actions ml-auto">
+                        <!-- <div class="actions ml-auto">
                             <button class="actions__toggle" [class.active]="item == selected">
                                 <span class="icon icon-ellipsis" (click)="selectItem(item)">
                                     <fa-icon [icon]="faEllipsisV"></fa-icon>
@@ -60,7 +51,7 @@
                                         [queryParams]="{ id: item.idEncrypted }">Excluir</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </td>
                 </tr>
             </tbody>
@@ -75,7 +66,7 @@
                     <td style="background-color: #f5f5f5;"></td>
                 </tr>
             </tbody>
-            <tbody *ngIf="!loading && arquivosService.list.value.length == 0">
+            <tbody *ngIf="!loading && movimentacoesService.list.value.length == 0">
                 <tr>
                     <td></td>
                     <td colspan="6">

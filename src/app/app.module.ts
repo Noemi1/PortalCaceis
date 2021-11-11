@@ -18,6 +18,9 @@ import { Format } from './utils/format';
 import { Password } from './utils';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Inputsearch } from './utils/search-input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -35,12 +38,15 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 		MenuModule,
 		MegaMenuModule,
 		ToastrModule.forRoot(),
-		HttpClientModule
+		HttpClientModule,
+		FormsModule,
+		NgbModule
 	],
 	providers: [
-		Crypto, 
-		Format, 
+		Crypto,
+		Format,
 		Password,
+		Inputsearch,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 	],

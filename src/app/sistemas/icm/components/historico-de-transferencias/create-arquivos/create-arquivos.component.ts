@@ -8,9 +8,9 @@ import { Subscription } from 'rxjs';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
-import { ArquivoRequest } from '../../models/arquivo.model';
-import { ArquivosService } from '../../services/arquivos.service';
 import * as $ from 'jquery';
+import { ArquivosService } from '../../../services/arquivos.service';
+import { ArquivoRequest } from '../../../models/arquivo.model';
 @Component({
 	selector: 'app-create-arquivos',
 	templateUrl: './create-arquivos.component.html',

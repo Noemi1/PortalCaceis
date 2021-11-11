@@ -23,7 +23,7 @@
             </span>
         </button>
 
-        <input type="text" class="menu__search" placeholder="Pesquisar...">
+        <input type="search" [(ngModel)]="input" class="menu__search" placeholder="Pesquisar..." (ngModelChange)="search(input)" #inputSearch>
         <div class="menu__end">
             <a class="menu__button">
                 <fa-icon [icon]="faUser"></fa-icon>

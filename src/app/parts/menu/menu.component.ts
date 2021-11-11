@@ -5,6 +5,7 @@ import { Menu } from 'src/app/utils';
 import { MegaMenuItem } from 'primeng/api';  //required when using MegaMenu
 import { ModalOpen } from 'src/app/utils/modal-open';
 import { AccountService } from 'src/app/services/account.service';
+import { Inputsearch } from 'src/app/utils/search-input';
 
 @Component({
 	selector: 'app-menu',
@@ -31,10 +32,12 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 	modalOpen = false;
 
 	items: MegaMenuItem[] = [];
+	input: string = ''
 
 	constructor(
 		public menu: Menu,
 		public modal: ModalOpen,
+		public inputSearch: Inputsearch,
 		private accountService: AccountService
 	) {
 		this.menu.getOpen().subscribe(open => {
@@ -46,6 +49,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 		this.modal.openSubject.subscribe(open => {
 			this.modalOpen = open;
 		});
+		this.inputSearch.search().subscribe();
 		this.accountService.getAccount().subscribe(res => {
 			if(res != undefined) {
 				this.items = [];
@@ -56,7 +60,8 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 							label: 'Cloud Transfer', items: [[
 								{
 									items: [
-										{ label: 'Histórico de transferências', routerLink: '/icm/historico-de-transferencia' }
+										{ label: 'Histórico de transferências', routerLink: '/icm/historico-de-transferencia' },
+										{ label: 'Movimentações', routerLink: '/icm/movimentacoes' },
 									]
 								}
 							]]
@@ -97,7 +102,9 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit(): void {
 		$('body')
 	}
-	
+	search(input: any){
+		console.log(input)
+	}
 
 	toggleMenu() {
 		this.menu.setOpen(!this.menuOpen);

@@ -8,11 +8,12 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { ICMRoutingModule } from './icm.routing';
 import { ArquivosService } from './services/arquivos.service';
-import { ListArquivosComponent } from './components/list-arquivos/list-arquivos.component';
-import { EditArquivosComponent } from './components/edit-arquivos/edit-arquivos.component';
-import { CreateArquivosComponent } from './components/create-arquivos/create-arquivos.component';
-import { DeleteArquivosComponent } from './components/delete-arquivos/delete-arquivos.component';
+import { ListArquivosComponent } from './components/historico-de-transferencias/list-arquivos/list-arquivos.component';
+import { EditArquivosComponent } from './components/historico-de-transferencias/edit-arquivos/edit-arquivos.component';
 import { IcmComponent } from './components/icm.component';
+import { CreateArquivosComponent } from './components/historico-de-transferencias/create-arquivos/create-arquivos.component';
+import { DeleteArquivosComponent } from './components/historico-de-transferencias/delete-arquivos/delete-arquivos.component';
+import { MovimentacoesComponent } from './components/movimentacoes/movimentacoes.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { IcmComponent } from './components/icm.component';
 		EditArquivosComponent,
 		CreateArquivosComponent,
 		DeleteArquivosComponent,
-		IcmComponent
+		IcmComponent,
+  		MovimentacoesComponent
 	],
 	imports: [
 		CommonModule,
@@ -32,6 +34,7 @@ import { IcmComponent } from './components/icm.component';
 	],
 	providers: [
 		ArquivosService,
+		
 		Crypto
 	]
 })

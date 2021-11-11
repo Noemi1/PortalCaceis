@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateArquivosComponent } from './components/create-arquivos/create-arquivos.component';
-import { DeleteArquivosComponent } from './components/delete-arquivos/delete-arquivos.component';
-import { EditArquivosComponent } from './components/edit-arquivos/edit-arquivos.component';
+import { CreateArquivosComponent } from './components/historico-de-transferencias/create-arquivos/create-arquivos.component';
+import { DeleteArquivosComponent } from './components/historico-de-transferencias/delete-arquivos/delete-arquivos.component';
+import { EditArquivosComponent } from './components/historico-de-transferencias/edit-arquivos/edit-arquivos.component';
 import { IcmComponent } from './components/icm.component';
-import { ListArquivosComponent } from './components/list-arquivos/list-arquivos.component';
+import { ListArquivosComponent } from './components/historico-de-transferencias/list-arquivos/list-arquivos.component';
+import { MovimentacoesComponent } from './components/movimentacoes/movimentacoes.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'historico-de-transferencia' },
@@ -12,7 +13,8 @@ const routes: Routes = [
 		{ path: 'cadastrar', component: CreateArquivosComponent },
 		{ path: 'editar', component: EditArquivosComponent },
 		{ path: 'excluir', component: DeleteArquivosComponent }
-	]}
+	]},
+	{ path: 'movimentacoes', component: MovimentacoesComponent }
 ];
 
 @NgModule({

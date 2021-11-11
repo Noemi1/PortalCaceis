@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { ModalOpen } from 'src/app/utils/modal-open';
-import { ArquivoResponse } from '../../models/arquivo.model';
-import { ArquivosService } from '../../services/arquivos.service';
+import { ArquivoResponse } from '../../../models/arquivo.model';
+import { ArquivosService } from '../../../services/arquivos.service';
 
 @Component({
 	selector: 'app-delete-arquivos',

@@ -18,7 +18,7 @@
     <div class="page__body">
         <p><small>{{perfilService.list.value.length}} resultados</small></p>
         <div class="accordion" *ngIf="!loading && pageOfItems.length > 0">
-            <div class="accordion-item my-2" *ngFor="let item of pageOfItems">
+            <div class="accordion-item my-2 table-row" *ngFor="let item of pageOfItems">
                 <h2 class="accordion-header" [attr.id]="'heading-' + item.id">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         [attr.data-bs-target]="'#collapse-' + item.id" aria-expanded="true" [attr.aria-controls]="'collapse-' + item.id">
@@ -50,7 +50,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let path of item.perfilAcessos" [class.selected]="item == selected">
+                                <tr class="table-row" *ngFor="let path of item.perfilAcessos" [class.selected]="item == selected">
                                     <td></td>
                                     <td (click)="selectItem(item)">{{path.path }}</td>
                                     <td (click)="selectItem(item)">{{path.httpMethod }}</td>

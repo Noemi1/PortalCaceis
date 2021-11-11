@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faChevronLeft, faEllipsisV, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Crypto } from 'src/app/utils/cryptojs';
-import { ArquivoResponse } from '../../models/arquivo.model';
-import { ArquivosService } from '../../services/arquivos.service';
+import { ArquivoResponse } from '../../../models/arquivo.model';
+import { ArquivosService } from '../../../services/arquivos.service';
 
 @Component({
 	selector: 'app-list-arquivos',

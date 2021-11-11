@@ -5,10 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { ModalOpen } from 'src/app/utils/modal-open';
-import { ArquivoUpdateRequest } from '../../models/arquivo.model';
-import { ArquivosService } from '../../services/arquivos.service';
 import * as $ from 'jquery'
 import { Format } from 'src/app/utils/format';
+import { ArquivoUpdateRequest } from '../../../models/arquivo.model';
+import { ArquivosService } from '../../../services/arquivos.service';
 
 @Component({
 	selector: 'app-edit-arquivos',
