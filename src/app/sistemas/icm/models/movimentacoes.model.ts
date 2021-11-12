@@ -6,3 +6,12 @@ export class MovimentacoesResponse {
     caminho: string = '';
     idEncrypted: string = '';
 }
+
+export class MovimentacoesFiltro {
+    dataHora: Date | string = '';
+    nome?: string;
+    movimento_Tipo?: string;
+    caminho?: string;
+    de: Date | string = '';
+    ate: Date | string= '';
+}

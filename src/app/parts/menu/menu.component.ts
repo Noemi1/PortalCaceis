@@ -60,8 +60,8 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 							label: 'Cloud Transfer', items: [[
 								{
 									items: [
-										{ label: 'Histórico de transferências', routerLink: '/icm/historico-de-transferencia' },
-										{ label: 'Movimentações', routerLink: '/icm/movimentacoes' },
+										{ label: 'Arquivos', routerLink: '/icm/arquivos' },
+										{ label: 'Histórico de movimentações', routerLink: '/icm/historico-de-movimentacoes' },
 									]
 								}
 							]]

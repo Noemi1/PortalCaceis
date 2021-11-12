@@ -51,7 +51,7 @@ export class CreateArquivosComponent implements OnInit, OnDestroy {
 	voltar() {
 		this.modal.setOpen(false);
 		setTimeout(() => {
-			this.router.navigate(['./ICM/gestao-de-arquivos']);
+			this.router.navigate(['./icm/arquivos']);
 		}, 200);
 	}
 

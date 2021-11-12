@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -14,6 +14,7 @@ import { IcmComponent } from './components/icm.component';
 import { CreateArquivosComponent } from './components/historico-de-transferencias/create-arquivos/create-arquivos.component';
 import { DeleteArquivosComponent } from './components/historico-de-transferencias/delete-arquivos/delete-arquivos.component';
 import { MovimentacoesComponent } from './components/movimentacoes/movimentacoes.component';
+import { FiltroComponent } from './components/movimentacoes/filtro/filtro.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MovimentacoesComponent } from './components/movimentacoes/movimentacoes
 		CreateArquivosComponent,
 		DeleteArquivosComponent,
 		IcmComponent,
-  		MovimentacoesComponent
+  		MovimentacoesComponent,
+    FiltroComponent
 	],
 	imports: [
 		CommonModule,
@@ -34,7 +36,7 @@ import { MovimentacoesComponent } from './components/movimentacoes/movimentacoes
 	],
 	providers: [
 		ArquivosService,
-		
+		DatePipe,
 		Crypto
 	]
 })

@@ -21,6 +21,7 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Inputsearch } from './utils/search-input';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
 	declarations: [
@@ -47,6 +48,7 @@ import { FormsModule } from '@angular/forms';
 		Format,
 		Password,
 		Inputsearch,
+		DatePipe,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 	],

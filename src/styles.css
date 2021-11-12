@@ -381,15 +381,21 @@ tbody tr:hover::after, tbody tr.selected::after {
     color: #cc0000;
 }
 
+.flag-dark {
+    background: #272626;
+}
+
 .flag {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: -webkit-min-content;
     width: min-content;
     padding: 5px 10px;
     font-size: 13px;
     border-radius: 3px;
     text-align: center;
+    white-space: nowrap;
 }
 
 .flag-green {

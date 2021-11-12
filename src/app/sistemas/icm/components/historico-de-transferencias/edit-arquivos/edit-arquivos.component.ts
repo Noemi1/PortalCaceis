@@ -63,7 +63,7 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 	voltar() {
 		this.modal.setOpen(false);
 		setTimeout(() => {
-			this.router.navigate(['./ICM/gestao-de-arquivos']);
+			this.router.navigate(['./ICM/arquivos']);
 		}, 200);
 
 	}

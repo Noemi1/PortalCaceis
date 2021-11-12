@@ -8,12 +8,27 @@
                 <strong>Voltar</strong>
             </a>
         </p>
-        <h3 class="d-flex align-items-center">
-            Movimentações
+        <h3 class="d-flex align-items-center justify-content-between">
+            Histórico de Movimentações
+            <a class="btn btn-filter" [routerLink]="['filtrar']">
+                <fa-icon [icon]="faFilter"></fa-icon>
+            </a>
         </h3>
     </header>
     <div class="page__body">
-        <p><small>{{movimentacoesService.list.value.length}} resultados</small></p>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <p><small>{{movimentacoesService.list.value.length}} resultados</small></p>
+            <!-- <div class="d-flex col-lg-8 col-md-8 col-sm-12 col-12 align-items-center justify-content-end">
+                <span *ngFor="let item of this.filtroList" class="flag flag-dark text-white ml-2">
+                    <span *ngIf="item.value.length > 9">
+                        <strong>{{ item.key }} </strong>: {{ item.value.substring(0,10) }} ....
+                    </span>
+                    <span *ngIf="item.value.length <= 9">
+                        <strong>{{ item.key }} </strong>: {{ item.value }} 
+                    </span>
+                </span>
+            </div> -->
+        </div>
         <table class="table table-borderless table-striped table-selectable">
             <thead>
                 <tr>
@@ -34,24 +49,7 @@
                     <td (click)="selectItem(item)">{{ item.caminho }}</td>
 
                     <td class="td-actions">
-                        <!-- <div class="actions ml-auto">
-                            <button class="actions__toggle" [class.active]="item == selected">
-                                <span class="icon icon-ellipsis" (click)="selectItem(item)">
-                                    <fa-icon [icon]="faEllipsisV"></fa-icon>
-                                </span>
-                                <span class="icon icon-times" (click)="unselectItem()">
-                                    <fa-icon [icon]="faTimes"></fa-icon>
-                                </span>
-                            </button>
-                            <div class="actions__nav" [class.active]="item == selected">
-                                <div class="actions__nav-inner" *ngIf="item == selected">
-                                    <a class="actions__nav-link" [routerLink]="['editar']"
-                                        [queryParams]="{ id: item.idEncrypted }">Editar</a>
-                                    <a class="actions__nav-link" [routerLink]="['excluir']"
-                                        [queryParams]="{ id: item.idEncrypted }">Excluir</a>
-                                </div>
-                            </div>
-                        </div> -->
+                        
                     </td>
                 </tr>
             </tbody>
