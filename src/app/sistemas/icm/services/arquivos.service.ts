@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest } from '../models/arquivo.model';
+import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest, ArquivoFiltro } from '../models/arquivo.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,10 +16,12 @@ export class ArquivosService {
 	loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 	list: BehaviorSubject<ArquivoResponse[]> = new BehaviorSubject<ArquivoResponse[]>([]);
 	listTipos: BehaviorSubject<ArquivoAcessoTipoResponse[]> = new BehaviorSubject<ArquivoAcessoTipoResponse[]>([]);
+	filtro: BehaviorSubject<ArquivoFiltro | undefined> = new BehaviorSubject<ArquivoFiltro | undefined>(undefined);
 
 	constructor(
 		private http: HttpClient,
-		private crypto: Crypto
+		private crypto: Crypto,
+		private datePipe: DatePipe
 	) { }
 
 	getTipos(){
@@ -37,8 +40,53 @@ export class ArquivosService {
 			.pipe(map(list => {
 				list.forEach(item => {
 					item.idEncrypted = this.crypto.encrypt(item.id);
+					item.dataCadastro = new Date(new Date(item.dataCadastro).toDateString())
 					return item;
 				})
+				if (this.filtro.value != undefined) {
+					if (this.filtro.value.nome?.trim()) {
+						var lista = list.filter(x => x.nome == this.filtro.value?.nome);
+						this.list.next(lista);
+					}
+
+
+					if (this.filtro.value.de != '') {
+						var de = new Date(this.filtro.value.de + 'T00:00:00.000');
+						var lista = list.filter(x => x.dataCadastro >= de);
+						this.list.next(lista);
+					}
+
+					if (this.filtro.value.ate != '') {
+						var ate = new Date(this.filtro.value.ate + 'T00:00:00.000');
+						var lista = list.filter(x => x.dataCadastro <= ate);
+						this.list.next(lista);
+					}
+
+					if (this.filtro.value.de != '' && this.filtro.value.ate != '' && this.filtro.value.dataHora != '') {
+						var data = this.datePipe.transform(this.filtro.value.dataHora as string, 'dd/MM/yyyy');
+						var lista = list.filter(x => this.datePipe.transform(x.dataCadastro, 'dd/MM/yyyy') == data);
+						this.list.next(lista);
+					} 
+					
+					if (this.filtro.value?.acessoTipo_Origem_Id) {
+						var lista = list.filter(x => x.acessoTipo_Origem_Id == this.filtro.value?.acessoTipo_Origem_Id);
+						this.list.next(lista);
+					}
+					
+					if (this.filtro.value?.acessoTipo_Destino_Id) {
+						var lista = list.filter(x => x.acessoTipo_Destino_Id == this.filtro.value?.acessoTipo_Destino_Id);
+						this.list.next(lista);
+					}
+					if (this.filtro.value?.caminhoOrigem?.trim()) {
+						var lista = list.filter(x => x.caminhoOrigem == this.filtro.value?.caminhoOrigem);
+						this.list.next(lista);
+					}
+					if (this.filtro.value?.caminhoDestino?.trim()) {
+						var lista = list.filter(x => x.caminhoDestino == this.filtro.value?.caminhoDestino);
+						this.list.next(lista);
+					}
+					return list;
+				}
 				this.list.next(list)
 				return list;
 			}));

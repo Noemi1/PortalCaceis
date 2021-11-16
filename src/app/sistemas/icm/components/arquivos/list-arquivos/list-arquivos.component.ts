@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faChevronLeft, faEllipsisV, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faEllipsisV, faFilter, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { ArquivoResponse } from '../../../models/arquivo.model';
 import { ArquivosService } from '../../../services/arquivos.service';
@@ -15,6 +15,7 @@ export class ListArquivosComponent implements OnInit {
 	faPlus = faPlus;
 	faEllipsisV = faEllipsisV;
 	faTimes = faTimes;
+	faFilter = faFilter;
 	loading = true;
 	items: Array<any> = [];
 	pageOfItems: Array<ArquivoResponse> = [];

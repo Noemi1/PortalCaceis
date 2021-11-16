@@ -7,14 +7,15 @@ import { JwPaginationModule } from 'jw-angular-pagination';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { ICMRoutingModule } from './icm.routing';
-import { ArquivosService } from './services/arquivos.service';
-import { ListArquivosComponent } from './components/historico-de-transferencias/list-arquivos/list-arquivos.component';
-import { EditArquivosComponent } from './components/historico-de-transferencias/edit-arquivos/edit-arquivos.component';
 import { IcmComponent } from './components/icm.component';
-import { CreateArquivosComponent } from './components/historico-de-transferencias/create-arquivos/create-arquivos.component';
-import { DeleteArquivosComponent } from './components/historico-de-transferencias/delete-arquivos/delete-arquivos.component';
-import { MovimentacoesComponent } from './components/movimentacoes/movimentacoes.component';
+import { ArquivosService } from './services/arquivos.service';
 import { FiltroComponent } from './components/movimentacoes/filtro/filtro.component';
+import { MovimentacoesComponent } from './components/movimentacoes/movimentacoes.component';
+import { ListArquivosComponent } from './components/arquivos/list-arquivos/list-arquivos.component';
+import { EditArquivosComponent } from './components/arquivos/edit-arquivos/edit-arquivos.component';
+import { CreateArquivosComponent } from './components/arquivos/create-arquivos/create-arquivos.component';
+import { DeleteArquivosComponent } from './components/arquivos/delete-arquivos/delete-arquivos.component';
+import { FiltroArquivosComponent } from './components/arquivos/filtro-arquivos/filtro-arquivos.component';
 
 
 @NgModule({
@@ -23,9 +24,10 @@ import { FiltroComponent } from './components/movimentacoes/filtro/filtro.compon
 		EditArquivosComponent,
 		CreateArquivosComponent,
 		DeleteArquivosComponent,
+		FiltroArquivosComponent,
 		IcmComponent,
   		MovimentacoesComponent,
-    FiltroComponent
+    	FiltroComponent
 	],
 	imports: [
 		CommonModule,

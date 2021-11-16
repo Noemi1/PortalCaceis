@@ -31,8 +31,19 @@ export class ArquivoUpdateRequest {
 	caminhoDestino: string = '';
 }
 
-export class ArquivoAcessoTipoResponse
-{
+export class ArquivoAcessoTipoResponse {
     id: number = 0;
     nome: string = '';
+}
+
+export class ArquivoFiltro {
+    dataHora: Date | string = '';
+    de: Date | string = '';
+    ate: Date | string= '';
+    nome?: string;
+    acessoTipo_Origem_Id?: number;
+    acessoTipo_Destino_Id?: number;
+    caminhoOrigem?: string;
+    caminhoDestino?: string;
+
 }

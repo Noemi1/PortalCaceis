@@ -16,7 +16,12 @@
         </h3>
     </header>
     <div class="page__body">
+     <div class="d-flex justify-content-between">
         <p><small>{{arquivosService.list.value.length}} resultados</small></p>
+        <a class="btn btn-filter" [routerLink]="['filtrar']">
+            <fa-icon [icon]="faFilter"></fa-icon>
+        </a>
+     </div>
         <table class="table table-borderless table-striped table-selectable">
             <thead>
                 <tr>

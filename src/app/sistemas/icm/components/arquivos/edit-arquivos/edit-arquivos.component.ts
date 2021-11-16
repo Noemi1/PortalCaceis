@@ -76,6 +76,13 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 			this.loading = false;
 			return false;
 		}
+		
+		this.objeto.nome = this.objeto.nome.trim();
+		this.objeto.caminhoDestino = this.objeto.caminhoDestino.trim();
+		this.objeto.caminhoOrigem = this.objeto.caminhoOrigem.trim();
+		this.objeto.descricao = this.objeto.descricao.trim();
+		
+
 
 		this.arquivosService.edit(this.objeto)
 			.toPromise()
