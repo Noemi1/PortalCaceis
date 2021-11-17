@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Crypto } from '../utils/cryptojs';
 import { Router } from '@angular/router';
 import { AccountRequest, AccountResponse, UserLogado } from '../models/login.model';
+import { ResetPassword } from '../models/account.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,6 +14,7 @@ import { AccountRequest, AccountResponse, UserLogado } from '../models/login.mod
 export class AccountService {
 	baseUrl = environment.url;
 	private account: BehaviorSubject<AccountResponse | undefined>;
+	private userLogado: BehaviorSubject<UserLogado | undefined>;
 	isLoggedIn = new EventEmitter();
 
 	constructor(
@@ -21,6 +23,7 @@ export class AccountService {
 		private router: Router
 	) {
 		this.account = new BehaviorSubject<AccountResponse | undefined>(undefined);
+		this.userLogado = new BehaviorSubject<UserLogado | undefined>(undefined);
 	}
 
 	public get accountValue():AccountResponse | undefined {
@@ -43,8 +46,9 @@ export class AccountService {
 			var local_Storage = localStorage.getItem('portal-caceis');
 			var account = this.crypto.decrypt(local_Storage);
 			account = account as AccountResponse | undefined;
-			if(this.account == undefined)
+			if(account == undefined){
 				this.isLoggedIn.emit(false);
+			}
 			return this.account;
 		} 
 		catch(err) {
@@ -53,24 +57,40 @@ export class AccountService {
 		}
 	}
 	setAccount(value: AccountResponse | undefined){
+		if(typeof value == 'string') {
+			value = undefined;
+		}
 		localStorage.setItem('portal-caceis', this.crypto.encrypt(value))
 		this.account.next(value);
+		if(value != undefined) {
+			this.isLoggedIn.emit(true);
+		} else {
+			this.isLoggedIn.emit(false);
+		}
 	}
 
 	getProfile(){
-		return this.http.get<UserLogado>(`${this.baseUrl}/account/getProfile`);
+		return this.http.get<UserLogado>(`${this.baseUrl}/account/getProfile`)
+		.toPromise().then(userLogado => {
+			var account = this.accountValue;
+			if(account != undefined && userLogado != undefined) {
+				account.userLogado = userLogado;
+				this.userLogado.next(userLogado);
+				this.setAccount(account);
+			}
+			return userLogado;
+		});
 	}
 
 	login(model: AccountRequest) {
 		return this.http.post<AccountResponse>(`${this.baseUrl}/account/authenticate`, model)
 			.pipe(map(account => {
-				return this.getProfile().toPromise().then(userLogado => {
-					account.userLogado = userLogado;
-					localStorage.setItem('portal-caceis', this.crypto.encrypt(account))
-					this.setAccount(account);
-					this.isLoggedIn.emit(true);
-					return account;
-				})
+				if(typeof account == 'string') {
+					console.log('login')
+				}
+				this.setAccount(account);
+ 				this.getProfile();
+				return account;
 			}))
 	}
 
@@ -78,4 +98,14 @@ export class AccountService {
 		this.setAccount(undefined);
 		this.router.navigate(['account/acessar']);
 	}
+	
+
+	updatePassword(model: ResetPassword){
+		return this.http.post(`${this.baseUrl}/account/update-password`, model);
+	}
+
+	updateProfile(model: UserLogado){
+		return this.http.post(`${this.baseUrl}/account/update-profile`, model);
+	}
+
 }

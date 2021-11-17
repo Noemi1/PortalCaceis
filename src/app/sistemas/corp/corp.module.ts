@@ -11,6 +11,12 @@ import { CreateComponent } from './components/perfil/create/create.component';
 import { EditComponent } from './components/perfil/edit/edit.component';
 import { DeleteComponent } from './components/perfil/delete/delete.component';
 import { SistemasComponent } from './components/sistemas/sistemas.component';
+import { ListUsuariosComponent } from './components/usuarios/list-usuarios/list-usuarios.component';
+import { FiltrarUsuariosComponent } from './components/usuarios/filtrar-usuarios/filtrar-usuarios.component';
+import { CreateUsuariosComponent } from './components/usuarios/create-usuarios/create-usuarios.component';
+import { EditUsuariosComponent } from './components/usuarios/edit-usuarios/edit-usuarios.component';
+import { DeleteUsuariosComponent } from './components/usuarios/delete-usuarios/delete-usuarios.component';
+import { ResetPasswordComponent } from './components/usuarios/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -20,6 +26,12 @@ import { SistemasComponent } from './components/sistemas/sistemas.component';
 		CreateComponent,
 		EditComponent,
 		DeleteComponent,
+		ListUsuariosComponent,
+  FiltrarUsuariosComponent,
+  CreateUsuariosComponent,
+  EditUsuariosComponent,
+  DeleteUsuariosComponent,
+  ResetPasswordComponent,
 	],
 	imports: [
 		CommonModule,

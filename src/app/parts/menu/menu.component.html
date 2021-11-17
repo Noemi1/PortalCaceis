@@ -25,9 +25,9 @@
 
         <!-- <input type="search" [(ngModel)]="input" class="menu__search" placeholder="Pesquisar..." (ngModelChange)="search(input)" #inputSearch> -->
         <div class="menu__end">
-            <!-- <a class="menu__button">
+            <a class="menu__button" *ngIf="account" (click)="meuPerfil.set(true)">
                 <fa-icon [icon]="faUser"></fa-icon>
-            </a> -->
+            </a>
             <a class="menu__button" title="Sair" (click)="logout()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -44,13 +44,13 @@
         <hr>
         <p-megaMenu [model]="items" orientation="vertical">
         </p-megaMenu>
-        <div class="menu__user" *ngIf="account.userLogado">
+        <div class="menu__user" *ngIf="account?.userLogado">
             <button class="menu__user-alterarSenha">
                 <fa-icon [icon]="faKey"></fa-icon>
             </button>
             <div class="menu__user-text">
-                <h5>{{ account.userLogado.nome }}</h5>
-                <p>{{ account.userLogado.email }}</p>
+                <h5>{{ account?.userLogado?.nome }}</h5>
+                <p>{{ account?.userLogado?.email }}</p>
                 <!-- <p>Administrador</p> -->
             </div>
         </div>

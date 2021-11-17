@@ -17,7 +17,6 @@
                             <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="objeto.nome" required>
                             <div *ngIf="nome.errors">
                                 <p class="error text-danger" *ngIf="nome.touched && nome.errors.required">Esse campo é obrigatório.</p>
-                                <p class="error text-danger" *ngIf="nome.touched && !nome.errors.required">E-mail inválido.</p>
                             </div>
                         </div>
                     </div>

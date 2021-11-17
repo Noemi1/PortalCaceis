@@ -1,0 +1,58 @@
+<div class="modal" [class.active]="modalExists" *ngIf="modalOpen">
+    <div class="modal__bg" (click)="voltar()"></div>
+    <div class="modal__inner" style="max-width: 800px;">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="text-orange">Meus dados</h3>
+                <a (click)="voltar()" class="modal__header-close btn-close">
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="modal__body">
+                <form #form="ngForm" (submit)="update(form)">
+                    <div class="form-row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                            <label for="nome">Nome: <span class="text-danger">*</span></label>
+                            <input type="text" name="nome" id="nome" class="form-control" #nome="ngModel" [(ngModel)]="account.userLogado.nome" required> 
+                            <div *ngIf="nome.errors">
+                                <p class="error text-danger" *ngIf="nome.touched && nome.errors.required">Esse campo é obrigatório.</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                            <label for="documento">Documento: <span class="text-danger">*</span></label>
+                            <input type="text" name="documento" id="documento" class="form-control" #documento="ngModel" [(ngModel)]="account.userLogado.documento" required> 
+                            <div *ngIf="documento.errors">
+                                <p class="error text-danger" *ngIf="documento.touched && documento.errors.required">Esse campo é obrigatório.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label for="email">E-mail: <span class="text-danger">*</span></label>
+                            <input type="email" [email]="true" name="email" id="email" class="form-control" #email="ngModel" [(ngModel)]="account.userLogado.email" required> 
+                            <div *ngIf="email.errors">
+                                <p class="error text-danger" *ngIf="email.touched && email.errors.required">Esse campo é obrigatório.</p>
+                                <p class="error text-danger" *ngIf="email.touched && email.errors.email">E-mail inválido.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between flex-wrap p-0">
+                        <ul *ngIf="erro">
+                            <li class="text-red" *ngFor="let err of erro">{{err}}</li>
+                        </ul>
+                        <div class="d-flex mt-3">
+                            <a class="btn link text-danger mr-2" (click)="resetPassword.set(true)">Alterar senha</a>
+                            <button type="button" class="btn btn-dark" (click)="resetar()">Resetar</button>
+                            <button type="submit" class="btn btn-primary ml-2"
+                                [disabled]="form.invalid || loading">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Salvar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

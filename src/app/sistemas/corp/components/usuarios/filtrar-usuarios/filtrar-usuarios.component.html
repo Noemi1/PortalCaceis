@@ -1,0 +1,85 @@
+<div class="modal" [class.active]="modalOpen">
+    <div class="modal__bg" (click)="voltar()"></div>
+    <div class="modal__inner" style="max-width: 800px;">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="text-orange">Filtrar usuários</h3>
+                <a (click)="voltar()" class="modal__header-close btn-close">
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="modal__body">
+             <form #form="ngForm">
+                <div class="form-row align-items-end">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+                        <strong class="text-danger">Data de cadastro:</strong> <br>
+                        <label for="de"><small>De</small>:</label>
+                        <input type="date" class="form-control" name="de" id="de" #de="ngModel" [(ngModel)]="filtro.de">
+                    </div>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+                        <label for="ate"><small>Até</small>:</label>
+                        <input type="date" class="form-control" name="ate" id="ate" #de="ngModel" [(ngModel)]="filtro.ate">
+                    </div>
+                    <div class="form-group col-lg-1 col-md-1 col-sm-12 col-12 d-flex align-items-end justify-content-center text-danger px-0">
+                       <strong class="py-2 d-block">ou</strong>
+                    </div>
+                    <div class="form-group col-lg-5 col-md-5 col-sm-12 col-12">
+                        <label for="dataHora">Data:</label>
+                        <input type="date" class="form-control" name="dataHora" id="dataHora" #de="ngModel" [(ngModel)]="filtro.dataHora">
+                    </div>
+                </div>
+                <div class="form-row align-items-end">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-12">
+                        <label for="nome">Nome:</label>
+                        <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="filtro.nome">
+                    </div>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+                        <label for="nome">Documento:</label>
+                        <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="filtro.nome">
+                    </div>
+                    <div class="form-group col-lg-5 col-md-5 col-sm-12 col-12">
+                        <label for="nome">E-mail:</label>
+                        <input type="email" [email]="true" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="filtro.nome">
+                    </div>
+                </div>
+                <div class="form-row align-items-end">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-12 col-12 pr-0">
+                        <strong class="text-danger">Cadastrado por:</strong> <br>
+                        <label for="de"><small>Nome</small>:</label>
+                        <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="filtro.nome">
+                    </div>
+                    <div class="form-group col-lg-1 col-md-1 col-sm-12 col-12 d-flex align-items-end justify-content-center text-danger px-0">
+                       <strong class="py-2 d-block">ou</strong>
+                    </div>
+                    <div class="form-group col-lg-7 col-md-7 col-sm-12 col-12 pl-0">
+                        <label for="de"><small>E-mail</small>:</label>
+                        <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="filtro.nome">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="d-flex justify-content-between flex-wrap col-lg-12">
+                        <ul *ngIf="erro">
+                            <li class="text-red" *ngFor="let err of erro">{{err}}</li>
+                        </ul>
+                        <div class="d-flex ml-auto mt-3 flex-wrap">
+                            <button type="button" class="btn btn-dark mr-2 ml-0" 
+                                    (click)="limparFiltro()"
+                                    [disabled]="loading">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Limpar filtro
+                            </button>
+                            <button type="button" class="btn btn-primary"
+                                (click)="filtrar(form)"
+                                [disabled]="loading">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Filtrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+             </form>
+            </div>
+        </div>
+    </div>
+</div>

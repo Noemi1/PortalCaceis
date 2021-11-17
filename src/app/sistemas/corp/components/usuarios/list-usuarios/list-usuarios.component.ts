@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faChevronLeft, faEllipsisV, faFilter, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { AccountResponse } from 'src/app/models/login.model';
+import { ArquivosService } from 'src/app/sistemas/icm/services/arquivos.service';
 import { Crypto } from 'src/app/utils/cryptojs';
-import { ArquivoResponse } from '../../../models/arquivo.model';
-import { ArquivosService } from '../../../services/arquivos.service';
 
 @Component({
-	selector: 'app-list-arquivos',
-	templateUrl: './list-arquivos.component.html',
-	styleUrls: ['./list-arquivos.component.css']
+	selector: 'app-list-usuarios',
+	templateUrl: './list-usuarios.component.html',
+	styleUrls: ['./list-usuarios.component.css']
 })
-export class ListArquivosComponent implements OnInit {
+export class ListUsuariosComponent implements OnInit {
 	faChevronLeft = faChevronLeft;
 	faPlus = faPlus;
 	faEllipsisV = faEllipsisV;
@@ -18,7 +18,7 @@ export class ListArquivosComponent implements OnInit {
 	faFilter = faFilter;
 	loading = true;
 	items: Array<any> = [];
-	pageOfItems: Array<ArquivoResponse> = [];
+	pageOfItems: Array<AccountResponse> = [];
 	selected?: any;
 
 	constructor(
@@ -26,21 +26,11 @@ export class ListArquivosComponent implements OnInit {
         private route: ActivatedRoute,
 		public arquivosService: ArquivosService,
 		public crypto: Crypto
-	) { 
-		this.arquivosService.list.subscribe();
+	) { }
+
+	ngOnInit(): void {
 	}
-
-	ngOnInit() {
-
-		this.arquivosService.getList().subscribe(res => {
-			this.arquivosService.list.next(res);
-			this.items = res;
-			this.loading = false;
-		});
-		this.items = this.pageOfItems;
-		this.arquivosService.getTipos().subscribe();
-	}
-
+	
 	onChangePage(pageOfItems: Array<any>) {
 		this.pageOfItems = pageOfItems;
 	}
@@ -52,5 +42,6 @@ export class ListArquivosComponent implements OnInit {
 	unselectItem() {
 		this.selected = undefined;
 	}
+
 
 }

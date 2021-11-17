@@ -19,9 +19,12 @@ import { Password } from './utils';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Inputsearch } from './utils/search-input';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MeuPerfilComponent } from './parts/meu-perfil/meu-perfil.component';
+import { MeuPerfilService } from './parts/meu-perfil/meu-perfil.service';
+import { UpdatePasswordComponent } from './parts/update-password/update-password.component';
+import { SenhaAlertModule } from './parts/senha-alert/senha-alert.component';
 
 @NgModule({
 	declarations: [
@@ -30,6 +33,8 @@ import { DatePipe } from '@angular/common';
 		MenuLateralComponent,
 		HomeComponent,
 		AlertComponent,
+  		MeuPerfilComponent,
+		UpdatePasswordComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -41,14 +46,15 @@ import { DatePipe } from '@angular/common';
 		ToastrModule.forRoot(),
 		HttpClientModule,
 		FormsModule,
-		NgbModule
+		NgbModule,
+		SenhaAlertModule,
 	],
 	providers: [
 		Crypto,
 		Format,
 		Password,
-		Inputsearch,
 		DatePipe,
+		MeuPerfilService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 	],

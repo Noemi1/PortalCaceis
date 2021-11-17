@@ -179,7 +179,7 @@ p.error.text-danger {
     border-color: #d20404;
     color: #fff;
 }
-
+.btn-check:focus+.btn-primary, .btn-primary:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
     box-shadow: 0 0 0 3px rgb(255 0 0 / 44%);
 }
@@ -454,7 +454,7 @@ tbody tr:hover::after, tbody tr.selected::after {
     z-index: 1;
     width: 90%;
     max-width: 500px;
-    max-height: 60vh;
+    max-height: 90vh;
     overflow: auto;
     transform: translate(-50%, -100%);
 }

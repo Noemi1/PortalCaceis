@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AccountRoutingModule } from './account.routing';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AccountComponent } from './account.component';
-import { FormsModule } from '@angular/forms';
 import { SenhaAlertModule } from 'src/app/parts/senha-alert/senha-alert.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
-import { ProfileComponent } from './profile/profile.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -20,7 +19,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 		ResetPasswordComponent,
 		AccountComponent,
 		VerifyEmailComponent,
-		ProfileComponent
 	],
 	imports: [
 		CommonModule,

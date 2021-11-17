@@ -5,8 +5,8 @@ import { Menu } from 'src/app/utils';
 import { MegaMenuItem } from 'primeng/api';  //required when using MegaMenu
 import { ModalOpen } from 'src/app/utils/modal-open';
 import { AccountService } from 'src/app/services/account.service';
-import { Inputsearch } from 'src/app/utils/search-input';
 import { AccountResponse } from 'src/app/models/login.model';
+import { MeuPerfilService } from '../meu-perfil/meu-perfil.service';
 
 @Component({
 	selector: 'app-menu',
@@ -40,8 +40,8 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 	constructor(
 		public menu: Menu,
 		public modal: ModalOpen,
-		public inputSearch: Inputsearch,
-		private accountService: AccountService
+		private accountService: AccountService,
+		public meuPerfil: MeuPerfilService,
 	) {
 		this.menu.getOpen().subscribe(open => {
 			this.menuOpen = open ?? false;
@@ -52,7 +52,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 		this.modal.openSubject.subscribe(open => {
 			this.modalOpen = open;
 		});
-		this.inputSearch.search().subscribe();
+		
 		this.accountService.getAccount().subscribe(res => {
 			if(res != undefined) {
 				this.items = [];
@@ -88,7 +88,8 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 							label: 'Sistema', items: [[
 								{
 									items: [
-										{ label: 'Perfis', routerLink: '/corp/perfil' }
+										{ label: 'Gestão de acessos', routerLink: '/corp/perfil' },
+										{ label: 'Usuários', routerLink: '/corp/accounts' },
 									]
 								}]]
 						})

@@ -12,7 +12,7 @@ export class AccountResponse {
     jwtToken: string = '';
     refreshToken: string = '';
     sistemas: AccountSistemaResponse[] = [];
-    userLogado?: UserLogado;
+    userLogado: UserLogado = new UserLogado;
 }
 
 export class AccountSistemaResponse {
@@ -24,4 +24,5 @@ export class AccountSistemaResponse {
 export class UserLogado {
     email: string = '';
     nome: string = '';
+    documento: string = '';
 }
