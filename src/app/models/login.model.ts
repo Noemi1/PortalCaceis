@@ -12,10 +12,16 @@ export class AccountResponse {
     jwtToken: string = '';
     refreshToken: string = '';
     sistemas: AccountSistemaResponse[] = [];
+    userLogado?: UserLogado;
 }
 
 export class AccountSistemaResponse {
     sistema_Id: number = 0;
     sigla: string = '';
 
+}
+
+export class UserLogado {
+    email: string = '';
+    nome: string = '';
 }

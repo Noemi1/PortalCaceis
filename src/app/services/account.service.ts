@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Crypto } from '../utils/cryptojs';
 import { Router } from '@angular/router';
-import { AccountRequest, AccountResponse } from '../models/login.model';
+import { AccountRequest, AccountResponse, UserLogado } from '../models/login.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -57,21 +57,25 @@ export class AccountService {
 		this.account.next(value);
 	}
 
+	getProfile(){
+		return this.http.get<UserLogado>(`${this.baseUrl}/account/getProfile`);
+	}
+
 	login(model: AccountRequest) {
 		return this.http.post<AccountResponse>(`${this.baseUrl}/account/authenticate`, model)
 			.pipe(map(account => {
-				localStorage.setItem('portal-caceis', this.crypto.encrypt(account))
-				this.setAccount(account);
-				this.isLoggedIn.emit(true)
-				return account;
+				return this.getProfile().toPromise().then(userLogado => {
+					account.userLogado = userLogado;
+					localStorage.setItem('portal-caceis', this.crypto.encrypt(account))
+					this.setAccount(account);
+					this.isLoggedIn.emit(true);
+					return account;
+				})
 			}))
 	}
-
 
 	logout(){
 		this.setAccount(undefined);
 		this.router.navigate(['account/acessar']);
 	}
-
-
 }

@@ -35,6 +35,7 @@ export class CreateArquivosComponent implements OnInit, OnDestroy {
 			this.modalOpen = res;
 		});
 		this.subscription.push(getOpen)
+		this.objeto.acessoTipo_Origem_Id = 1;
 	}
 
 	ngOnInit(): void {

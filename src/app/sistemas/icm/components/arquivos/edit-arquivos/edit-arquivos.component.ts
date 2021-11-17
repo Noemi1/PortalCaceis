@@ -50,6 +50,7 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 				this.modal.setOpen(true);
 			}, 200);
 			this.objeto = res;
+			this.objeto.acessoTipo_Origem_Id = 1;
 		});
 
 	}
@@ -63,7 +64,7 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 	voltar() {
 		this.modal.setOpen(false);
 		setTimeout(() => {
-			this.router.navigate(['./ICM/arquivos']);
+			this.router.navigate(['./icm/arquivos']);
 		}, 200);
 
 	}

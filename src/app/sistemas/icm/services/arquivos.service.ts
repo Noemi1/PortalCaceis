@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest, ArquivoFiltro } from '../models/arquivo.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
@@ -106,6 +106,10 @@ export class ArquivosService {
 
 	delete(id: number){
 		return this.http.delete<any>(this.url + `/arquivo?id=${id}`);
+	}
+
+	download(id: number): Observable<Blob>{
+		return this.http.get(this.url + `/arquivo/getbyid?id=${id}`, { responseType: 'blob'});
 	}
 
 }

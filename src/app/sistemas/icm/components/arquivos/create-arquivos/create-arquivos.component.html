@@ -44,7 +44,8 @@
                             <label for="acessoTipo_Origem_Id">Tipo de acesso de Origem: <span class="text-red fw-bold">*</span></label>
                             <select type="text" class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #acessoTipo_Origem_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Origem_Id" required>
                                 <option selected>Selecione</option>
-                                <option [value]="item.id | number" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
+                                <option value="1">Diretório da rede</option>
+                                <!-- <option [value]="item.id | number" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option> -->
                             </select>
                             <div *ngIf="acessoTipo_Origem_Id.errors">
                                 <p class="error text-danger" *ngIf="acessoTipo_Origem_Id.touched && acessoTipo_Origem_Id.errors.required">Esse campo é obrigatório.</p>

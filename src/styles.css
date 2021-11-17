@@ -587,13 +587,13 @@ tbody tr:hover::after, tbody tr.selected::after {
 }
 
 .form-control.ng-touched.ng-valid {
-    background: #f1fbf1;
-    border-color: #5cb15c;
+    background: #f1fbf1a6;
+    border-color: #84c784;
 }
 
 .form-control.ng-touched.ng-invalid {
-    background: #fff5f5;
-    border-color: #cc0000;
+    background: #fff5f5a6;
+    border-color: #db8888;
 }
 
 .btn-link {

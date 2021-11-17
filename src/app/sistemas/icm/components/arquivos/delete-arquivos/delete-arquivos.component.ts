@@ -52,7 +52,7 @@ export class DeleteArquivosComponent implements OnInit {
 	voltar() {
 		this.modal.setOpen(false);
 		setTimeout(() => {
-			this.router.navigate(['./ICM/arquivos']);
+			this.router.navigate(['./icm/arquivos']);
 		}, 200);
 	}
 	delete() {

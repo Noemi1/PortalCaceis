@@ -10,15 +10,17 @@ export class ArquivoRequest {
 
 export class ArquivoResponse {
     id: number = 0;
+    idEncrypted: string = '';
     nome: string = '';
     descricao: string = '';
     caminhoOrigem: string = '';
     caminhoDestino: string = '';
     usuario: string = '';
     dataCadastro: Date = new Date;
-    idEncrypted: string = '';
     acessoTipo_Origem_Id: number = 0;
     acessoTipo_Destino_Id: number = 0;
+    acessoTipoOrigem: string = '';
+    acessoTipoDestino: string = '';
 }
 
 export class ArquivoUpdateRequest {

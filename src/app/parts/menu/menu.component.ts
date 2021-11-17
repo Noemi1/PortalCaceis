@@ -6,6 +6,7 @@ import { MegaMenuItem } from 'primeng/api';  //required when using MegaMenu
 import { ModalOpen } from 'src/app/utils/modal-open';
 import { AccountService } from 'src/app/services/account.service';
 import { Inputsearch } from 'src/app/utils/search-input';
+import { AccountResponse } from 'src/app/models/login.model';
 
 @Component({
 	selector: 'app-menu',
@@ -34,6 +35,8 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 	items: MegaMenuItem[] = [];
 	input: string = ''
 
+	account?: AccountResponse;
+
 	constructor(
 		public menu: Menu,
 		public modal: ModalOpen,
@@ -53,7 +56,8 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 		this.accountService.getAccount().subscribe(res => {
 			if(res != undefined) {
 				this.items = [];
-				let siglas = res.sistemas.map(x => x.sigla.toLowerCase()) || []
+				let siglas = res.sistemas.map(x => x.sigla.toLowerCase()) || [];
+				this.account = res;
 				if (siglas.includes('icm')) {5
 					this.items.push(
 						{
@@ -90,7 +94,6 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 						})
 				}
 			} else {
-				var oi = 'oi';
 			}
 			
 		})

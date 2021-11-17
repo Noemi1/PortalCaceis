@@ -27,8 +27,9 @@
                 <tr>
                     <th></th>
                     <th>Nome</th>
-                    <th>Descricao</th>
+                    <th>Tipo Origem</th>
                     <th>Origem</th>
+                    <th>Tipo Destino</th>
                     <th>Destino</th>
                     <th>Cadastrado por</th>
                     <th>Data Cadastro</th>
@@ -39,8 +40,9 @@
                 <tr class="table-row" *ngFor="let item of arquivosService.list.value" [class.selected]="item == selected">
                     <td></td>
                     <td (click)="selectItem(item)">{{ item.nome }}</td>
-                    <td (click)="selectItem(item)">{{ item.descricao }}</td>
+                    <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.acessoTipoOrigem }}</td>
                     <td (click)="selectItem(item)">{{ item.caminhoOrigem }}</td>
+                    <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.acessoTipoDestino }}</td>
                     <td (click)="selectItem(item)">{{ item.caminhoDestino }}</td>
                     <td (click)="selectItem(item)">
                         <span *ngIf="item.usuario">{{ item.usuario }}</span>
@@ -61,8 +63,8 @@
                                 <div class="actions__nav-inner" *ngIf="item == selected">
                                     <a class="actions__nav-link" [routerLink]="['editar']"
                                         [queryParams]="{ id: item.idEncrypted }">Editar</a>
-                                    <a class="actions__nav-link" [routerLink]="['excluir']"
-                                        [queryParams]="{ id: item.idEncrypted }">Excluir</a>
+                                        <a class="actions__nav-link" [routerLink]="['excluir']"
+                                            [queryParams]="{ id: item.idEncrypted }">Excluir</a>
                                 </div>
                             </div>
                         </div>
