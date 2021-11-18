@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { finalize, first } from 'rxjs/operators';
@@ -20,7 +21,8 @@ export class ForgotPasswordComponent implements OnInit {
 
 	constructor(
 		private toastr: ToastrService,
-		private accountService: AccountService
+		private accountService: AccountService,
+		private router: Router
 	) { }
 
 	ngOnInit(): void {
@@ -42,7 +44,8 @@ export class ForgotPasswordComponent implements OnInit {
 		this.accountService.forgotPassword(this.document).subscribe({
 			next: () => {
 				this.toastr.success('Verifique seu e-mail e siga as instruções passadas para resetar sua senha.');
-				this.loading = false
+				this.loading = false;
+				this.router.navigate(['account/acessar']);
 			},
 			error: (err: HttpErrorResponse) => {
 				if(err.error && err.error.message) {
