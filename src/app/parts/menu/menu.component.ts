@@ -7,6 +7,7 @@ import { ModalOpen } from 'src/app/utils/modal-open';
 import { AccountService } from 'src/app/services/account.service';
 import { AccountResponse } from 'src/app/models/account.model';
 import { MeuPerfilService } from '../meu-perfil/meu-perfil.service';
+import { UpdatePasswordService } from '../update-password/update-password.service';
 
 @Component({
 	selector: 'app-menu',
@@ -42,6 +43,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 		public modal: ModalOpen,
 		private accountService: AccountService,
 		public meuPerfil: MeuPerfilService,
+		public updatePassword: UpdatePasswordService
 	) {
 		this.menu.getOpen().subscribe(open => {
 			this.menuOpen = open ?? false;

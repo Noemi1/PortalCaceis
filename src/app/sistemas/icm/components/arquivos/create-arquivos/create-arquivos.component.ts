@@ -95,6 +95,15 @@ export class CreateArquivosComponent implements OnInit, OnDestroy {
 							</p>`);
 					}
 				}
+				if(err.error && err.error.message) {
+					this.toastr.error(err.error.message);
+				}
+				else if (typeof err == 'string') {
+					this.toastr.error(err);
+				}
+				 else {
+					this.toastr.error('Não foi possível concluir a operação')
+				}
 			});
 		return true;
 	}

@@ -89,7 +89,8 @@ export class FiltrarUsuariosComponent implements OnInit {
 				this.voltar()
 			},
 			err => {
-				this.toastr.error('Não foi possível carregar a listagem')
+				this.toastr.error('Não foi possível carregar a listagem');
+				this.loading = false;
 			}
 		)
 

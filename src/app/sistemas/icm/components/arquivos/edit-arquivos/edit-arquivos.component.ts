@@ -97,7 +97,6 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 			})
 			.catch((err: HttpErrorResponse) => {
 				console.error('Erro:', err)
-				this.toastr.error('Erro');
 				this.loading = false;
 				if(err.status == 400) {
 					for (var [key, value] of Object.entries(err.error.errors)) {
@@ -109,6 +108,15 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 								${value}
 							</p>`);
 					}
+				}
+				if(err.error && err.error.message) {
+					this.toastr.error(err.error.message);
+				}
+				else if (typeof err == 'string') {
+					this.toastr.error(err);
+				}
+				 else {
+					this.toastr.error('Não foi possível concluir a operação')
 				}
 			});
 		return true;

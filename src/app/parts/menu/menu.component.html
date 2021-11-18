@@ -45,7 +45,7 @@
         <p-megaMenu [model]="items" orientation="vertical">
         </p-megaMenu>
         <div class="menu__user" *ngIf="account?.userLogado">
-            <button class="menu__user-alterarSenha">
+            <button class="menu__user-alterarSenha" (click)="updatePassword.set(true)">
                 <fa-icon [icon]="faKey"></fa-icon>
             </button>
             <div class="menu__user-text">

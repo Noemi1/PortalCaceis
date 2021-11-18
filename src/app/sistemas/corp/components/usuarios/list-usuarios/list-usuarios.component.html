@@ -57,7 +57,10 @@
                             </button>
                             <div class="actions__nav" [class.active]="item == selected">
                                 <div class="actions__nav-inner" *ngIf="item == selected">
-                                    <a class="actions__nav-link" [routerLink]="['editar']"
+                                    <a class="actions__nav-link" [routerLink]="['reset-password']"
+                                        [queryParams]="{ id: item.idEncrypted }">Resetar Senha</a>
+
+                                        <a class="actions__nav-link" [routerLink]="['editar']"
                                         [queryParams]="{ id: item.idEncrypted }">Editar</a>
 
                                     <a *ngIf="item.isVerified" class="actions__nav-link" [routerLink]="['desativar']"

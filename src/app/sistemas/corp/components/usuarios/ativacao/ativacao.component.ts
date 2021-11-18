@@ -78,6 +78,7 @@ export class AtivacaoComponent implements OnInit {
 
 
 	setStatus() {
+		this.loading = true;
 		this.accountService.setStatusAccount(this.id, this.desativar).subscribe(
 			res => {
 				this.toastr.success('Operação concluída');
@@ -86,10 +87,14 @@ export class AtivacaoComponent implements OnInit {
 				this.accountService.getList().subscribe();
 			},
 			(err: HttpErrorResponse) => {
-				if (err.error && err.error.message) {
+				if(err.error && err.error.message) {
 					this.toastr.error(err.error.message);
-				} else {
-					this.toastr.error('Erro ao concluir operação')
+				}
+				else if (typeof err == 'string') {
+					this.toastr.error(err);
+				}
+				 else {
+					this.toastr.error('Não foi possível concluir a operação')
 				}
 				this.loading = false;
 				this.voltar();

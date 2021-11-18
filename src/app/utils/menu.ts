@@ -9,7 +9,7 @@ export class Menu {
     pinSubject = new BehaviorSubject<boolean | undefined>(undefined)
 
     getOpen(): BehaviorSubject<boolean | undefined> {
-        let value = this.openSubject.value ?? localStorage.getItem('menuOpen') === 'true' ? true : false;
+        let value = this.openSubject.value ?? (localStorage.getItem('menuOpen') == 'true' ? true : false);
         if(this.openSubject.value != undefined) {
             return this.openSubject;
         } else {

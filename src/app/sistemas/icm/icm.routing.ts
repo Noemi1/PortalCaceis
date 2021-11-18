@@ -7,13 +7,14 @@ import { ListArquivosComponent } from './components/arquivos/list-arquivos/list-
 import { MovimentacoesComponent } from './components/movimentacoes/movimentacoes.component';
 import { FiltroComponent } from './components/movimentacoes/filtro/filtro.component';
 import { FiltroArquivosComponent } from './components/arquivos/filtro-arquivos/filtro-arquivos.component';
+import { ParamGuard } from 'src/app/helpers/param.guard';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'arquivos' },
 	{ path: 'arquivos', component:  ListArquivosComponent, children: [
 		{ path: 'cadastrar', component: CreateArquivosComponent },
-		{ path: 'editar', component: EditArquivosComponent },
-		{ path: 'excluir', component: DeleteArquivosComponent },
+		{ path: 'editar', component: EditArquivosComponent, canActivate: [ParamGuard], data: { params: ['id'], returnUrl: '/icm/arquivos' } },
+		{ path: 'excluir', component: DeleteArquivosComponent, canActivate: [ParamGuard], data: { params: ['id'], returnUrl: '/icm/arquivos' } },
 		{ path: 'filtrar', component: FiltroArquivosComponent },
 	]},
 	{ path: 'historico-de-movimentacoes', component: MovimentacoesComponent, children: [

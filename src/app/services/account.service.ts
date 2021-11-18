@@ -147,4 +147,12 @@ export class AccountService {
 		return this.http.post(`${this.baseUrl}/account/update-profile`, model);
 	}
 
+	forgotPassword(documento: string) {
+		return this.http.post(`${this.baseUrl}/account/forgot-password`, { documento: documento});
+	}
+
+	resetPassword(model: ResetPassword) {
+		return this.http.post(`${this.baseUrl}/account/reset-password`, model);
+	}
+
 }

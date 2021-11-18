@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 		private accountService: AccountService,
 		private route: ActivatedRoute,
 		private router: Router,
-		private toastrService: ToastrService,
+		private toastr: ToastrService,
 		private format: Format,
 	) { }
 
@@ -68,9 +68,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
 						}
 
 					} else {
-						this.erro.push('Login inválido');
-						this.toastrService.error('Login inválido');
+						if(err.error && err.error.message) {
+							this.toastr.error(err.error.message);
+						}
+						else if (typeof err == 'string') {
+							this.toastr.error(err);
+						}
+						 else {
+							this.erro.push('Login inválido');
+							this.toastr.error('Login inválido');
+						}
 					}
+
 				},
 			});
 	}

@@ -47,7 +47,15 @@ export class ListComponent implements OnInit {
 			},
 			(err: HttpErrorResponse) => {
 				this.loading = false;
-				this.toastr.error(err.message);
+				if(err.error && err.error.message) {
+					this.toastr.error(err.error.message);
+				}
+				else if (typeof err == 'string') {
+					this.toastr.error(err);
+				}
+				 else {
+					this.toastr.error('Não foi possível carregar a listagem')
+				}
 				this.perfilService.list.next([]);
 				this.items = [];
 			});

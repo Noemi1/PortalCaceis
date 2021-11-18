@@ -133,6 +133,17 @@ export class EditComponent implements OnInit {
 							</p>`);
 					}
 				}
+				
+				if(err.error && err.error.message) {
+					this.toastr.error(err.error.message);
+				}
+				else if (typeof err == 'string') {
+					this.toastr.error(err);
+				}
+				 else {
+					this.erro.push('Login inválido');
+					this.toastr.error('Login inválido');
+				}
 			});
 		return true;
 	}

@@ -23,7 +23,7 @@ export class MeuPerfilComponent implements OnInit {
 		public meuPerfil: MeuPerfilService,
 		public accountService: AccountService,
 		private toastr: ToastrService,
-		public resetPassword: UpdatePasswordService,
+		public updatePassword: UpdatePasswordService,
 	) {
 
 		this.meuPerfil.get().subscribe(res => {
