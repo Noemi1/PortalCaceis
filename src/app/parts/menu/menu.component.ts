@@ -5,7 +5,7 @@ import { Menu } from 'src/app/utils';
 import { MegaMenuItem } from 'primeng/api';  //required when using MegaMenu
 import { ModalOpen } from 'src/app/utils/modal-open';
 import { AccountService } from 'src/app/services/account.service';
-import { AccountResponse } from 'src/app/models/login.model';
+import { AccountResponse } from 'src/app/models/account.model';
 import { MeuPerfilService } from '../meu-perfil/meu-perfil.service';
 
 @Component({

@@ -21,11 +21,11 @@
 .popover-icon {
     position: absolute;
     font-size: 40px;
-    background-color: #f3f3f3;
+    background-color: #ffffff;
     width: 15px;
     height: 15px;
-    border-left: 2px #dadada solid;
-    border-top: 2px #dadada solid;
+    border-left: 2px #e5e5e5 solid;
+    border-top: 2px #e5e5e5 solid;
     z-index: -1;
 }
 

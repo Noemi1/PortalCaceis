@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faChevronLeft, faEllipsisV, faFilter, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { AccountResponse } from 'src/app/models/login.model';
+import { AccountResponse } from 'src/app/models/account.model';
+import { AccountService } from 'src/app/services/account.service';
 import { ArquivosService } from 'src/app/sistemas/icm/services/arquivos.service';
 import { Crypto } from 'src/app/utils/cryptojs';
+import { PerfilService } from '../../../services/perfil.service';
 
 @Component({
 	selector: 'app-list-usuarios',
@@ -24,9 +26,19 @@ export class ListUsuariosComponent implements OnInit {
 	constructor(
 		private router: Router,
         private route: ActivatedRoute,
-		public arquivosService: ArquivosService,
-		public crypto: Crypto
-	) { }
+		private perfilService: PerfilService,
+		public accountService: AccountService,
+		public crypto: Crypto,
+	) { 
+		this.accountService.getList().subscribe(
+			res => {
+				this.loading = false;
+				this.items = res;
+			}
+		)
+		this.items = this.pageOfItems;
+		this.perfilService.getList().subscribe();
+	}
 
 	ngOnInit(): void {
 	}

@@ -137,8 +137,8 @@ p.error.text-danger {
 }
 
 .btn {
-    font-size: 14px;
-    padding: 5px 12px;
+    font-size: 13px;
+    padding: 4px 12px;
 }
 
 .btn:not([href]) {
@@ -179,6 +179,7 @@ p.error.text-danger {
     border-color: #d20404;
     color: #fff;
 }
+
 .btn-check:focus+.btn-primary, .btn-primary:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
     box-shadow: 0 0 0 3px rgb(255 0 0 / 44%);
@@ -210,7 +211,7 @@ p.error.text-danger {
 
 .btn-gray {
     background: #272626;
-    color: #fff!important;
+    color: #fff !important;
 }
 
 .btn-gray:not(:disabled):not(.disabled):not(.btn[disabled]).active, .btn-gray:not(:disabled):not(.disabled):not(.btn[disabled]):active, .show>.btn-gray.dropdown-toggle, .btn-gray:not(:disabled):not(.disabled):not(.btn[disabled]).active:focus, .btn-gray:not(:disabled):not(.disabled):not(.btn[disabled]):active:focus, .show>.btn-gray.dropdown-toggle:focus, .btn-gray.focus, .btn-gray:focus, .btn-gray:hover {
@@ -597,8 +598,8 @@ tbody tr:hover::after, tbody tr.selected::after {
 }
 
 .btn-link {
-    color: #a50707!important;
-    text-decoration: underline!important;
+    color: #a50707 !important;
+    text-decoration: underline !important;
     text-underline-position: under;
     cursor: pointer;
 }
@@ -722,7 +723,7 @@ tbody tr:hover::after, tbody tr.selected::after {
 }
 
 .bg-dark {
-    background-color: #272626!important;
+    background-color: #272626 !important;
     color: #fff;
 }
 
@@ -763,10 +764,15 @@ tbody tr:hover::after, tbody tr.selected::after {
     margin: 0 0px 0 9px;
 }
 
+.toast-container {
+    z-index: 2;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }

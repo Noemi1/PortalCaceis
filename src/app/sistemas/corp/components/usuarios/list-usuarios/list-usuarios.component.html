@@ -17,7 +17,7 @@
     </header>
     <div class="page__body">
      <div class="d-flex justify-content-between">
-        <p><small>{{arquivosService.list.value.length}} resultados</small></p>
+        <p><small>{{accountService.list.value.length}} resultados</small></p>
         <a class="btn btn-filter" [routerLink]="['filtrar']">
             <fa-icon [icon]="faFilter"></fa-icon>
         </a>
@@ -30,18 +30,21 @@
                     <th>Email</th>
                     <th>Documento</th>
                     <th>Cadastrado por</th>
-                    <th>Data Cadastro</th>
+                    <th>Situação</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody *ngIf="!loading && arquivosService.list.value.length > 0">
-                <tr class="table-row" *ngFor="let item of arquivosService.list.value" [class.selected]="item == selected">
+            <tbody *ngIf="!loading && accountService.list.value.length > 0">
+                <tr class="table-row" *ngFor="let item of accountService.list.value" [class.selected]="item == selected">
                     <td></td>
                     <td (click)="selectItem(item)">{{ item.nome }}</td>
-                    <td (click)="selectItem(item)">{{ item.acessoTipoOrigem }}</td>
-                    <td (click)="selectItem(item)">{{ item.caminhoOrigem }}</td>
-                    <td (click)="selectItem(item)">{{ item.acessoTipoDestino }}</td>
-                    <td (click)="selectItem(item)">{{ item.caminhoDestino }}</td>
+                    <td (click)="selectItem(item)">{{ item.email }}</td>
+                    <td (click)="selectItem(item)">{{ item.documento }}</td>
+                    <td (click)="selectItem(item)">{{ item.created | date : "dd/MM/yyyy" }}</td>
+                    <td (click)="selectItem(item)">
+                        <span class="flag flag-green" *ngIf="item.isVerified">Ativo</span>
+                        <span class="flag flag-red" *ngIf="!item.isVerified">Inativo</span>
+                    </td>
                     <td class="td-actions">
                         <div class="actions ml-auto">
                             <button class="actions__toggle" [class.active]="item == selected">
@@ -56,8 +59,14 @@
                                 <div class="actions__nav-inner" *ngIf="item == selected">
                                     <a class="actions__nav-link" [routerLink]="['editar']"
                                         [queryParams]="{ id: item.idEncrypted }">Editar</a>
-                                        <a class="actions__nav-link" [routerLink]="['excluir']"
-                                            [queryParams]="{ id: item.idEncrypted }">Excluir</a>
+
+                                    <a *ngIf="item.isVerified" class="actions__nav-link" [routerLink]="['desativar']"
+                                    [queryParams]="{ id: item.idEncrypted }">Desativar</a>
+                                    
+                                    <a *ngIf="!item.isVerified" class="actions__nav-link" [routerLink]="['ativar']"
+                                        [queryParams]="{ id: item.idEncrypted }">Ativar</a>
+                                        <!-- <a class="actions__nav-link" [routerLink]="['excluir']"
+                                            [queryParams]="{ id: item.idEncrypted }">Excluir</a> -->
                                 </div>
                             </div>
                         </div>
@@ -75,7 +84,7 @@
                     <td style="background-color: #f5f5f5;"></td>
                 </tr>
             </tbody>
-            <tbody *ngIf="!loading && arquivosService.list.value.length == 0">
+            <tbody *ngIf="!loading && accountService.list.value.length == 0">
                 <tr>
                     <td></td>
                     <td colspan="5">

@@ -1,1 +1,88 @@
-<p>create-usuarios works!</p>
+<div class="modal" [class.active]="modalOpen">
+    <div class="modal__bg" (click)="voltar()"></div>
+    <div class="modal__inner" style="max-width: 800px; overflow-x: visible; overflow-y: auto">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="text-orange">Adicionar usuário</h3>
+                <a (click)="voltar()" class="modal__header-close btn-close">
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="modal__body">
+                <form #form="ngForm" (ngSubmit)="create(form)">
+                    <div class="form-row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                            <label for="nome">Nome: <span class="text-red fw-bold">*</span></label>
+                            <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="objeto.nome" required>
+                            <div *ngIf="nome.errors">
+                                <p class="error text-danger" *ngIf="nome.touched && nome.errors.required">Esse campo é obrigatório.</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                            <label for="documento">Documento: <span class="text-red fw-bold">*</span></label>
+                            <input type="text" class="form-control" name="documento" id="documento" #documento="ngModel" [(ngModel)]="objeto.documento" required>
+                            <div *ngIf="documento.errors">
+                                <p class="error text-danger" *ngIf="documento.touched && documento.errors.required">Esse campo é obrigatório.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label for="email">E-mail: <span class="text-red fw-bold">*</span></label>
+                            <input type="email" [email]="true" class="form-control" name="email" id="email" #email="ngModel" [(ngModel)]="objeto.email" required>
+                            <div *ngIf="email.errors">
+                                <p class="error text-danger" *ngIf="email.touched && email.errors.required">Esse campo é obrigatório.</p>
+                                <p class="error text-danger" *ngIf="email.touched && !email.errors.required && email.errors.email">E-mail inválido.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row col-lg-12 px-2">
+                        <small><strong>Escolher acessos</strong></small>
+                        <hr>
+                    </div>
+                    
+                    <div class="form-row col-lg-12 px-2">
+                        <table class="table table-striped table-selectable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nome</th>
+                                    <th>Sistema</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of perfilService.list.value" (click)="toggleCheckbox(item)" #element  [class.selected]="item.checked">
+                                    <td></td>
+                                    <td>{{ item.nome }}</td>
+                                    <td>{{ item.sistema }}</td>
+                                    <td>
+                                        <input type="checkbox" #input  [value]="item.id" [checked]="item.checked" name="accessControllers_Id[]" [id]="'accessControllers_Id-' + item.idEncrypted">
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-between col-lg-12 flex-wrap p-0">
+                        <ul *ngIf="erro">
+                            <li class="text-red" *ngFor="let err of erro">{{err}}</li>
+                        </ul>
+                        <div class="d-flex col-sm-12 ml-auto mt-3">
+                            <button type="submit" class="btn btn-primary ml-auto"
+                                [disabled]="form.invalid 
+                         
+                                || objeto.password != objeto.confirmPassword 
+                                || loading" >
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Salvar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

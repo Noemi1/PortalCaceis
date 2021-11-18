@@ -5,8 +5,9 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Crypto } from '../utils/cryptojs';
 import { Router } from '@angular/router';
-import { AccountRequest, AccountResponse, UserLogado } from '../models/login.model';
+import { AccountRequest, AccountResponse, UserLogado } from '../models/account.model';
 import { ResetPassword } from '../models/account.model';
+import { UpdateUsuarioRequest, UsuarioRequest, UsuarioResponse } from '../sistemas/corp/models/usuario.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,6 +17,8 @@ export class AccountService {
 	private account: BehaviorSubject<AccountResponse | undefined>;
 	private userLogado: BehaviorSubject<UserLogado | undefined>;
 	isLoggedIn = new EventEmitter();
+
+	list: BehaviorSubject<UsuarioResponse[]> = new BehaviorSubject<UsuarioResponse[]>([]);
 
 	constructor(
 		private http: HttpClient,
@@ -98,7 +101,43 @@ export class AccountService {
 		this.setAccount(undefined);
 		this.router.navigate(['account/acessar']);
 	}
+
+	get(id: number) {
+		return this.http.get<UsuarioResponse>(`${this.baseUrl}/account/getById?id=${id}`)
+
+	}
 	
+	getList(){
+		return this.http.get<UsuarioResponse[]>(`${this.baseUrl}/account`)
+		.pipe(map(list => {
+			list.forEach(item => {
+				item.idEncrypted = this.crypto.encrypt(item.id);
+				return item;
+			})
+			this.list.next(list);
+			return list;
+		}));
+	}
+
+	createAccount(account: UsuarioRequest) {
+		return this.http.post<UsuarioResponse>(`${this.baseUrl}/account`, account)
+			.pipe(map(account => {
+				account.idEncrypted = this.crypto.encrypt(account.id);
+				return account;
+			}));
+	}
+
+	updateAccount(account: UpdateUsuarioRequest) {
+		return this.http.put<UsuarioResponse>(`${this.baseUrl}/account?account_id=${account.id}`, account)
+			.pipe(map(account => {
+				account.idEncrypted = this.crypto.encrypt(account.id);
+				return account;
+			}));
+	}
+
+	setStatusAccount(id: number, desativar: boolean) {
+		return this.http.post(`${this.baseUrl}/account/set-status`, {account_Id: id, desativar: desativar});
+	}
 
 	updatePassword(model: ResetPassword){
 		return this.http.post(`${this.baseUrl}/account/update-password`, model);

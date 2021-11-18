@@ -5,12 +5,12 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ResetPassword } from 'src/app/models/account.model';
-import { AccountResponse } from 'src/app/models/login.model';
+import { AccountResponse } from 'src/app/models/account.model';
 import { AccountService } from 'src/app/services/account.service';
 import { Password } from 'src/app/utils';
 import { ModalOpen } from 'src/app/utils/modal-open';
 import { MeuPerfilService } from '../meu-perfil/meu-perfil.service';
-import { ResetPasswordService } from './update-password.service';
+import { UpdatePasswordService } from './update-password.service';
 
 @Component({
 	selector: 'app-update-password',
@@ -27,7 +27,7 @@ export class UpdatePasswordComponent implements OnInit, AfterViewInit {
 	erro: any[] = [];
   
 	constructor(
-		public resetPassword: ResetPasswordService,
+		public resetPassword: UpdatePasswordService,
 		public accountService: AccountService,
 		public passwordUtils: Password,
 		private meuPerfil: MeuPerfilService,

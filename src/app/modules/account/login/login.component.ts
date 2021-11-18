@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Password } from 'src/app/utils';
-import { AccountRequest } from 'src/app/models/login.model';
+import { AccountRequest } from 'src/app/models/account.model';
 import { AccountService } from 'src/app/services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 				error: (err: HttpErrorResponse) => {
 					this.loading = false;
 					console.error(err)
+					this.erro = [];
 					if(err.status == 400) {
 						for (var [key, value] of Object.entries(err.error.errors)) {
 							this.erro.push(value)

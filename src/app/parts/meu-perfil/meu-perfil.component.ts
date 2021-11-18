@@ -2,9 +2,9 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AccountResponse } from 'src/app/models/login.model';
+import { AccountResponse } from 'src/app/models/account.model';
 import { AccountService } from 'src/app/services/account.service';
-import { ResetPasswordService } from '../update-password/update-password.service';
+import { UpdatePasswordService } from '../update-password/update-password.service';
 import { MeuPerfilService } from './meu-perfil.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class MeuPerfilComponent implements OnInit {
 		public meuPerfil: MeuPerfilService,
 		public accountService: AccountService,
 		private toastr: ToastrService,
-		public resetPassword: ResetPasswordService,
+		public resetPassword: UpdatePasswordService,
 	) {
 
 		this.meuPerfil.get().subscribe(res => {

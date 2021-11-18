@@ -17,6 +17,8 @@ import { CreateUsuariosComponent } from './components/usuarios/create-usuarios/c
 import { EditUsuariosComponent } from './components/usuarios/edit-usuarios/edit-usuarios.component';
 import { DeleteUsuariosComponent } from './components/usuarios/delete-usuarios/delete-usuarios.component';
 import { ResetPasswordComponent } from './components/usuarios/reset-password/reset-password.component';
+import { SenhaAlertModule } from 'src/app/parts/senha-alert/senha-alert.component';
+import { AtivacaoComponent } from './components/usuarios/ativacao/ativacao.component';
 
 
 @NgModule({
@@ -27,11 +29,12 @@ import { ResetPasswordComponent } from './components/usuarios/reset-password/res
 		EditComponent,
 		DeleteComponent,
 		ListUsuariosComponent,
-  FiltrarUsuariosComponent,
-  CreateUsuariosComponent,
-  EditUsuariosComponent,
-  DeleteUsuariosComponent,
-  ResetPasswordComponent,
+		FiltrarUsuariosComponent,
+		CreateUsuariosComponent,
+		EditUsuariosComponent,
+		DeleteUsuariosComponent,
+		ResetPasswordComponent,
+  AtivacaoComponent,
 	],
 	imports: [
 		CommonModule,
@@ -39,6 +42,7 @@ import { ResetPasswordComponent } from './components/usuarios/reset-password/res
 		FontAwesomeModule,
 		JwPaginationModule,
 		FormsModule,
+		SenhaAlertModule
 	]
 })
 export class CorpModule { }

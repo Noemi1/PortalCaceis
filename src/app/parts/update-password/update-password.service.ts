@@ -6,7 +6,7 @@ import { ModalOpen } from 'src/app/utils/modal-open';
 @Injectable({
 	providedIn: 'root'
 })
-export class ResetPasswordService {
+export class UpdatePasswordService {
 
 	private resetPassword: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 	constructor(
