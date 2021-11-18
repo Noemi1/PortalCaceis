@@ -3,10 +3,10 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { ArquivoFiltro } from 'src/app/sistemas/icm/models/arquivo.model';
-import { ArquivosService } from 'src/app/sistemas/icm/services/arquivos.service';
+import { AccountService } from 'src/app/services/account.service';
 import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
+import { UsuarioFiltro } from '../../../models/usuario.model';
 
 @Component({
 	selector: 'app-filtrar-usuarios',
@@ -16,7 +16,7 @@ import { ModalOpen } from 'src/app/utils/modal-open';
 export class FiltrarUsuariosComponent implements OnInit {
 
 	modalOpen = false;
-	filtro: ArquivoFiltro = new ArquivoFiltro;
+	filtro: UsuarioFiltro = new UsuarioFiltro;
 	erro: any[] = [];
 	loading = false;
 	subscription: Subscription[] = [];
@@ -26,13 +26,13 @@ export class FiltrarUsuariosComponent implements OnInit {
 		private toastr: ToastrService,
 		private modal: ModalOpen,
 		public format: Format,
-		public arquivosService: ArquivosService,
+		public accountService: AccountService,
 	) {
 		var getOpen = this.modal.getOpen().subscribe(res => {
 			this.modalOpen = res;
 		});
-		this.arquivosService.filtro.subscribe(res => {
-			this.filtro = res ?? new ArquivoFiltro;
+		this.accountService.filtro.subscribe(res => {
+			this.filtro = res ?? new UsuarioFiltro;
 		})
 		this.subscription.push(getOpen)
 	}
@@ -60,30 +60,31 @@ export class FiltrarUsuariosComponent implements OnInit {
 	filtrar(form: NgForm) {
 		if (
 			!this.filtro.nome
-			&& !this.filtro.acessoTipo_Destino_Id
-			&& !this.filtro.acessoTipo_Origem_Id
-			&& !this.filtro.caminhoOrigem
-			&& !this.filtro.caminhoDestino
+			&& !this.filtro.email
+			&& !this.filtro.documento
+			&& !this.filtro.cadastradoPor_Nome
+			&& !this.filtro.cadastradoPor_Email
+			&& this.filtro.status == undefined
 			&& !this.filtro.de
 			&& !this.filtro.ate
-			&& !this.filtro.dataHora
+			&& !this.filtro.dataCadastro
 		) {
-			this.arquivosService.filtro.next(undefined);
+			this.accountService.filtro.next(undefined);
 		} else {
-			this.arquivosService.filtro.next(this.filtro);
+			this.accountService.filtro.next(this.filtro);
 		}
 
 		this.aplicarFiltro()
 	}
 
 	limparFiltro() {
-		this.arquivosService.filtro.next(undefined);
+		this.accountService.filtro.next(undefined);
 		this.aplicarFiltro();
 	}
 
 	aplicarFiltro() {
 		this.loading = true;
-		this.arquivosService.getList().toPromise().then(
+		this.accountService.getList().toPromise().then(
 			res => {
 				this.loading = false;
 				this.voltar()

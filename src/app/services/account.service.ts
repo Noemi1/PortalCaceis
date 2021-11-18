@@ -7,7 +7,8 @@ import { Crypto } from '../utils/cryptojs';
 import { Router } from '@angular/router';
 import { AccountRequest, AccountResponse, UserLogado } from '../models/account.model';
 import { ResetPassword } from '../models/account.model';
-import { UpdateUsuarioRequest, UsuarioRequest, UsuarioResponse } from '../sistemas/corp/models/usuario.model';
+import { UpdateUsuarioRequest, UsuarioFiltro, UsuarioRequest, UsuarioResponse } from '../sistemas/corp/models/usuario.model';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
 	providedIn: 'root'
@@ -19,11 +20,13 @@ export class AccountService {
 	isLoggedIn = new EventEmitter();
 
 	list: BehaviorSubject<UsuarioResponse[]> = new BehaviorSubject<UsuarioResponse[]>([]);
+	filtro: BehaviorSubject<UsuarioFiltro | undefined> = new BehaviorSubject<UsuarioFiltro | undefined>(undefined);
 
 	constructor(
 		private http: HttpClient,
 		private crypto: Crypto,
-		private router: Router
+		private router: Router,
+		private datePipe: DatePipe
 	) {
 		this.account = new BehaviorSubject<AccountResponse | undefined>(undefined);
 		this.userLogado = new BehaviorSubject<UserLogado | undefined>(undefined);
@@ -112,8 +115,47 @@ export class AccountService {
 		.pipe(map(list => {
 			list.forEach(item => {
 				item.idEncrypted = this.crypto.encrypt(item.id);
+				item.created = new Date(new Date(item.created).toDateString())
 				return item;
 			})
+			if(this.filtro.value != undefined) {
+				let filtro = this.filtro.value
+
+				if(filtro.nome?.trim()) {
+					list = list.filter(x => x.nome == filtro.nome);
+					this.list.next(list)
+				}
+				if(filtro.email?.trim()) {
+					list = list.filter(x => x.email == filtro.email);
+					this.list.next(list)
+				}
+				if(filtro.documento?.trim()) {
+					list = 	list.filter(x => x.documento == filtro.documento);
+					this.list.next(list)
+				}
+				if(filtro.status != undefined) {
+					list = list.filter(x => x.isVerified == filtro.status);
+					this.list.next(list)
+				}
+
+				if (filtro.de != '') {
+					var de = new Date(filtro.de + 'T00:00:00.000');
+					list = list.filter(x => x.created >= de);
+					this.list.next(list);
+				}
+
+				if (filtro.ate != '') {
+					var ate = new Date(filtro.ate + 'T00:00:00.000');
+					list = list.filter(x => x.created <= ate);
+					this.list.next(list);
+				}
+				if (filtro.de == '' && filtro.ate == '' && filtro.dataCadastro != '') {
+					var data = this.datePipe.transform(filtro.dataCadastro as string, 'dd/MM/yyyy');
+					list = list.filter(x => this.datePipe.transform(x.created, 'dd/MM/yyyy') == data);
+					this.list.next(list);
+				} 
+				return list;
+			}
 			this.list.next(list);
 			return list;
 		}));
@@ -144,7 +186,7 @@ export class AccountService {
 	}
 
 	updateProfile(model: UserLogado){
-		return this.http.post(`${this.baseUrl}/account/update-profile`, model);
+		return this.http.post<UserLogado>(`${this.baseUrl}/account/update-profile`, model);
 	}
 
 	forgotPassword(documento: string) {

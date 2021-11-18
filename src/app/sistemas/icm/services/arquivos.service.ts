@@ -45,45 +45,45 @@ export class ArquivosService {
 				})
 				if (this.filtro.value != undefined) {
 					if (this.filtro.value.nome?.trim()) {
-						var lista = list.filter(x => x.nome == this.filtro.value?.nome);
-						this.list.next(lista);
+						list = list.filter(x => x.nome == this.filtro.value?.nome);
+						this.list.next(list);
 					}
 
 
 					if (this.filtro.value.de != '') {
 						var de = new Date(this.filtro.value.de + 'T00:00:00.000');
-						var lista = list.filter(x => x.dataCadastro >= de);
-						this.list.next(lista);
+						list = list.filter(x => x.dataCadastro >= de);
+						this.list.next(list);
 					}
 
 					if (this.filtro.value.ate != '') {
 						var ate = new Date(this.filtro.value.ate + 'T00:00:00.000');
-						var lista = list.filter(x => x.dataCadastro <= ate);
-						this.list.next(lista);
+						list = list.filter(x => x.dataCadastro <= ate);
+						this.list.next(list);
 					}
 
-					if (this.filtro.value.de != '' && this.filtro.value.ate != '' && this.filtro.value.dataHora != '') {
+					if (this.filtro.value.de == '' && this.filtro.value.ate == '' && this.filtro.value.dataHora != '') {
 						var data = this.datePipe.transform(this.filtro.value.dataHora as string, 'dd/MM/yyyy');
-						var lista = list.filter(x => this.datePipe.transform(x.dataCadastro, 'dd/MM/yyyy') == data);
-						this.list.next(lista);
+						list = list.filter(x => this.datePipe.transform(x.dataCadastro, 'dd/MM/yyyy') == data);
+						this.list.next(list);
 					} 
 					
 					if (this.filtro.value?.acessoTipo_Origem_Id) {
-						var lista = list.filter(x => x.acessoTipo_Origem_Id == this.filtro.value?.acessoTipo_Origem_Id);
-						this.list.next(lista);
+						list = list.filter(x => x.acessoTipo_Origem_Id == this.filtro.value?.acessoTipo_Origem_Id);
+						this.list.next(list);
 					}
 					
 					if (this.filtro.value?.acessoTipo_Destino_Id) {
-						var lista = list.filter(x => x.acessoTipo_Destino_Id == this.filtro.value?.acessoTipo_Destino_Id);
-						this.list.next(lista);
+						list = list.filter(x => x.acessoTipo_Destino_Id == this.filtro.value?.acessoTipo_Destino_Id);
+						this.list.next(list);
 					}
 					if (this.filtro.value?.caminhoOrigem?.trim()) {
-						var lista = list.filter(x => x.caminhoOrigem == this.filtro.value?.caminhoOrigem);
-						this.list.next(lista);
+						list = list.filter(x => x.caminhoOrigem == this.filtro.value?.caminhoOrigem);
+						this.list.next(list);
 					}
 					if (this.filtro.value?.caminhoDestino?.trim()) {
-						var lista = list.filter(x => x.caminhoDestino == this.filtro.value?.caminhoDestino);
-						this.list.next(lista);
+						list = list.filter(x => x.caminhoDestino == this.filtro.value?.caminhoDestino);
+						this.list.next(list);
 					}
 					return list;
 				}

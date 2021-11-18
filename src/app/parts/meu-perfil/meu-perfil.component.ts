@@ -17,7 +17,7 @@ export class MeuPerfilComponent implements OnInit {
 	modalOpen = false;
 	modalExists = false;
 	loading = false;
-	account = new AccountResponse;
+	account: AccountResponse = new AccountResponse;
 	erro: any[] = [];
 	constructor(
 		public meuPerfil: MeuPerfilService,
@@ -32,6 +32,11 @@ export class MeuPerfilComponent implements OnInit {
 				this.modalExists = res;
 			}, 200);
 		})
+		this.accountService.getProfile()
+		this.accountService.getAccount().subscribe(res => {
+			this.account = res ?? new AccountResponse;
+		});
+		
 		
 		this.account = this.accountService.accountValue ?? new AccountResponse;
 		
@@ -45,6 +50,7 @@ export class MeuPerfilComponent implements OnInit {
 		setTimeout(() => {
 			this.modalOpen = false;
 			this.meuPerfil.set(false)
+			this.resetar();
 		}, 200)
 	}
 
@@ -56,19 +62,37 @@ export class MeuPerfilComponent implements OnInit {
 			}
 			return;
 		}
+		if(this.account.id != 0 && this.account.userLogado.email.trim() != '') {
+			this.accountService.updateProfile(this.account.userLogado).subscribe(
+				res => {
+					this.toastr.success('Dados atualizados');
+					this.loading = false;
+					this.accountService.getProfile();
 
-		this.accountService.updateProfile(this.account.userLogado).subscribe(
-			res => {
-				this.toastr.success('Dados atualizados');
-				this.loading = false;
-				this.accountService.getProfile();
-			},
-			err => {
-				console.error(err);
-				this.toastr.error(err);
-				this.loading = false;
-			}
-		)
+					var list = this.accountService.list.value;
+					var itemList = this.accountService.list.value.find(x => x.id == this.account.id);
+					var index = this.accountService.list.value.findIndex(x => x.id == this.account.id);
+					
+					if(index != -1 && itemList != undefined) {
+						itemList.nome = res.nome;
+						itemList.email = res.email;
+						itemList.documento = res.documento;
+						list[index] = itemList;
+						this.accountService.list.next(list);
+					}
+					this.voltar();
+
+				},
+				err => {
+					console.error(err);
+					this.toastr.error(err);
+					this.loading = false;
+				}
+			)
+		} else {
+			return;
+		}
+
   
 	}
 

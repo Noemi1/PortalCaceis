@@ -11,7 +11,7 @@ export class PerfilResponse {
 
 export class PerfilRequest {
     nome: string = '';
-    sistema_Id:number = 0;
+    sistema_Id: number = 0;
     accessControllers_Id: number[] = []
 }
 
@@ -26,7 +26,6 @@ export class PerfilAccountResponse {
     perfil: string = '';
     perfil_Id: number = 0;
 }
-
 
 export class PerfilAccountUpdateRequest {
     id: number = 0;

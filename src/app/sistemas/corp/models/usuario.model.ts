@@ -6,8 +6,10 @@ export class UsuarioFiltro {
     dataCadastro: Date | string = '';
     nome?: string;
     email?: string;
+    documento?: string;
     cadastradoPor_Nome?: string;
     cadastradoPor_Email?: string;
+    status?: boolean;
 }
 
 
