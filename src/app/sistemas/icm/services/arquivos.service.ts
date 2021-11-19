@@ -100,7 +100,7 @@ export class ArquivosService {
 		return this.http.post<ArquivoResponse>(this.url + `/arquivo`, model);
 	}
 
-	edit(model: ArquivoUpdateRequest){
+	update(model: ArquivoUpdateRequest){
 		return this.http.put<ArquivoResponse>(this.url + `/arquivo`, model);
 	}
 

@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AccountService {
 	baseUrl = environment.url;
-	private account: BehaviorSubject<AccountResponse | undefined>;
+	account: BehaviorSubject<AccountResponse | undefined>;
 	private userLogado: BehaviorSubject<UserLogado | undefined>;
 	isLoggedIn = new EventEmitter();
 
@@ -101,8 +101,11 @@ export class AccountService {
 	}
 
 	logout(){
-		this.setAccount(undefined);
-		this.router.navigate(['account/acessar']);
+		return this.http.post(`${this.baseUrl}/account/revoke-token`, { token: this.accountValue?.refreshToken})
+		.toPromise().then(res => {
+			this.setAccount(undefined);
+			this.router.navigate(['account/acessar']);
+		})
 	}
 
 	get(id: number) {

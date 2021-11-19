@@ -3,10 +3,10 @@
 </div>
 
 
-<div style="z-index: 2; position: relative;">
+<div style="z-index: 2; position: relative;" *ngIf="isLoggedIn">
     <app-alert></app-alert>
     <app-meu-perfil></app-meu-perfil>
 </div>
-<div style="z-index: 3; position: relative;">
+<div style="z-index: 3; position: relative;" *ngIf="isLoggedIn">
     <app-update-password></app-update-password>
 </div>

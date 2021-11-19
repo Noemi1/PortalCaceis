@@ -62,7 +62,7 @@ export class PerfilService {
 		return this.http.post<PerfilResponse>(this.url + `/perfil`, model);
 	}
 
-	edit(id: number, model: PerfilUpdateRequest) {
+	update(id: number, model: PerfilUpdateRequest) {
 		return this.http.put<PerfilResponse>(this.url + `/perfil?perfil_Id=${id}`, model);
 	}
 

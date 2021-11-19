@@ -1,7 +1,9 @@
 import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { AccountResponse } from 'src/app/models/account.model';
 import { AccountService } from 'src/app/services/account.service';
 import { UpdatePasswordService } from '../update-password/update-password.service';
@@ -40,9 +42,10 @@ export class MeuPerfilComponent implements OnInit {
 		
 		this.account = this.accountService.accountValue ?? new AccountResponse;
 		
-	}
+	} 
 
 	ngOnInit(): void {
+		
 	}
 
 	voltar(){

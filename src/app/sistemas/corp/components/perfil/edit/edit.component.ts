@@ -108,7 +108,7 @@ export class EditComponent implements OnInit {
 
 		var obj = { nome: this.objeto.nome, acessos: this.objeto.perfilAcessos}
 
-		this.perfilService.edit(this.objeto.id, obj)
+		this.perfilService.update(this.objeto.id, obj)
 			.toPromise()
 			.then(res => {
 				this.toastr.success('Operação realizada com sucesso!!');
