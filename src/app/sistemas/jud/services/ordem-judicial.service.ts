@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { environment } from 'src/environments/environment';
-import { OrdemJudicialResponse } from '../models/ordem-judicial.model';
+import { OrdemJudicialResponse, OrdemJudicial_Status_Response, OrdemJudicial_TipoOrdem_Response } from '../models/ordem-judicial.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,6 +13,8 @@ export class OrdemJudicialService {
 
 	baseUrl = environment.url;
 	list: BehaviorSubject<OrdemJudicialResponse[]> = new BehaviorSubject<OrdemJudicialResponse[]>([]);
+	listStatus: BehaviorSubject<OrdemJudicial_Status_Response[]> = new BehaviorSubject<OrdemJudicial_Status_Response[]>([]);
+	listTipoOrdem: BehaviorSubject<OrdemJudicial_TipoOrdem_Response[]> = new BehaviorSubject<OrdemJudicial_TipoOrdem_Response[]>([]);
 	filtro: BehaviorSubject<OrdemJudicialResponse> = new BehaviorSubject<OrdemJudicialResponse>(new OrdemJudicialResponse);
 
 	constructor(
@@ -31,6 +33,24 @@ export class OrdemJudicialService {
 				this.list.next(list);
 				return list;
 			}));
+	}
+
+	getStatus() {
+		return this.http.get<OrdemJudicial_Status_Response[]>(`${this.baseUrl}/ordem-judicial/getStatus`)
+			.pipe(map(list => {
+				this.listStatus.next(list);
+				return list;
+			}));
+		
+	}
+
+	getTipoOrdem() {
+		return this.http.get<OrdemJudicial_TipoOrdem_Response[]>(`${this.baseUrl}/ordem-judicial/getTipoOrdem`)
+			.pipe(map(list => {
+				this.listTipoOrdem.next(list);
+				return list;
+			}));
+		
 	}
 
 	get(id: number) {

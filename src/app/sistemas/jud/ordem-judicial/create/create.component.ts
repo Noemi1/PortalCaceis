@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
+import { OrdemJudicialResponse } from '../../models/ordem-judicial.model';
 import { OrdemJudicialService } from '../../services/ordem-judicial.service';
 
 @Component({
@@ -17,7 +18,7 @@ import { OrdemJudicialService } from '../../services/ordem-judicial.service';
 export class CreateComponent implements OnInit, OnDestroy {
 
 	modalOpen = false;
-	objeto = {};
+	objeto = new OrdemJudicialResponse;
 	erro: any[] = [];
 	loading = false;
 	subscription: Subscription[] = [];

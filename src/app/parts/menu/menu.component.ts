@@ -79,7 +79,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 							label: 'JUD', items: [[
 								{
 									items: [
-										{ label: 'Link', routerLink: '/JUD' }
+										{ label: 'Ordem Judicial', routerLink: '/jud/ordem-judicial' }
 									]
 								}]]
 						})

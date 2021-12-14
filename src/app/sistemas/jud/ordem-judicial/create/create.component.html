@@ -1,1 +1,41 @@
-<p>create works!</p>
+<div class="modal" [class.active]="modalOpen">
+    <div class="modal__bg" (click)="voltar()"></div>
+    <div class="modal__inner" style="max-width: 800px;">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="text-orange">Adicionar arquivo</h3>
+                <a (click)="voltar()" class="modal__header-close btn-close">
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="modal__body">
+                <form #form="ngForm" class="form">
+                    <div class="form-row">
+                        <div class="form-group col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
+                            <label for="nomeReu">Nome Réu: <span class="text-red fw-bold">*</span></label>
+                            <input type="text" class="form-control" name="nomeReu" id="nomeReu" #nomeReu="ngModel" [(ngModel)]="objeto.nomeReu" required> 
+                            <div *ngIf="nomeReu.errors">
+                                <p class="error text-danger" *ngIf="nomeReu.touched && nomeReu.errors.required">Esse campo é obrigatório.</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                            <label for="documento">Documento: <span class="text-red fw-bold">*</span></label>
+                            <input type="text" class="form-control" name="documento" id="documento" #documento="ngModel" [(ngModel)]="objeto.documento" required> 
+                            <div *ngIf="documento.errors">
+                                <p class="error text-danger" *ngIf="documento.touched && documento.errors.required">Esse campo é obrigatório.</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+                            <label for="valor">Valor: <small>(R$)</small> <span class="text-red fw-bold">*</span></label>
+                            <input type="text" mask="0*.00" class="form-control" name="valor" id="valor" #valor="ngModel" [(ngModel)]="objeto.valor" required> 
+                            <div *ngIf="valor.errors">
+                                <p class="error text-danger" *ngIf="valor.touched && valor.errors.required">Esse campo é obrigatório.</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

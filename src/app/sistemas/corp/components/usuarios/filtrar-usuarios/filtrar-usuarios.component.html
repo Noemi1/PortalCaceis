@@ -53,20 +53,36 @@
 
                     </div>
                 </div>
-                <!-- <div class="form-row align-items-end">
-                    <div class="form-group col-lg-4 col-md-4 col-sm-12 col-12 pr-0">
-                        <strong class="text-danger">Cadastrado por:</strong> <br>
-                        <label for="de"><small>Nome</small>:</label>
-                        <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [ngModel]>
-                    </div>
-                    <div class="form-group col-lg-1 col-md-1 col-sm-12 col-12 d-flex align-items-end justify-content-center text-danger px-0">
-                       <strong class="py-2 d-block">ou</strong>
-                    </div>
-                    <div class="form-group col-lg-7 col-md-7 col-sm-12 col-12 pl-0">
-                        <label for="de"><small>E-mail</small>:</label>
-                        <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [ngModel]>
-                    </div>
-                </div> -->
+        
+                <div class="form-row col-lg-12 px-2">
+                    <small><strong>Acessos</strong></small>
+                    <hr>
+                </div>
+                
+                <div class="form-row col-lg-12 px-2">
+                    <table class="table table-striped table-selectable">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nome</th>
+                                <th>Sistema</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of perfilService.list.value" (click)="toggleCheckbox(item)" #element  [class.selected]="item.checked">
+                                <td></td>
+                                <td>{{ item.nome }}</td>
+                                <td>{{ item.sistema }}</td>
+                                <td>
+                                    <input type="checkbox" #input  [value]="item.id" [checked]="item.checked" name="accessControllers_Id[]" [id]="'accessControllers_Id-' + item.idEncrypted">
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="form-row">
                     <div class="d-flex justify-content-between flex-wrap col-lg-12">
                         <ul *ngIf="erro">

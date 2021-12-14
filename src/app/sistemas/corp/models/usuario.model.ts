@@ -10,6 +10,12 @@ export class UsuarioFiltro {
     cadastradoPor_Nome?: string;
     cadastradoPor_Email?: string;
     status?: boolean;
+    perfis: UsuarioFiltroPerfil[] = [];
+}
+
+export class UsuarioFiltroPerfil {
+    id: number = 0;
+    checked: boolean = false;
 }
 
 
@@ -22,6 +28,7 @@ export class UsuarioResponse {
     created: Date = new Date;
     updated: Date = new Date;
     perfilAccounts: PerfilAccountResponse[] = [];
+    perfil_Id: number[] = [];
     isVerified: boolean = true;
 }
 

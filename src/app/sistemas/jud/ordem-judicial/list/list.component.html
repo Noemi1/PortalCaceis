@@ -11,13 +11,13 @@
         <h3 class="d-flex align-items-center">
             Ordem Judicial
             <a routerLink="./cadastrar" class="btn btn-gray ml-auto" title="Adicionar arquivo">
-                Adicionar arquivo
+                Adicionar ordem
             </a>
         </h3>
     </header>
     <div class="page__body">
      <div class="d-flex justify-content-between">
-        <!-- <p><small>{{arquivosService.list.value.length}} resultados</small></p> -->
+        <p><small>{{ordemJudicialService.list.value.length}} resultados</small></p>
         <a class="btn btn-filter" [routerLink]="['filtrar']">
             <fa-icon [icon]="faFilter"></fa-icon>
         </a>
@@ -26,29 +26,27 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Nome</th>
-                    <th>Tipo Origem</th>
-                    <th>Origem</th>
-                    <th>Tipo Destino</th>
-                    <th>Destino</th>
-                    <th>Cadastrado por</th>
-                    <th>Data Cadastro</th>
+                    <th>Data Inclusão</th>
+                    <th>Protocolo</th>
+                    <th>Tipo de Ordem</th>
+                    <th>Tipo Réu</th>
+                    <th>CPF/CNPJ/Raiz Rés</th>
+                    <th>Nome Réu</th>
+                    <th>Valor</th>
                     <th></th>
                 </tr>
             </thead>
-            <!-- <tbody *ngIf="!loading && arquivosService.list.value.length > 0">
-                <tr class="table-row" *ngFor="let item of arquivosService.list.value" [class.selected]="item == selected">
+            <tbody *ngIf="!loading && ordemJudicialService.list.value.length > 0">
+                <tr class="table-row" *ngFor="let item of ordemJudicialService.list.value" [class.selected]="item == selected">
                     <td></td>
-                    <td (click)="selectItem(item)">{{ item.nome }}</td>
-                    <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.acessoTipoOrigem }}</td>
-                    <td (click)="selectItem(item)">{{ item.caminhoOrigem }}</td>
-                    <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.acessoTipoDestino }}</td>
-                    <td (click)="selectItem(item)">{{ item.caminhoDestino }}</td>
-                    <td (click)="selectItem(item)">
-                        <span *ngIf="item.usuario">{{ item.usuario }}</span>
-                        <span *ngIf="!item.usuario">-</span>
-                    </td>
-                    <td (click)="selectItem(item)">{{ item.dataCadastro | date : "dd/MM/yyyy" }}</td>
+                    <td (click)="selectItem(item)">{{ item.dataInclusao | date : "dd/MM/yyyy" }}</td>
+                    <td (click)="selectItem(item)">{{ item.protocolo }}</td>
+                    <td (click)="selectItem(item)">{{ item.tipoOrdem }}</td>
+                    <td (click)="selectItem(item)">{{ item.tipoReu }}</td>
+                    <td (click)="selectItem(item)">{{ item.documento }}</td>
+                    <td (click)="selectItem(item)">{{ item.nomeReu }}</td>
+                    <td (click)="selectItem(item)">{{ item.valor }}</td>
+                    
                     <td class="td-actions">
                         <div class="actions ml-auto">
                             <button class="actions__toggle" [class.active]="item == selected">
@@ -74,7 +72,7 @@
             <tbody *ngIf="loading">
                 <tr>
                     <td style="background-color: #f5f5f5;"></td>
-                    <td style="background-color: #f5f5f5;" colspan="6">
+                    <td style="background-color: #f5f5f5;" colspan="7">
                         <div class="d-flex align-items-center justify-content-center py-2">
                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                         </div>
@@ -82,20 +80,20 @@
                     <td style="background-color: #f5f5f5;"></td>
                 </tr>
             </tbody>
-            <tbody *ngIf="!loading && arquivosService.list.value.length == 0">
+            <tbody *ngIf="!loading && ordemJudicialService.list.value.length == 0">
                 <tr>
                     <td></td>
-                    <td colspan="6">
+                    <td colspan="7">
                         Nenhum registro encontrado
                     </td>
                     <td></td>
                 </tr>
-            </tbody> -->
+            </tbody>
         </table>
 
         <div class="card-footer pb-2 pt-3 px-0 bg-transparent d-flex justify-content-end position-sticky"
             style="left: 0;">
-            <!-- <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination> -->
+            <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
         </div>
     </div>
 </div>

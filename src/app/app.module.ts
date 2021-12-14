@@ -25,6 +25,9 @@ import { MeuPerfilComponent } from './parts/meu-perfil/meu-perfil.component';
 import { MeuPerfilService } from './parts/meu-perfil/meu-perfil.service';
 import { UpdatePasswordComponent } from './parts/update-password/update-password.component';
 import { SenhaAlertModule } from './parts/senha-alert/senha-alert.component';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule({
 	declarations: [
@@ -48,6 +51,7 @@ import { SenhaAlertModule } from './parts/senha-alert/senha-alert.component';
 		FormsModule,
 		NgbModule,
 		SenhaAlertModule,
+		NgxMaskModule.forRoot(),
 	],
 	providers: [
 		Crypto,

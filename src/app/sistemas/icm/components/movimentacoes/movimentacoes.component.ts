@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faChevronLeft, faEllipsisV, faFilter, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { ArquivoResponse } from '../../models/arquivo.model';
 import { MovimentacoesResponse } from '../../models/movimentacoes.model';
@@ -16,7 +17,7 @@ export class FilterKeyValue{
 	templateUrl: './movimentacoes.component.html',
 	styleUrls: ['./movimentacoes.component.css']
 })
-export class MovimentacoesComponent implements OnInit {
+export class MovimentacoesComponent implements OnInit, OnDestroy {
 	faChevronLeft= faChevronLeft;
 	faFilter = faFilter;
 	loading = true;
@@ -25,13 +26,13 @@ export class MovimentacoesComponent implements OnInit {
 	selected?: any;
 	filtroList:  FilterKeyValue[] = []
 
+	subscriptions: Subscription[] = []
+
 	constructor(
 		public movimentacoesService: MovimentacoesService,
 		public crypto: Crypto) { 
-			this.movimentacoesService.list.subscribe(res => {
-				console.log(res)
-			})
-			this.movimentacoesService.filtro.subscribe(res => {
+			let list = this.movimentacoesService.list.subscribe()
+			let filtro = this.movimentacoesService.filtro.subscribe(res => {
 				this.filtroList = []
 				if(res != undefined) {
 					for(var [ key, value ] of Object.entries(res)) {
@@ -41,10 +42,12 @@ export class MovimentacoesComponent implements OnInit {
 					}
 				}
 			})
+			this.subscriptions.push(list);
+			this.subscriptions.push(filtro);
 		}
 
 	ngOnInit() {
-		this.movimentacoesService.getList().subscribe(
+		let getList = this.movimentacoesService.getList().subscribe(
 			res => {
 				this.movimentacoesService.list.next(res);
 				this.items = res;
@@ -57,6 +60,13 @@ export class MovimentacoesComponent implements OnInit {
 			}
 		);
 		this.items = this.pageOfItems;
+		this.subscriptions.push(getList);
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(item => {
+			item.unsubscribe();
+		})
 	}
 
 	onChangePage(pageOfItems: Array<any>) {

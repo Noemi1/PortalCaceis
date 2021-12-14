@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { faChevronLeft, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faEllipsisV, faFilter, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
+import { Crypto } from 'src/app/utils/cryptojs';
+import { OrdemJudicialResponse } from '../../models/ordem-judicial.model';
 import { OrdemJudicialService } from '../../services/ordem-judicial.service';
 
 @Component({
@@ -8,14 +11,40 @@ import { OrdemJudicialService } from '../../services/ordem-judicial.service';
 	styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-	faChevronLeft = faChevronLeft;
+	faChevronLeft= faChevronLeft;
 	faFilter = faFilter;
+	faEllipsisV = faEllipsisV;
+	faTimes = faTimes;
+	loading = true;
+	items: Array<any> = [];
+	pageOfItems: Array<OrdemJudicialResponse> = [];
+	selected?: any;
+	filtro = {}
+	subscriptions: Subscription[] = []
 
 	constructor(
-		private ordemJudicialService: OrdemJudicialService
+		public ordemJudicialService: OrdemJudicialService,
+		public crypto: Crypto,
 	) { }
 
 	ngOnInit(): void {
+	}
+	ngOnDestroy() {
+		this.subscriptions.forEach(item => {
+			item.unsubscribe();
+		})
+	}
+
+	onChangePage(pageOfItems: Array<any>) {
+		this.pageOfItems = pageOfItems;
+	}
+
+	selectItem(item: any) {
+		this.selected = this.selected && this.selected == item ? undefined : item;
+	}
+
+	unselectItem() {
+		this.selected = undefined;
 	}
 
 }

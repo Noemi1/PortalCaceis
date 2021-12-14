@@ -35,14 +35,22 @@ export class AccountService {
 	public get accountValue():AccountResponse | undefined {
 		try {
 			var local_Storage = localStorage.getItem('portal-caceis');
-			var account = this.crypto.decrypt(local_Storage);
-			this.setAccount(account);
-			if(this.account == undefined)
+			var account = this.crypto.decrypt(local_Storage) as AccountResponse | undefined;
+			if(account == undefined || typeof(account) == 'string') {
 				this.isLoggedIn.emit(false);
-			return this.account.value;
+				this.setAccount(undefined)
+				account = undefined;
+			}
+			else {
+				this.isLoggedIn.emit(true);
+				this.setAccount(account)
+
+			}
+			return account;
 		} 
 		catch(err) {
 			this.isLoggedIn.emit(false);
+			this.setAccount(undefined)
 			return undefined;
 		}
 	}
@@ -50,10 +58,16 @@ export class AccountService {
 	getAccount(): BehaviorSubject<AccountResponse | undefined>{
 		try {
 			var local_Storage = localStorage.getItem('portal-caceis');
-			var account = this.crypto.decrypt(local_Storage);
-			account = account as AccountResponse | undefined;
-			if(account == undefined){
+			var account = this.crypto.decrypt(local_Storage) as AccountResponse | undefined;
+			if(account == undefined || typeof(account) == 'string') {
 				this.isLoggedIn.emit(false);
+				this.setAccount(undefined)
+				account = undefined;
+			}
+			else {
+				this.isLoggedIn.emit(true);
+				this.setAccount(account)
+
 			}
 			return this.account;
 		} 
@@ -102,10 +116,12 @@ export class AccountService {
 
 	logout(){
 		return this.http.post(`${this.baseUrl}/account/revoke-token`, { token: this.accountValue?.refreshToken})
-		.toPromise().then(res => {
-			this.setAccount(undefined);
-			this.router.navigate(['account/acessar']);
-		})
+			.toPromise()
+			.finally(()=> {
+				this.setAccount(undefined);
+				this.router.navigate(['account/acessar']);
+
+			})
 	}
 
 	get(id: number) {
@@ -119,6 +135,7 @@ export class AccountService {
 			list.forEach(item => {
 				item.idEncrypted = this.crypto.encrypt(item.id);
 				item.created = new Date(new Date(item.created).toDateString())
+				item.perfil_Id = item.perfilAccounts.map(x => x.perfil_Id);
 				return item;
 			})
 			if(this.filtro.value != undefined) {
@@ -157,6 +174,13 @@ export class AccountService {
 					list = list.filter(x => this.datePipe.transform(x.created, 'dd/MM/yyyy') == data);
 					this.list.next(list);
 				} 
+
+				if (filtro.perfis && filtro.perfis.length > 0) {
+					filtro.perfis.forEach(item => {
+						list = list.filter(x => x.perfil_Id.includes(item.id));
+					});
+					this.list.next(list);
+				}
 				return list;
 			}
 			this.list.next(list);

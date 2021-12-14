@@ -1,1 +1,17 @@
-<p>delete works!</p>
+<div class="modal" [class.active]="modalOpen">
+    <div class="modal__bg" (click)="voltar()"></div>
+    <div class="modal__inner" style="max-width: 800px;">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="text-orange">Excluir arquivo</h3>
+                <a (click)="voltar()" class="modal__header-close btn-close">
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="modal__body">
+            
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,9 @@ import { Subscription } from 'rxjs';
 import { AccountService } from 'src/app/services/account.service';
 import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
+import { PerfilResponse } from '../../../models/perfil.model';
 import { UsuarioFiltro } from '../../../models/usuario.model';
+import { PerfilService } from '../../../services/perfil.service';
 
 @Component({
 	selector: 'app-filtrar-usuarios',
@@ -27,14 +29,24 @@ export class FiltrarUsuariosComponent implements OnInit {
 		private modal: ModalOpen,
 		public format: Format,
 		public accountService: AccountService,
+		public perfilService: PerfilService
 	) {
-		var getOpen = this.modal.getOpen().subscribe(res => {
+		let getOpen = this.modal.getOpen().subscribe(res => {
 			this.modalOpen = res;
 		});
-		this.accountService.filtro.subscribe(res => {
+		accountService.filtro.subscribe(res => {
 			this.filtro = res ?? new UsuarioFiltro;
 		})
+
+		let getList = perfilService.getList().subscribe(list => {
+			list.map(item => {
+				item.checked = this.filtro.perfis.map(x => x.id).includes(item.id);
+				return item;
+			})
+			perfilService.list.next(list);
+		});
 		this.subscription.push(getOpen)
+		this.subscription.push(getList)
 	}
 
 	ngOnInit(): void {
@@ -57,6 +69,18 @@ export class FiltrarUsuariosComponent implements OnInit {
 		}, 200);
 	}
 
+	toggleCheckbox(item: PerfilResponse) {
+		item.checked = !item.checked;
+		if(item.checked) {
+			this.filtro.perfis.push({id: item.id, checked: true})
+		} else {
+			var index = this.filtro.perfis.findIndex(x => x.id == item.id);
+			if(index != -1) {
+				this.filtro.perfis.splice(index, 1)
+			}
+		}
+	}
+
 	filtrar(form: NgForm) {
 		if (
 			!this.filtro.nome
@@ -68,6 +92,7 @@ export class FiltrarUsuariosComponent implements OnInit {
 			&& !this.filtro.de
 			&& !this.filtro.ate
 			&& !this.filtro.dataCadastro
+			&& (!this.filtro.perfis || this.filtro.perfis.length == 0)
 		) {
 			this.accountService.filtro.next(undefined);
 		} else {
