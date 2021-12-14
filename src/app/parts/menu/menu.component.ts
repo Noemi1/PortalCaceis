@@ -12,7 +12,7 @@ import { UpdatePasswordService } from '../update-password/update-password.servic
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
-	styleUrls: ['./menu.component.css', './grey.component.css']
+	styleUrls: ['./menu.component.css']
 })
 export class MenuLateralComponent implements OnInit, AfterViewInit {
 	faBars = faBars;
@@ -54,7 +54,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 		this.modal.openSubject.subscribe(open => {
 			this.modalOpen = open;
 		});
-		
+
 		this.accountService.getAccount().subscribe(res => {
 			if(res != undefined) {
 				this.items = [];
@@ -98,7 +98,7 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 				}
 			} else {
 			}
-			
+
 		})
 	}
 
