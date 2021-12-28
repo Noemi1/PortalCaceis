@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -20,12 +20,13 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MeuPerfilComponent } from './parts/meu-perfil/meu-perfil.component';
 import { MeuPerfilService } from './parts/meu-perfil/meu-perfil.service';
 import { UpdatePasswordComponent } from './parts/update-password/update-password.component';
 import { SenhaAlertModule } from './parts/senha-alert/senha-alert.component';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { AppConfigService } from './services/app-config.service';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -61,6 +62,16 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 		MeuPerfilService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+        provide: APP_INITIALIZER,
+        multi: true,
+        deps: [AppConfigService],
+        useFactory: (appConfigService: AppConfigService) => {
+            return () => {
+                return appConfigService.loadAppConfig();
+            };
+        },
+    },
 	],
 	bootstrap: [AppComponent]
 })

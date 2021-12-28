@@ -25,7 +25,20 @@ export class ListComponent implements OnInit {
 	constructor(
 		public ordemJudicialService: OrdemJudicialService,
 		public crypto: Crypto,
-	) { }
+	) {
+
+			let list = this.ordemJudicialService.list.subscribe()
+			let getList = this.ordemJudicialService.getList().subscribe(
+        res => {
+          this.loading = false
+        },
+        err => {
+          this.loading = false
+        },
+      );
+      this.subscriptions.push(list);
+      this.subscriptions.push(getList);
+  }
 
 	ngOnInit(): void {
 	}

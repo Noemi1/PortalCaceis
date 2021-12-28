@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from './services/account.service';
+import { AppConfigService } from './services/app-config.service';
 
 @Component({
 	selector: 'app-root',
@@ -8,10 +9,11 @@ import { AccountService } from './services/account.service';
 	styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	isLoggedIn = false
+  isLoggedIn = false
 	constructor(
 		public accountService: AccountService,
-		private router: Router
+		private router: Router,
+    private appConfig: AppConfigService
 	){
 		this.accountService.isLoggedIn.subscribe(res => {
 			this.isLoggedIn = res;

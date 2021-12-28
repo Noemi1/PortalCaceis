@@ -12,11 +12,11 @@ const corp = () =>import('./sistemas/corp/corp.module').then(x => x.CorpModule);
 
 const routes: Routes = [
 	{
-		path: '', 
-		component: HomeComponent, 
-		canActivate: [AuthGuard], 
-		canActivateChild: [RoleGuard], 
-		data: {roles:  [ Role.Corp, Role.JUD, Role.ICM]}, 
+		path: '',
+		component: HomeComponent,
+		canActivate: [AuthGuard],
+		canActivateChild: [RoleGuard],
+		data: {roles:  [ Role.Corp, Role.JUD, Role.ICM]},
 		children: [
 			{ path: 'jud', loadChildren: jud, canActivate: [RoleGuard], data: {roles:  [Role.JUD]} },
 			{ path: 'icm', loadChildren: icm, canActivate: [RoleGuard], data: {roles:  [Role.ICM]} },
@@ -24,7 +24,7 @@ const routes: Routes = [
 		]
 	},
 	{ path: 'account', loadChildren: account },
-	
+
 ];
 
 @NgModule({

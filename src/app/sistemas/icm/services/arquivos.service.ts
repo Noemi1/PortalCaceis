@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { DatePipe } from '@angular/common';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -21,8 +22,13 @@ export class ArquivosService {
 	constructor(
 		private http: HttpClient,
 		private crypto: Crypto,
-		private datePipe: DatePipe
-	) { }
+		private datePipe: DatePipe,
+    private appConfigService: AppConfigService
+	) {
+    this.appConfigService.appConfig.subscribe(res => {
+      this.url = res.apiBaseUrl;
+    });
+   }
 
 	getTipos(){
 		return this.http.get<ArquivoAcessoTipoResponse[]>(this.url + '/arquivoacessotipo')
@@ -66,13 +72,13 @@ export class ArquivosService {
 						var data = this.datePipe.transform(this.filtro.value.dataHora as string, 'dd/MM/yyyy');
 						list = list.filter(x => this.datePipe.transform(x.dataCadastro, 'dd/MM/yyyy') == data);
 						this.list.next(list);
-					} 
-					
+					}
+
 					if (this.filtro.value?.acessoTipo_Origem_Id) {
 						list = list.filter(x => x.acessoTipo_Origem_Id == this.filtro.value?.acessoTipo_Origem_Id);
 						this.list.next(list);
 					}
-					
+
 					if (this.filtro.value?.acessoTipo_Destino_Id) {
 						list = list.filter(x => x.acessoTipo_Destino_Id == this.filtro.value?.acessoTipo_Destino_Id);
 						this.list.next(list);

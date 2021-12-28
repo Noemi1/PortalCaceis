@@ -9,12 +9,13 @@ import { AccountRequest, AccountResponse, UserLogado } from '../models/account.m
 import { ResetPassword } from '../models/account.model';
 import { UpdateUsuarioRequest, UsuarioFiltro, UsuarioRequest, UsuarioResponse } from '../sistemas/corp/models/usuario.model';
 import { DatePipe } from '@angular/common';
+import { AppConfigService } from './app-config.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AccountService {
-	baseUrl = environment.url;
+	url: string = '';
 	account: BehaviorSubject<AccountResponse | undefined>;
 	private userLogado: BehaviorSubject<UserLogado | undefined>;
 	isLoggedIn = new EventEmitter();
@@ -26,10 +27,14 @@ export class AccountService {
 		private http: HttpClient,
 		private crypto: Crypto,
 		private router: Router,
-		private datePipe: DatePipe
+		private datePipe: DatePipe,
+    private appConfigService: AppConfigService
 	) {
 		this.account = new BehaviorSubject<AccountResponse | undefined>(undefined);
 		this.userLogado = new BehaviorSubject<UserLogado | undefined>(undefined);
+    this.appConfigService.appConfig.subscribe(res => {
+      this.url = res.apiBaseUrl;
+    });
 	}
 
 	public get accountValue():AccountResponse | undefined {
@@ -47,7 +52,7 @@ export class AccountService {
 
 			}
 			return account;
-		} 
+		}
 		catch(err) {
 			this.isLoggedIn.emit(false);
 			this.setAccount(undefined)
@@ -70,7 +75,7 @@ export class AccountService {
 
 			}
 			return this.account;
-		} 
+		}
 		catch(err) {
 			this.isLoggedIn.emit(false);
 			return new BehaviorSubject<AccountResponse | undefined>(undefined);
@@ -90,7 +95,7 @@ export class AccountService {
 	}
 
 	getProfile(){
-		return this.http.get<UserLogado>(`${this.baseUrl}/account/getProfile`)
+		return this.http.get<UserLogado>(`${this.url}/account/getProfile`)
 		.toPromise().then(userLogado => {
 			var account = this.accountValue;
 			if(account != undefined && userLogado != undefined) {
@@ -103,7 +108,8 @@ export class AccountService {
 	}
 
 	login(model: AccountRequest) {
-		return this.http.post<AccountResponse>(`${this.baseUrl}/account/authenticate`, model)
+    console.log("Base URL Login", this.url)
+		return this.http.post<AccountResponse>(`${this.url}/account/authenticate`, model)
 			.pipe(map(account => {
 				if(typeof account == 'string') {
 					console.log('login')
@@ -115,7 +121,7 @@ export class AccountService {
 	}
 
 	logout(){
-		return this.http.post(`${this.baseUrl}/account/revoke-token`, { token: this.accountValue?.refreshToken})
+		return this.http.post(`${this.url}/account/revoke-token`, { token: this.accountValue?.refreshToken})
 			.toPromise()
 			.finally(()=> {
 				this.setAccount(undefined);
@@ -125,12 +131,12 @@ export class AccountService {
 	}
 
 	get(id: number) {
-		return this.http.get<UsuarioResponse>(`${this.baseUrl}/account/getById?id=${id}`)
+		return this.http.get<UsuarioResponse>(`${this.url}/account/getById?id=${id}`)
 
 	}
-	
+
 	getList(){
-		return this.http.get<UsuarioResponse[]>(`${this.baseUrl}/account`)
+		return this.http.get<UsuarioResponse[]>(`${this.url}/account`)
 		.pipe(map(list => {
 			list.forEach(item => {
 				item.idEncrypted = this.crypto.encrypt(item.id);
@@ -173,7 +179,7 @@ export class AccountService {
 					var data = this.datePipe.transform(filtro.dataCadastro as string, 'dd/MM/yyyy');
 					list = list.filter(x => this.datePipe.transform(x.created, 'dd/MM/yyyy') == data);
 					this.list.next(list);
-				} 
+				}
 
 				if (filtro.perfis && filtro.perfis.length > 0) {
 					filtro.perfis.forEach(item => {
@@ -189,7 +195,7 @@ export class AccountService {
 	}
 
 	createAccount(account: UsuarioRequest) {
-		return this.http.post<UsuarioResponse>(`${this.baseUrl}/account`, account)
+		return this.http.post<UsuarioResponse>(`${this.url}/account`, account)
 			.pipe(map(account => {
 				account.idEncrypted = this.crypto.encrypt(account.id);
 				return account;
@@ -197,7 +203,7 @@ export class AccountService {
 	}
 
 	updateAccount(account: UpdateUsuarioRequest) {
-		return this.http.put<UsuarioResponse>(`${this.baseUrl}/account?account_id=${account.id}`, account)
+		return this.http.put<UsuarioResponse>(`${this.url}/account?account_id=${account.id}`, account)
 			.pipe(map(account => {
 				account.idEncrypted = this.crypto.encrypt(account.id);
 				return account;
@@ -205,23 +211,23 @@ export class AccountService {
 	}
 
 	setStatusAccount(id: number, desativar: boolean) {
-		return this.http.post(`${this.baseUrl}/account/set-status`, {account_Id: id, desativar: desativar});
+		return this.http.post(`${this.url}/account/set-status`, {account_Id: id, desativar: desativar});
 	}
 
 	updatePassword(model: ResetPassword){
-		return this.http.post(`${this.baseUrl}/account/update-password`, model);
+		return this.http.post(`${this.url}/account/update-password`, model);
 	}
 
 	updateProfile(model: UserLogado){
-		return this.http.post<UserLogado>(`${this.baseUrl}/account/update-profile`, model);
+		return this.http.post<UserLogado>(`${this.url}/account/update-profile`, model);
 	}
 
 	forgotPassword(documento: string) {
-		return this.http.post(`${this.baseUrl}/account/forgot-password`, { documento: documento});
+		return this.http.post(`${this.url}/account/forgot-password`, { documento: documento});
 	}
 
 	resetPassword(model: ResetPassword) {
-		return this.http.post(`${this.baseUrl}/account/reset-password`, model);
+		return this.http.post(`${this.url}/account/reset-password`, model);
 	}
 
 }

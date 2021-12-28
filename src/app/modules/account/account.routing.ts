@@ -8,7 +8,6 @@ import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: 'acessar', },
 	{
 		path: '', component: AccountComponent, children: [
 			{ path: 'acessar', component: LoginComponent },

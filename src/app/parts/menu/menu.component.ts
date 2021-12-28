@@ -73,17 +73,17 @@ export class MenuLateralComponent implements OnInit, AfterViewInit {
 							]]
 						});
 				}
-				if (siglas.includes('jud')) {
-					this.items.push(
-						{
-							label: 'JUD', items: [[
-								{
-									items: [
-										{ label: 'Ordem Judicial', routerLink: '/jud/ordem-judicial' }
-									]
-								}]]
-						})
-				}
+				// if (siglas.includes('jud')) {
+				// 	this.items.push(
+				// 		{
+				// 			label: 'JUD', items: [[
+				// 				{
+				// 					items: [
+				// 						{ label: 'Ordem Judicial', routerLink: '/jud/ordem-judicial' }
+				// 					]
+				// 				}]]
+				// 		})
+				// }
 				if (siglas.includes('corp')) {
 					this.items.push(
 						{

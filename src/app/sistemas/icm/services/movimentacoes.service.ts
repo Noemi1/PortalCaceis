@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { MovimentacoesFiltro, MovimentacoesResponse } from '../models/movimentacoes.model';
 import { DatePipe } from '@angular/common';
+import { AppConfigService } from 'src/app/services/app-config.service';
 @Injectable({
 	providedIn: 'root'
 })
@@ -14,12 +15,17 @@ export class MovimentacoesService {
 	loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 	list: BehaviorSubject<MovimentacoesResponse[]> = new BehaviorSubject<MovimentacoesResponse[]>([]);
 	filtro: BehaviorSubject<MovimentacoesFiltro | undefined> = new BehaviorSubject<MovimentacoesFiltro | undefined>(undefined);
-	
+
 	constructor(
 		private http: HttpClient,
 		private crypto: Crypto,
-		private datePipe: DatePipe
-	) { }
+		private datePipe: DatePipe,
+    private appConfigService: AppConfigService
+	) {
+    this.appConfigService.appConfig.subscribe(res => {
+      this.url = res.apiBaseUrl;
+    });
+   }
 
 	getList(){
 		return this.http.get<MovimentacoesResponse[]>(this.url + '/movimento')
@@ -51,8 +57,8 @@ export class MovimentacoesService {
 						var data = this.datePipe.transform(this.filtro.value.dataHora as string, 'dd/MM/yyyy');
 						var lista = list.filter(x => this.datePipe.transform(x.dataHora, 'dd/MM/yyyy') == data);
 						this.list.next(lista);
-					} 
-					
+					}
+
 					if (this.filtro.value?.movimento_Tipo) {
 						var lista = list.filter(x => x.movimento_Tipo == this.filtro.value?.movimento_Tipo);
 						this.list.next(lista);

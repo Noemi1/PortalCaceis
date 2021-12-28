@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AppConfigService } from 'src/app/services/app-config.service';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { environment } from 'src/environments/environment';
 import { OrdemJudicialResponse, OrdemJudicial_Status_Response, OrdemJudicial_TipoOrdem_Response } from '../models/ordem-judicial.model';
@@ -11,7 +12,7 @@ import { OrdemJudicialResponse, OrdemJudicial_Status_Response, OrdemJudicial_Tip
 })
 export class OrdemJudicialService {
 
-	baseUrl = environment.url;
+	url = environment.url;
 	list: BehaviorSubject<OrdemJudicialResponse[]> = new BehaviorSubject<OrdemJudicialResponse[]>([]);
 	listStatus: BehaviorSubject<OrdemJudicial_Status_Response[]> = new BehaviorSubject<OrdemJudicial_Status_Response[]>([]);
 	listTipoOrdem: BehaviorSubject<OrdemJudicial_TipoOrdem_Response[]> = new BehaviorSubject<OrdemJudicial_TipoOrdem_Response[]>([]);
@@ -19,12 +20,17 @@ export class OrdemJudicialService {
 
 	constructor(
 		private crypto: Crypto,
-		private http: HttpClient
-	) { }
+		private http: HttpClient,
+    private appConfigService: AppConfigService
+	) {
+    this.appConfigService.appConfig.subscribe(res => {
+      this.url = res.apiBaseUrl;
+    });
+   }
 
 
 	getList(){
-		return this.http.get<OrdemJudicialResponse[]>(`${this.baseUrl}/ordem-judicial/`)
+		return this.http.get<OrdemJudicialResponse[]>(`${this.url}/ordem-judicial/`)
 			.pipe(map(list => {
 				list.forEach(item => {
 					item.idEncrypted = this.crypto.encrypt(item.id);
@@ -36,25 +42,25 @@ export class OrdemJudicialService {
 	}
 
 	getStatus() {
-		return this.http.get<OrdemJudicial_Status_Response[]>(`${this.baseUrl}/ordem-judicial/getStatus`)
+		return this.http.get<OrdemJudicial_Status_Response[]>(`${this.url}/ordem-judicial/getStatus`)
 			.pipe(map(list => {
 				this.listStatus.next(list);
 				return list;
 			}));
-		
+
 	}
 
 	getTipoOrdem() {
-		return this.http.get<OrdemJudicial_TipoOrdem_Response[]>(`${this.baseUrl}/ordem-judicial/getTipoOrdem`)
+		return this.http.get<OrdemJudicial_TipoOrdem_Response[]>(`${this.url}/ordem-judicial/getTipoOrdem`)
 			.pipe(map(list => {
 				this.listTipoOrdem.next(list);
 				return list;
 			}));
-		
+
 	}
 
 	get(id: number) {
-		return this.http.get<OrdemJudicialResponse>(`${this.baseUrl}/ordem-judicial?id=${id}`)
+		return this.http.get<OrdemJudicialResponse>(`${this.url}/ordem-judicial?id=${id}`)
 			.pipe(map(item => {
 				item.idEncrypted = this.crypto.encrypt(item.id);
 				return item;
@@ -62,14 +68,14 @@ export class OrdemJudicialService {
 	}
 
 	create(model: any) {
-		return this.http.post<OrdemJudicialResponse>(`${this.baseUrl}/ordem-judicial`, model);
+		return this.http.post<OrdemJudicialResponse>(`${this.url}/ordem-judicial`, model);
 	}
 
 	update(model: any) {
-		return this.http.put<OrdemJudicialResponse>(`${this.baseUrl}/ordem-judicial`, model);
+		return this.http.put<OrdemJudicialResponse>(`${this.url}/ordem-judicial`, model);
 	}
 
 	delete(id: number) {
-		return this.http.delete(`${this.baseUrl}/ordem-judicial?id=${id}`);
+		return this.http.delete(`${this.url}/ordem-judicial?id=${id}`);
 	}
 }

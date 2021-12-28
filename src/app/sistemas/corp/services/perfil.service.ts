@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { PerfilRequest, PerfilResponse, PerfilUpdateRequest } from '../models/perfil.model';
 import { Crypto } from '../../../utils/cryptojs';
 import { AcessoResponse } from '../models/acessos.model';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,8 +19,13 @@ export class PerfilService {
 
 	constructor(
 		private http: HttpClient,
-		private crypto: Crypto
-	) { }
+		private crypto: Crypto,
+    private appConfigService: AppConfigService
+	) {
+    this.appConfigService.appConfig.subscribe(res => {
+      this.url = res.apiBaseUrl;
+    });
+   }
 
 	getListAcessos(){
 		return this.http.get<AcessoResponse[]>(`${this.url}/acesso`)
