@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppConfigService } from 'src/app/services/app-config.service';
 import { Crypto } from 'src/app/utils/cryptojs';
-import { environment } from 'src/environments/environment';
 import { SistemaRequest, SistemaResponse, SistemaUpdateRequest } from '../models/sistema.model';
 
 @Injectable({
@@ -12,7 +11,7 @@ import { SistemaRequest, SistemaResponse, SistemaUpdateRequest } from '../models
 })
 export class SistemaService {
 
-	url = environment.url;
+  url = "";
 	loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 	list: BehaviorSubject<SistemaResponse[]> = new BehaviorSubject<SistemaResponse[]>([]);
 

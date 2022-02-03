@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { MovimentacoesFiltro, MovimentacoesResponse } from '../models/movimentacoes.model';
@@ -11,7 +10,7 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 	providedIn: 'root'
 })
 export class MovimentacoesService {
-	url = environment.url;
+	url = "";
 	loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 	list: BehaviorSubject<MovimentacoesResponse[]> = new BehaviorSubject<MovimentacoesResponse[]>([]);
 	filtro: BehaviorSubject<MovimentacoesFiltro | undefined> = new BehaviorSubject<MovimentacoesFiltro | undefined>(undefined);

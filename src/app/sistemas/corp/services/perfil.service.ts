@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { PerfilRequest, PerfilResponse, PerfilUpdateRequest } from '../models/perfil.model';
 import { Crypto } from '../../../utils/cryptojs';
 import { AcessoResponse } from '../models/acessos.model';
@@ -12,7 +11,7 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 	providedIn: 'root'
 })
 export class PerfilService {
-	url = environment.url;
+	url = "";
 	loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 	list: BehaviorSubject<PerfilResponse[]> = new BehaviorSubject<PerfilResponse[]>([]);
 	listAcessos: BehaviorSubject<AcessoResponse[]> = new BehaviorSubject<AcessoResponse[]>([]);

@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppConfigService } from 'src/app/services/app-config.service';
 import { Crypto } from 'src/app/utils/cryptojs';
-import { environment } from 'src/environments/environment';
 import { OrdemJudicialResponse, OrdemJudicial_Status_Response, OrdemJudicial_TipoOrdem_Response } from '../models/ordem-judicial.model';
 
 @Injectable({
@@ -12,7 +11,7 @@ import { OrdemJudicialResponse, OrdemJudicial_Status_Response, OrdemJudicial_Tip
 })
 export class OrdemJudicialService {
 
-	url = environment.url;
+	url = "";
 	list: BehaviorSubject<OrdemJudicialResponse[]> = new BehaviorSubject<OrdemJudicialResponse[]>([]);
 	listStatus: BehaviorSubject<OrdemJudicial_Status_Response[]> = new BehaviorSubject<OrdemJudicial_Status_Response[]>([]);
 	listTipoOrdem: BehaviorSubject<OrdemJudicial_TipoOrdem_Response[]> = new BehaviorSubject<OrdemJudicial_TipoOrdem_Response[]>([]);

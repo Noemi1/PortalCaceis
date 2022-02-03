@@ -1,19 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest, ArquivoFiltro } from '../models/arquivo.model';
-import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { DatePipe } from '@angular/common';
 import { AppConfigService } from 'src/app/services/app-config.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ArquivosService {
-	url = environment.url;
+	url = "";
 	loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 	list: BehaviorSubject<ArquivoResponse[]> = new BehaviorSubject<ArquivoResponse[]>([]);
 	listTipos: BehaviorSubject<ArquivoAcessoTipoResponse[]> = new BehaviorSubject<ArquivoAcessoTipoResponse[]>([]);
