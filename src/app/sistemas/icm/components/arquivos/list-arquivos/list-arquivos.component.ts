@@ -26,7 +26,7 @@ export class ListArquivosComponent implements OnInit {
         private route: ActivatedRoute,
 		public arquivosService: ArquivosService,
 		public crypto: Crypto
-	) { 
+	) {
 		this.arquivosService.list.subscribe();
 	}
 
@@ -39,6 +39,7 @@ export class ListArquivosComponent implements OnInit {
 		});
 		this.items = this.pageOfItems;
 		this.arquivosService.getTipos().subscribe();
+		this.arquivosService.getCriterios().subscribe();
 	}
 
 	onChangePage(pageOfItems: Array<any>) {

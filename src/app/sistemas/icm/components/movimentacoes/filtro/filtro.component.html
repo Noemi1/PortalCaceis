@@ -29,19 +29,44 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
-                            <label for="nome">Nome:</label>
-                            <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="filtro.nome">
+                      <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
+                          <label for="nomeArquivo">Nome do arquivo:</label>
+                          <input type="text" class="form-control" name="nomeArquivo" id="nomeArquivo" #nomeArquivo="ngModel" [(ngModel)]="filtro.nomeArquivo">
+                      </div>
+                      <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
+                          <label for="criterio">Critério:</label>
+                          <select class="form-control" name="criterio" id="criterio" #criterio="ngModel" [(ngModel)]="filtro.criterio">
+                            <option [ngValue]="undefined">Selecione</option>
+                            <option [ngValue]="item.nome" *ngFor="let item of this.arquivosService.listCriterios.value">{{ item.nome }}</option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="form-row align-items-end">
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
+                          <strong class="text-danger">Origem:</strong> <br>
+                          <label for="tipoOrigem">Tipo:</label>
+                          <select class="form-control" name="tipoOrigem" id="tipoOrigem" #tipoOrigem="ngModel" [(ngModel)]="filtro.tipoOrigem">
+                            <option [ngValue]="undefined">Selecione</option>
+                            <option [ngValue]="item.nome" *ngFor="let item of arquivosService.listTipos.value">{{item.nome}}</option>
+                          </select>
                         </div>
-                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
-                            <label for="movimento_Tipo">Tipo:</label>
-                            <input type="text" class="form-control" name="movimento_Tipo" id="movimento_Tipo" #movimento_Tipo="ngModel" [(ngModel)]="filtro.movimento_Tipo">
+                        <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
+                            <label for="origem">Caminho:</label>
+                            <input type="text" class="form-control" name="origem" id="origem" #origem="ngModel" [(ngModel)]="filtro.origem">
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
-                            <label for="caminho">Caminho:</label>
-                            <input type="text" class="form-control" name="caminho" id="caminho" #caminho="ngModel" [(ngModel)]="filtro.caminho">
+                    <div class="form-row align-items-end">
+                        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
+                          <strong class="text-danger">Destino:</strong> <br>
+                          <label for="tipoDestino">Tipo:</label>
+                          <select class="form-control" name="tipoDestino" id="tipoDestino" #tipoDestino="ngModel" [(ngModel)]="filtro.tipoDestino">
+                            <option [ngValue]="undefined">Selecione</option>
+                            <option [ngValue]="item.nome" *ngFor="let item of arquivosService.listTipos.value">{{item.nome}}</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
+                            <label for="destino">Caminho:</label>
+                            <input type="text" class="form-control" name="destino" id="destino" #destino="ngModel" [(ngModel)]="filtro.destino">
                         </div>
                     </div>
                     <div class="d-flex justify-content-between col-lg-12 flex-wrap p-0">
@@ -49,7 +74,7 @@
                             <li class="text-red" *ngFor="let err of erro">{{err}}</li>
                         </ul>
                         <div class="d-flex col-sm-12 ml-auto mt-3 flex-wrap">
-                            <button type="button" class="btn btn-dark mr-2" 
+                            <button type="button" class="btn btn-dark mr-2"
                                     (click)="limparFiltro()"
                                     [disabled]="loading">
                                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>

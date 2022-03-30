@@ -29,14 +29,15 @@ export class FiltroArquivosComponent implements OnInit, OnDestroy {
 		private modal: ModalOpen,
 		public format: Format,
 		public arquivosService: ArquivosService,
-	) { 
+	) {
 		var getOpen = this.modal.getOpen().subscribe(res => {
 			this.modalOpen = res;
 		});
+    this.subscription.push(getOpen);
+
 		this.arquivosService.filtro.subscribe(res => {
 			this.filtro = res ?? new ArquivoFiltro;
-		})
-		this.subscription.push(getOpen)
+		});
 	 }
 
 	ngOnInit(): void {
@@ -61,15 +62,18 @@ export class FiltroArquivosComponent implements OnInit, OnDestroy {
 
 	filtrar(form: NgForm){
 		if(
-			!this.filtro.nome
-			&& !this.filtro.acessoTipo_Destino_Id
-			&& !this.filtro.acessoTipo_Origem_Id
-			&& !this.filtro.caminhoOrigem
-			&& !this.filtro.caminhoDestino
-			&& !this.filtro.de
-			&& !this.filtro.ate
-			&& !this.filtro.dataHora
-			) 
+        !this.filtro.nome
+        && !this.filtro.acessoTipo_Destino_Id
+        && !this.filtro.acessoTipo_Origem_Id
+        && !this.filtro.origem
+        && !this.filtro.destino
+        && !this.filtro.de
+        && !this.filtro.ate
+        && !this.filtro.dataCadastro
+        && !this.filtro.criterio_Id
+        && !this.filtro.usuario?.trim()
+        && !this.filtro.descricao?.trim()
+			)
 		{
 			this.arquivosService.filtro.next(undefined);
 		} else {
@@ -78,7 +82,7 @@ export class FiltroArquivosComponent implements OnInit, OnDestroy {
 
 		this.aplicarFiltro()
 	}
-	
+
 	limparFiltro(){
 		this.arquivosService.filtro.next(undefined);
 		this.aplicarFiltro();

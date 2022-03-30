@@ -18,20 +18,22 @@ export class FilterKeyValue{
 	styleUrls: ['./movimentacoes.component.css']
 })
 export class MovimentacoesComponent implements OnInit, OnDestroy {
-	faChevronLeft= faChevronLeft;
+	faChevronLeft = faChevronLeft;
 	faFilter = faFilter;
 	loading = true;
-	items: Array<any> = [];
-	pageOfItems: Array<MovimentacoesResponse> = [];
-	selected?: any;
+  items: Array<MovimentacoesResponse> = [];
+	list: Array<MovimentacoesResponse> = [];
 	filtroList:  FilterKeyValue[] = []
-
 	subscriptions: Subscription[] = []
 
 	constructor(
 		public movimentacoesService: MovimentacoesService,
-		public crypto: Crypto) { 
-			let list = this.movimentacoesService.list.subscribe()
+		public crypto: Crypto) {
+			this.movimentacoesService.list.subscribe(res => {
+        this.list = res;
+        this.items = res;
+      });
+
 			let filtro = this.movimentacoesService.filtro.subscribe(res => {
 				this.filtroList = []
 				if(res != undefined) {
@@ -42,24 +44,17 @@ export class MovimentacoesComponent implements OnInit, OnDestroy {
 					}
 				}
 			})
-			this.subscriptions.push(list);
 			this.subscriptions.push(filtro);
 		}
 
 	ngOnInit() {
 		let getList = this.movimentacoesService.getList().subscribe(
-			res => {
-				this.movimentacoesService.list.next(res);
-				this.items = res;
-				this.loading = false;
-			}, 
+			res => {},
 			err => {
-				this.loading = false;
-				this.movimentacoesService.list.next([]);
-				console.error(err)
-			}
+				console.error(err);
+			},
+      () => this.loading = false
 		);
-		this.items = this.pageOfItems;
 		this.subscriptions.push(getList);
 	}
 
@@ -70,15 +65,7 @@ export class MovimentacoesComponent implements OnInit, OnDestroy {
 	}
 
 	onChangePage(pageOfItems: Array<any>) {
-		this.pageOfItems = pageOfItems;
-	}
-
-	selectItem(item: any) {
-		this.selected = this.selected && this.selected == item ? undefined : item;
-	}
-
-	unselectItem() {
-		this.selected = undefined;
+		this.list = pageOfItems;
 	}
 
 }

@@ -1,87 +1,104 @@
 <div class="modal" [class.active]="modalOpen">
-    <div class="modal__bg" (click)="voltar()"></div>
-    <div class="modal__inner" style="max-width: 800px;">
-        <div class="modal__content">
-            <div class="modal__header">
-                <h3 class="text-orange">Filtrar movimentações</h3>
-                <a (click)="voltar()" class="modal__header-close btn-close">
-                    <span></span>
-                    <span></span>
-                </a>
+  <div class="modal__bg" (click)="voltar()"></div>
+  <div class="modal__inner" style="max-width: 800px;">
+    <div class="modal__content">
+      <div class="modal__header">
+        <h3 class="text-orange">Filtrar arquivos</h3>
+        <a (click)="voltar()" class="modal__header-close btn-close">
+          <span></span>
+          <span></span>
+        </a>
+      </div>
+      <div class="modal__body">
+        <form #form="ngForm">
+          <div class="form-row align-items-end">
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+              <strong class="text-danger">Data de cadastro:</strong> <br>
+              <label for="de"><small>De</small>:</label>
+              <input type="date" class="form-control" name="de" id="de" #de="ngModel" [(ngModel)]="filtro.de">
             </div>
-            <div class="modal__body">
-             <form #form="ngForm">
-                <div class="form-row align-items-end">
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
-                        <strong class="text-danger">Data de cadastro:</strong> <br>
-                        <label for="de"><small>De</small>:</label>
-                        <input type="date" class="form-control" name="de" id="de" #de="ngModel" [(ngModel)]="filtro.de">
-                    </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
-                        <label for="ate"><small>Até</small>:</label>
-                        <input type="date" class="form-control" name="ate" id="ate" #de="ngModel" [(ngModel)]="filtro.ate">
-                    </div>
-                    <div class="form-group col-lg-1 col-md-1 col-sm-12 col-12 d-flex align-items-end justify-content-center text-danger px-0">
-                       <strong class="py-2 d-block">ou</strong>
-                    </div>
-                    <div class="form-group col-lg-5 col-md-5 col-sm-12 col-12">
-                        <label for="dataHora">Data:</label>
-                        <input type="date" class="form-control" name="dataHora" id="dataHora" #de="ngModel" [(ngModel)]="filtro.dataHora">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
-                        <label for="nome">Nome:</label>
-                        <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="filtro.nome">
-                    </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-3 col-12">
-                        <label for="acessoTipo_Origem_Id">Tipo origem:</label>      
-                        <select type="text" class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #acessoTipo_Origem_Id="ngModel" [(ngModel)]="filtro.acessoTipo_Origem_Id">
-                            <option value="undefined">Selecione</option>
-                            <option [value]="item.id | number" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-3 col-12">
-                        <label for="acessoTipo_Destino_Id">Tipo destino:</label>
-                        <select type="text" class="form-control" name="acessoTipo_Destino_Id" id="acessoTipo_Destino_Id" #acessoTipo_Destino_Id="ngModel" [(ngModel)]="filtro.acessoTipo_Destino_Id">
-                            <option value="undefined">Selecione</option>
-                            <option [value]="item.id | number" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
-                        <label for="caminhoOrigem">Caminho de origem:</label>
-                        <input type="text" class="form-control" name="caminhoOrigem" id="caminhoOrigem" #caminhoOrigem="ngModel" [(ngModel)]="filtro.caminhoOrigem">
-                    </div>
-                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
-                        <label for="caminhoOrigem">Caminho de destino:</label>
-                        <input type="text" class="form-control" name="caminhoOrigem" id="caminhoOrigem" #caminhoOrigem="ngModel" [(ngModel)]="filtro.caminhoOrigem">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="d-flex justify-content-between flex-wrap col-lg-12">
-                        <ul *ngIf="erro">
-                            <li class="text-red" *ngFor="let err of erro">{{err}}</li>
-                        </ul>
-                        <div class="d-flex ml-auto mt-3 flex-wrap">
-                            <button type="button" class="btn btn-dark mr-2 ml-0" 
-                                    (click)="limparFiltro()"
-                                    [disabled]="loading">
-                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                                Limpar filtro
-                            </button>
-                            <button type="button" class="btn btn-primary"
-                                (click)="filtrar(form)"
-                                [disabled]="loading">
-                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                                Filtrar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-             </form>
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+              <label for="ate"><small>Até</small>:</label>
+              <input type="date" class="form-control" name="ate" id="ate" #de="ngModel" [(ngModel)]="filtro.ate">
             </div>
-        </div>
+            <div class="form-group col-lg-1 col-md-1 col-sm-12 col-12 d-flex align-items-end justify-content-center text-danger px-0">
+              <strong class="py-2 d-block">ou</strong>
+            </div>
+            <div class="form-group col-lg-5 col-md-5 col-sm-12 col-12">
+              <label for="dataCadastro">Data:</label>
+              <input type="date" class="form-control" name="dataCadastro" id="dataCadastro" #de="ngModel" [(ngModel)]="filtro.dataCadastro">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
+              <label for="nome">Nome:</label>
+              <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="filtro.nome">
+            </div>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
+              <label for="criterio_Id">Critério:</label>
+              <select type="text" class="form-control" name="criterio_Id" id="criterio_Id" #criterio_Id="ngModel" [(ngModel)]="filtro.criterio_Id">
+                <option [ngValue]="undefined">Selecione</option>
+                <option [ngValue]="item.id" *ngFor="let item of this.arquivosService.listCriterios.value">{{ item.nome }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row align-items-end">
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
+              <strong class="text-danger">Origem:</strong> <br>
+              <label for="acessoTipo_Origem_Id">Tipo:</label>
+              <select class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #movimento_Tipo="ngModel" [(ngModel)]="filtro.acessoTipo_Origem_Id">
+                <option [ngValue]="undefined">Selecione</option>
+                <option [ngValue]="item.id" *ngFor="let item of arquivosService.listTipos.value">{{item.nome}}</option>
+              </select>
+            </div>
+            <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
+              <label for="origem">Caminho:</label>
+              <input type="text" class="form-control" name="origem" id="origem" #origem="ngModel" [(ngModel)]="filtro.origem">
+            </div>
+          </div>
+          <div class="form-row align-items-end">
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
+              <strong class="text-danger">Destino:</strong> <br>
+              <label for="acessoTipo_Destino_Id">Tipo:</label>
+              <select class="form-control" name="acessoTipo_Destino_Id" id="acessoTipo_Destino_Id" #acessoTipo_Destino_Id="ngModel" [(ngModel)]="filtro.acessoTipo_Destino_Id">
+                <option [ngValue]="undefined">Selecione</option>
+                <option [ngValue]="item.id" *ngFor="let item of arquivosService.listTipos.value">{{item.nome}}</option>
+              </select>
+            </div>
+            <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
+              <label for="destino">Caminho:</label>
+              <input type="text" class="form-control" name="destino" id="destino" #destino="ngModel" [(ngModel)]="filtro.destino">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+              <label for="usuario">Cadastrado por:</label>
+              <input type="text" class="form-control" name="usuario" id="usuario" #usuario="ngModel" [(ngModel)]="filtro.usuario">
+            </div>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+              <label for="descricao">Descrição:</label>
+              <textarea class="form-control" name="descricao" id="descricao" #descricao="ngModel" [(ngModel)]="filtro.descricao" style="resize: vertical;"></textarea>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="d-flex justify-content-between flex-wrap col-lg-12">
+              <ul *ngIf="erro">
+                <li class="text-red" *ngFor="let err of erro">{{err}}</li>
+              </ul>
+              <div class="d-flex ml-auto mt-3 flex-wrap">
+                <button type="button" class="btn btn-dark mr-2 ml-0"
+                        (click)="limparFiltro()"
+                        [disabled]="loading">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Limpar filtro </button>
+                <button type="button" class="btn btn-primary"
+                        (click)="filtrar(form)"
+                        [disabled]="loading">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Filtrar </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

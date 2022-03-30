@@ -31,53 +31,60 @@ export class MovimentacoesService {
 			.pipe(map(list => {
 				list.forEach(item => {
 					item.idEncrypted = this.crypto.encrypt(item.id);
-					item.dataHora = new Date(new Date(item.dataHora).toDateString())
+					item.dataMovimento = new Date(new Date(item.dataMovimento).toDateString())
 					return item;
 				})
 				if (this.filtro.value != undefined) {
-					if (this.filtro.value.caminho) {
-						var lista = list.filter(x => x.caminho == this.filtro.value?.caminho);
-						this.list.next(lista);
+          let filtro = this.filtro.value;
+					if (filtro.de) {
+						var de = new Date(filtro.de + 'T00:00:00.000');
+						list = list.filter(x => x.dataMovimento >= de);
 					}
 
-					if (this.filtro.value.de != '') {
-						var de = new Date(this.filtro.value.de + 'T00:00:00.000');
-						var lista = list.filter(x => x.dataHora >= de);
-						this.list.next(lista);
+					if (filtro.ate) {
+						var ate = new Date(filtro.ate + 'T00:00:00.000');
+						list = list.filter(x => x.dataMovimento <= ate);
 					}
 
-					if (this.filtro.value.ate != '') {
-						var ate = new Date(this.filtro.value.ate + 'T00:00:00.000');
-						var lista = list.filter(x => x.dataHora <= ate);
-						this.list.next(lista);
+					if (!filtro.de && !filtro.ate && filtro.dataHora) {
+						var data = this.datePipe.transform(filtro.dataHora, 'dd/MM/yyyy');
+						list = list.filter(x => this.datePipe.transform(x.dataMovimento, 'dd/MM/yyyy') == data);
 					}
 
-					if (this.filtro.value.de != '' && this.filtro.value.ate != '' && this.filtro.value.dataHora != '') {
-						var data = this.datePipe.transform(this.filtro.value.dataHora as string, 'dd/MM/yyyy');
-						var lista = list.filter(x => this.datePipe.transform(x.dataHora, 'dd/MM/yyyy') == data);
-						this.list.next(lista);
+					if (filtro.origem?.trim()) {
+						list = list.filter(x => x.origem == filtro?.origem
+              || filtro.origem?.includes(x.origem)
+              || x.origem.includes(filtro.origem ?? ''));
 					}
 
-					if (this.filtro.value?.movimento_Tipo) {
-						var lista = list.filter(x => x.movimento_Tipo == this.filtro.value?.movimento_Tipo);
-						this.list.next(lista);
+					if (filtro.destino?.trim()) {
+						list = list.filter(x => x.destino == filtro?.destino
+              || filtro.destino?.includes(x.destino)
+              || x.destino.includes(filtro.destino ?? ''));
 					}
-					if (this.filtro.value?.nome) {
-						var lista = list.filter(x => x.nome == this.filtro.value?.nome);
-						this.list.next(lista);
+
+					if (filtro?.tipoOrigem?.trim()) {
+						list = list.filter(x => x.tipoOrigem == filtro?.tipoOrigem);
 					}
-					if (this.filtro.value?.caminho) {
-						var lista = list.filter(x => x.caminho == this.filtro.value?.caminho);
-						this.list.next(lista);
+
+					if (filtro?.tipoDestino?.trim()) {
+						list = list.filter(x => x.tipoDestino == filtro?.tipoDestino);
 					}
+
+					if (filtro?.nomeArquivo?.trim()) {
+						list = list.filter(x => x.nomeArquivo == filtro?.nomeArquivo
+              || filtro.nomeArquivo?.includes(x.nomeArquivo)
+              || x.nomeArquivo.includes(filtro.nomeArquivo ?? ''));
+					}
+					if (filtro?.criterio?.trim()) {
+						list = list.filter(x => x.criterio == filtro?.criterio);
+					}
+          this.list.next(list);
 					return list;
 				}
 
 				this.list.next(list)
 				return list;
 			}));
-	}
-	parseDate(date: string){
-		return  new Date(date).toLocaleString();
 	}
 }

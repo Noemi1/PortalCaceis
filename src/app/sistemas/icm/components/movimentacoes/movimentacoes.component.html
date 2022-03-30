@@ -17,14 +17,14 @@
     </header>
     <div class="page__body">
         <div class="d-flex align-items-center justify-content-between mb-2">
-            <p><small>{{movimentacoesService.list.value.length}} resultados</small></p>
+            <p><small>{{list.length}} resultados</small></p>
             <!-- <div class="d-flex col-lg-8 col-md-8 col-sm-12 col-12 align-items-center justify-content-end">
                 <span *ngFor="let item of this.filtroList" class="flag flag-dark text-white ml-2">
                     <span *ngIf="item.value.length > 9">
                         <strong>{{ item.key }} </strong>: {{ item.value.substring(0,10) }} ....
                     </span>
                     <span *ngIf="item.value.length <= 9">
-                        <strong>{{ item.key }} </strong>: {{ item.value }} 
+                        <strong>{{ item.key }} </strong>: {{ item.value }}
                     </span>
                 </span>
             </div> -->
@@ -33,27 +33,33 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Data Cadastro</th>
+                    <th>Data Movimentação</th>
                     <th>Nome</th>
-                    <th>Tipo</th>
-                    <th>Caminho</th>
+                    <th>Tipo Origem</th>
+                    <th>Caminho Origem</th>
+                    <th>Tipo Destino</th>
+                    <th>Caminho Destino</th>
+                    <th>Critério</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody *ngIf="!loading && movimentacoesService.list.value.length > 0">
-                <tr class="table-row" *ngFor="let item of movimentacoesService.list.value" [class.selected]="item == selected">
+            <tbody *ngIf="!loading && list.length > 0">
+                <tr class="table-row" *ngFor="let item of list">
                     <td></td>
-                    <td (click)="selectItem(item)">{{ item.dataHora | date : "dd/MM/yyyy" }}</td>
-                    <td (click)="selectItem(item)">{{ item.nome }}</td>
-                    <td (click)="selectItem(item)">{{ item.movimento_Tipo }}</td>
-                    <td (click)="selectItem(item)">{{ item.caminho }}</td>
+                    <td>{{ item.dataMovimento | date : "dd/MM/yyyy - HH:mm" }}</td>
+                    <td>{{ item.nomeArquivo }}</td>
+                    <td>{{ item.tipoOrigem }}</td>
+                    <td>{{ item.origem }}</td>
+                    <td>{{ item.tipoDestino }}</td>
+                    <td>{{ item.destino }}</td>
+                    <td>{{ item.criterio }}</td>
                     <td class="td-actions"></td>
                 </tr>
             </tbody>
             <tbody *ngIf="loading">
                 <tr>
                     <td style="background-color: #f5f5f5;"></td>
-                    <td style="background-color: #f5f5f5;" colspan="4">
+                    <td style="background-color: #f5f5f5;" colspan="7">
                         <div class="d-flex align-items-center justify-content-center py-2">
                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                         </div>
@@ -61,10 +67,10 @@
                     <td style="background-color: #f5f5f5;"></td>
                 </tr>
             </tbody>
-            <tbody *ngIf="!loading && movimentacoesService.list.value.length == 0">
+            <tbody *ngIf="!loading && list.length == 0">
                 <tr>
                     <td></td>
-                    <td colspan="4">
+                    <td colspan="7">
                         Nenhum registro encontrado
                     </td>
                     <td></td>

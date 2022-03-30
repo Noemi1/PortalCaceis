@@ -12,13 +12,23 @@
             <div class="modal__body">
                 <form #form="ngForm" (ngSubmit)="create(form)">
                     <div class="form-row">
-                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
-                            <label for="nome">Nome: <span class="text-red fw-bold">*</span></label>
-                            <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="objeto.nome" required>
-                            <div *ngIf="nome.errors">
-                                <p class="error text-danger" *ngIf="nome.touched && nome.errors.required">Esse campo é obrigatório.</p>
-                            </div>
-                        </div>
+                      <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
+                          <label for="nome">Nome: <span class="text-red fw-bold">*</span></label>
+                          <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="objeto.nome" required>
+                          <div *ngIf="nome.errors">
+                              <p class="error text-danger" *ngIf="nome.touched && nome.errors.required">Esse campo é obrigatório.</p>
+                          </div>
+                      </div>
+                      <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
+                          <label for="criterio_Id">Critério: <span class="text-red fw-bold">*</span></label>
+                            <select type="text" class="form-control" name="criterio_Id" id="criterio_Id" #criterio_Id="ngModel" [(ngModel)]="objeto.criterio_Id" required>
+                              <option [ngValue]="undefined">Selecione</option>
+                              <option [ngValue]="item.id | number" *ngFor="let item of this.arquivosService.listCriterios.value">{{ item.nome }}</option>
+                            </select>
+                          <div *ngIf="criterio_Id.errors">
+                              <p class="error text-danger" *ngIf="criterio_Id.touched && criterio_Id.errors.required">Esse campo é obrigatório.</p>
+                          </div>
+                      </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
@@ -42,8 +52,8 @@
                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
                             <label for="acessoTipo_Origem_Id">Tipo de acesso de Origem: <span class="text-red fw-bold">*</span></label>
                             <select type="text" class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #acessoTipo_Origem_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Origem_Id" required>
-                                <option selected>Selecione</option>
-                                <option value="1">Diretório da rede</option>
+                              <option [ngValue]="undefined">Selecione</option>
+                              <option [ngValue]="1">Diretório da rede</option>
                                 <!-- <option [value]="item.id | number" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option> -->
                             </select>
                             <div *ngIf="acessoTipo_Origem_Id.errors">
@@ -54,8 +64,8 @@
                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
                             <label for="acessoTipo_Destino_Id">Tipo de acesso de Destino: <span class="text-red fw-bold">*</span></label>
                             <select type="text" class="form-control" name="acessoTipo_Destino_Id" id="acessoTipo_Destino_Id" #acessoTipo_Destino_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Destino_Id" required>
-                                <option selected>Selecione</option>
-                                <option [value]="item.id | number" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
+                              <option [ngValue]="undefined">Selecione</option>
+                              <option [ngValue]="item.id | number" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
                             </select>
                             <div *ngIf="acessoTipo_Destino_Id.errors">
                                 <p class="error text-danger" *ngIf="acessoTipo_Destino_Id.touched && acessoTipo_Destino_Id.errors.required">Esse campo é obrigatório.</p>

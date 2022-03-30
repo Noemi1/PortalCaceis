@@ -69,7 +69,7 @@ export class EditUsuariosComponent implements OnInit {
 			this.objeto.documento = user.documento;
 			this.objeto.id = user.id;
 			this.objeto.idEncrypted = user.idEncrypted;
-			
+
 			this.objeto.perfis = [];
 
 
@@ -93,8 +93,8 @@ export class EditUsuariosComponent implements OnInit {
 				this.perfilService.list.next(list)
 				return list
 			});
-			
-			
+
+
 		});
 		this.subscription.push(getItem);
 	}
@@ -119,7 +119,7 @@ export class EditUsuariosComponent implements OnInit {
 
 	toggleCheckbox(item: PerfilResponse) {
 		item.checked = !item.checked;
-		
+
 		var obj = this.objeto.perfis.find(x => x.perfil_Id == item.id);
 		var index = this.objeto.perfis.findIndex(x => x.perfil_Id == item.id)
 		if(obj && index) {
@@ -151,6 +151,7 @@ export class EditUsuariosComponent implements OnInit {
 				this.toastr.success('Operação realizada com sucesso!!');
 				res.idEncrypted = this.crypto.encrypt(res.id);
 				this.perfilService.getList().subscribe();
+				this.accountService.getList().subscribe();
 				this.loading = false;
 				this.voltar();
 			})

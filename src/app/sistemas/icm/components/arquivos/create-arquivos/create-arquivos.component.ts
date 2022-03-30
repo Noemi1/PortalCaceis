@@ -23,6 +23,7 @@ export class CreateArquivosComponent implements OnInit, OnDestroy {
 	erro: any[] = [];
 	loading = false;
 	subscription: Subscription[] = [];
+
 	constructor(
 		private router: Router,
 		public arquivosService: ArquivosService,
@@ -34,6 +35,8 @@ export class CreateArquivosComponent implements OnInit, OnDestroy {
 		var getOpen = this.modal.getOpen().subscribe(res => {
 			this.modalOpen = res;
 		});
+
+
 		this.subscription.push(getOpen)
 		this.objeto.acessoTipo_Origem_Id = 1;
 	}
@@ -65,7 +68,7 @@ export class CreateArquivosComponent implements OnInit, OnDestroy {
 			this.loading = false;
 			return false;
 		}
-		
+
 		this.objeto.nome = this.objeto.nome.trim();
 		this.objeto.caminhoDestino = this.objeto.caminhoDestino.trim();
 		this.objeto.caminhoOrigem = this.objeto.caminhoOrigem.trim();

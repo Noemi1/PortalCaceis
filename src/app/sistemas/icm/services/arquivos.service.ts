@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest, ArquivoFiltro } from '../models/arquivo.model';
+import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest, ArquivoFiltro, ArquivoCriterioResponse } from '../models/arquivo.model';
 import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { DatePipe } from '@angular/common';
@@ -15,6 +15,7 @@ export class ArquivosService {
 	loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 	list: BehaviorSubject<ArquivoResponse[]> = new BehaviorSubject<ArquivoResponse[]>([]);
 	listTipos: BehaviorSubject<ArquivoAcessoTipoResponse[]> = new BehaviorSubject<ArquivoAcessoTipoResponse[]>([]);
+	listCriterios: BehaviorSubject<ArquivoCriterioResponse[]> = new BehaviorSubject<ArquivoCriterioResponse[]>([]);
 	filtro: BehaviorSubject<ArquivoFiltro | undefined> = new BehaviorSubject<ArquivoFiltro | undefined>(undefined);
 
 	constructor(
@@ -28,10 +29,17 @@ export class ArquivosService {
     });
    }
 
-	getTipos(){
+   getTipos(){
 		return this.http.get<ArquivoAcessoTipoResponse[]>(this.url + '/arquivoacessotipo')
 		.pipe(map(list => {
 			this.listTipos.next(list)
+		}));
+	}
+
+	getCriterios(){
+		return this.http.get<ArquivoCriterioResponse[]>(this.url + '/arquivocriterio')
+		.pipe(map(list => {
+			this.listCriterios.next(list);
 		}));
 	}
 
@@ -48,50 +56,62 @@ export class ArquivosService {
 					return item;
 				})
 				if (this.filtro.value != undefined) {
-					if (this.filtro.value.nome?.trim()) {
-						list = list.filter(x => x.nome == this.filtro.value?.nome);
-						this.list.next(list);
+          let filtro = this.filtro.value;
+
+					if (filtro?.nome) {
+						list = list.filter(x => x.nome == filtro?.nome
+              || filtro.nome?.includes(x.nome)
+              || x.nome.includes(filtro.nome ?? ''));
+					}
+					if (filtro?.usuario) {
+						list = list.filter(x => x.usuario == filtro?.usuario
+              || filtro.usuario?.includes(x.usuario)
+              || x.usuario.includes(filtro.usuario ?? ''));
+					}
+					if (filtro?.descricao) {
+						list = list.filter(x => x.descricao == filtro?.descricao
+              || filtro.descricao?.includes(x.descricao)
+              || x.descricao.includes(filtro.descricao ?? ''));
 					}
 
-
-					if (this.filtro.value.de != '') {
-						var de = new Date(this.filtro.value.de + 'T00:00:00.000');
+					if (filtro.de) {
+						var de = new Date(filtro.de + 'T00:00:00.000');
 						list = list.filter(x => x.dataCadastro >= de);
-						this.list.next(list);
 					}
 
-					if (this.filtro.value.ate != '') {
-						var ate = new Date(this.filtro.value.ate + 'T00:00:00.000');
+					if (filtro.ate) {
+						var ate = new Date(filtro.ate + 'T00:00:00.000');
 						list = list.filter(x => x.dataCadastro <= ate);
-						this.list.next(list);
 					}
 
-					if (this.filtro.value.de == '' && this.filtro.value.ate == '' && this.filtro.value.dataHora != '') {
-						var data = this.datePipe.transform(this.filtro.value.dataHora as string, 'dd/MM/yyyy');
+					if ((!filtro.de && !filtro.ate) && filtro.dataCadastro) {
+						var data = this.datePipe.transform(filtro.dataCadastro as string, 'dd/MM/yyyy');
 						list = list.filter(x => this.datePipe.transform(x.dataCadastro, 'dd/MM/yyyy') == data);
-						this.list.next(list);
 					}
 
-					if (this.filtro.value?.acessoTipo_Origem_Id) {
-						list = list.filter(x => x.acessoTipo_Origem_Id == this.filtro.value?.acessoTipo_Origem_Id);
-						this.list.next(list);
+					if (filtro?.acessoTipo_Origem_Id) {
+						list = list.filter(x => x.acessoTipo_Origem_Id == filtro?.acessoTipo_Origem_Id);
 					}
 
-					if (this.filtro.value?.acessoTipo_Destino_Id) {
-						list = list.filter(x => x.acessoTipo_Destino_Id == this.filtro.value?.acessoTipo_Destino_Id);
-						this.list.next(list);
+					if (filtro?.acessoTipo_Destino_Id) {
+						list = list.filter(x => x.acessoTipo_Destino_Id == filtro?.acessoTipo_Destino_Id);
 					}
-					if (this.filtro.value?.caminhoOrigem?.trim()) {
-						list = list.filter(x => x.caminhoOrigem == this.filtro.value?.caminhoOrigem);
-						this.list.next(list);
+
+					if (filtro.origem?.trim()) {
+						list = list.filter(x => x.caminhoOrigem == filtro?.origem
+              || filtro.origem?.includes(x.caminhoOrigem)
+              || x.caminhoOrigem.includes(filtro.origem ?? ''));
 					}
-					if (this.filtro.value?.caminhoDestino?.trim()) {
-						list = list.filter(x => x.caminhoDestino == this.filtro.value?.caminhoDestino);
-						this.list.next(list);
+
+					if (filtro.destino?.trim()) {
+						list = list.filter(x => x.caminhoDestino == filtro?.destino
+              || filtro.destino?.includes(x.caminhoDestino)
+              || x.caminhoDestino.includes(filtro.destino ?? ''));
 					}
+
 					return list;
 				}
-				this.list.next(list)
+				this.list.next(list);
 				return list;
 			}));
 	}

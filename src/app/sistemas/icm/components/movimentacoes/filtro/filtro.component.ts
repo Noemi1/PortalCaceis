@@ -7,6 +7,7 @@ import { Crypto } from 'src/app/utils/cryptojs';
 import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
 import { MovimentacoesFiltro } from '../../../models/movimentacoes.model';
+import { ArquivosService } from '../../../services/arquivos.service';
 import { MovimentacoesService } from '../../../services/movimentacoes.service';
 
 @Component({
@@ -27,8 +28,9 @@ export class FiltroComponent implements OnInit, OnDestroy {
 		private toastr: ToastrService,
 		private modal: ModalOpen,
 		public format: Format,
-		private movimentacoesService: MovimentacoesService
-	) { 
+		private movimentacoesService: MovimentacoesService,
+		public arquivosService: ArquivosService
+	) {
 		var getOpen = this.modal.getOpen().subscribe(res => {
 			this.modalOpen = res;
 		});
@@ -59,13 +61,16 @@ export class FiltroComponent implements OnInit, OnDestroy {
 	}
 
 	filtrar(){
-		if(!this.filtro.nome
-			&& !this.filtro.movimento_Tipo
-			&& !this.filtro.caminho
+		if(!this.filtro.nomeArquivo?.trim()
+			&& !this.filtro.tipoOrigem?.trim()
+			&& !this.filtro.tipoDestino?.trim()
+			&& !this.filtro.origem?.trim()
+			&& !this.filtro.destino?.trim()
+			&& !this.filtro.criterio?.trim()
 			&& !this.filtro.de
 			&& !this.filtro.ate
 			&& !this.filtro.dataHora
-			) 
+			)
 		{
 			this.movimentacoesService.filtro.next(undefined);
 		} else {
@@ -74,7 +79,7 @@ export class FiltroComponent implements OnInit, OnDestroy {
 
 		this.aplicarFiltro()
 	}
-	
+
 	limparFiltro(){
 		this.movimentacoesService.filtro.next(undefined);
 		this.aplicarFiltro();

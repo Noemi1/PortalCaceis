@@ -25,24 +25,25 @@ export class ListUsuariosComponent implements OnInit {
 
 	constructor(
 		private router: Router,
-        private route: ActivatedRoute,
+    private route: ActivatedRoute,
 		private perfilService: PerfilService,
 		public accountService: AccountService,
 		public crypto: Crypto,
-	) { 
+	) {
 		this.accountService.getList().subscribe(
 			res => {
 				this.loading = false;
 				this.items = res;
 			}
 		)
+    this.accountService.list.subscribe(res => this.items = res);
 		this.items = this.pageOfItems;
 		this.perfilService.getList().subscribe();
 	}
 
 	ngOnInit(): void {
 	}
-	
+
 	onChangePage(pageOfItems: Array<any>) {
 		this.pageOfItems = pageOfItems;
 	}

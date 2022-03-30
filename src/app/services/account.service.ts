@@ -125,7 +125,6 @@ export class AccountService {
 			.finally(()=> {
 				this.setAccount(undefined);
 				this.router.navigate(['account/acessar']);
-
 			})
 	}
 
