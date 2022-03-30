@@ -12,7 +12,7 @@
         </div>
         <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="form login__form">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12 pb-0 mb-3">
-                <input class="form-control cpf" type="documento" documento name="documento" id="documento" placeholder="CPF/CNPJ" required #documento="ngModel" [(ngModel)]="login.documento" />
+                <input class="form-control cpf" type="documento" documento name="documento" id="documento" placeholder="Login" required #documento="ngModel" [(ngModel)]="login.documento" />
                 <p class="error text-danger" *ngIf="documento.touched && documento.errors && documento.errors.required">Esse campo é obrigatório</p>
             </div>
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12 pb-0 mb-3">
@@ -23,9 +23,9 @@
                 <input type="checkbox" id="togglePassword"  #togglePassword/>
                 <label for="togglePassword" class="mb-0" style="margin-left: 5px;"><span id="textSenha">Exibir</span> senha</label>
             </div>
-            <ul class="form-row col-lg-12" *ngIf="erro">
-                <li class="text-red col-lg-12 alert-danger" *ngFor="let item of erro">{{item}}</li>
-            </ul>
+            <div class="form-row col-lg-12" *ngIf="erro">
+                <p class="text-red col-lg-12 alert-danger" *ngFor="let item of erro">{{item}}</p>
+            </div>
             <div class="form-footer col-lg-12 col-md-12 col-sm-12 col-12 mt-3">
                 <p class="text-message"></p>
                 <button type="submit" class="btn btn-entrar" id="btn-login" [disabled]="form.invalid || loading">
