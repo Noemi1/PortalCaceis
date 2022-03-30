@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 	onSubmit(form: NgForm) {
 		this.submitted = true;
 		this.loading = true;
+    this.erro = []
 
 		// stop here if form is invalid
 		if (form.invalid) {
@@ -52,33 +53,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
 					this.router.navigateByUrl(returnUrl);
 					this.loading = false;
 				},
-				error: (err: HttpErrorResponse) => {
+				error: (err) => {
 					this.loading = false;
 					console.error(err)
 					this.erro = [];
-					if(err.status == 400) {
-						for (var [key, value] of Object.entries(err.error.errors)) {
-							this.erro.push(value)
-							let input = $(`#${this.format.first_lower(key)}`);
-							input.removeClass('ng-valid').addClass('ng-invalid')
-							input.parent().append(`
-								<p class="error text-danger">
-									${value}
-								</p>`);
-						}
-
-					} else {
-						if(err.error && err.error.message) {
-							this.toastr.error(err.error.message);
-						}
-						else if (typeof err == 'string') {
-							this.toastr.error(err);
-						}
-						 else {
-							this.erro.push('Login inválido');
-							this.toastr.error('Login inválido');
-						}
-					}
+          this.erro.push(err)
+          this.toastr.error(err)
 
 				},
 			});
