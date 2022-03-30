@@ -88,7 +88,7 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 			this.loading = false;
 			return false;
 		}
-		
+
 		this.objeto.nome = this.objeto.nome.trim();
 		this.objeto.caminhoDestino = this.objeto.caminhoDestino.trim();
 		this.objeto.caminhoOrigem = this.objeto.caminhoOrigem.trim();
@@ -98,7 +98,6 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 			.toPromise()
 			.then(res => {
 				this.toastr.success('Operação realizada com sucesso!!');
-
 				this.arquivosService.getList().subscribe();
 				this.loading = false;
 				this.voltar();

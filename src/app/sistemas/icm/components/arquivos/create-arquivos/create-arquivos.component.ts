@@ -79,7 +79,7 @@ export class CreateArquivosComponent implements OnInit, OnDestroy {
 			.then(res => {
 				this.toastr.success('Operação realizada com sucesso!!');
 				res.idEncrypted = this.crypto.encrypt(res.id);
-				this.arquivosService.list.value.push(res);
+				this.arquivosService.getList().subscribe();
 				this.loading = false;
 				this.voltar();
 			})

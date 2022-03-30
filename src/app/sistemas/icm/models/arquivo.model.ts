@@ -23,6 +23,7 @@ export class ArquivoResponse {
     acessoTipoOrigem: string = '';
     acessoTipoDestino: string = '';
     criterio_Id: number = undefined as unknown as number;
+    criterio: string = '';
 }
 
 export class ArquivoUpdateRequest {
