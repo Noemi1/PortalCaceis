@@ -31,19 +31,19 @@ export class MovimentacoesService {
 			.pipe(map(list => {
 				list.forEach(item => {
 					item.idEncrypted = this.crypto.encrypt(item.id);
-					item.dataMovimento = new Date(new Date(item.dataMovimento).toDateString())
+					// item.dataMovimento = new Date(new Date(item.dataMovimento).toDateString())
 					return item;
 				})
 				if (this.filtro.value != undefined) {
           let filtro = this.filtro.value;
 					if (filtro.de) {
 						var de = new Date(filtro.de + 'T00:00:00.000');
-						list = list.filter(x => x.dataMovimento >= de);
+						list = list.filter(x => new Date(new Date(x.dataMovimento).toDateString()) >= de);
 					}
 
 					if (filtro.ate) {
 						var ate = new Date(filtro.ate + 'T00:00:00.000');
-						list = list.filter(x => x.dataMovimento <= ate);
+						list = list.filter(x => new Date(new Date(x.dataMovimento).toDateString()) <= ate);
 					}
 
 					if (!filtro.de && !filtro.ate && filtro.dataHora) {
