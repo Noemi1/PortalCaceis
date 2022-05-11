@@ -7,7 +7,7 @@ import { Crypto } from 'src/app/utils/cryptojs';
 import { ModalOpen } from 'src/app/utils/modal-open';
 import * as $ from 'jquery'
 import { Format } from 'src/app/utils/format';
-import { ArquivoAcessoTipoResponse, ArquivoUpdateRequest } from '../../../models/arquivo.model';
+import { ArquivoAcessoTipoResponse, ArquivoFinalizacao, ArquivoUpdateRequest } from '../../../models/arquivo.model';
 import { ArquivosService } from '../../../services/arquivos.service';
 import { Subscription } from 'rxjs';
 
@@ -26,6 +26,7 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
 	id: number = 0;
 	subscription: Subscription[] = [];
   tiposAcesso: ArquivoAcessoTipoResponse[] = [];
+  finalizacao: ArquivoFinalizacao[] = [];
 
 	constructor(
 		private router: Router,
@@ -50,13 +51,15 @@ export class EditArquivosComponent implements OnInit, OnDestroy {
     this.arquivosService.listTipos.subscribe(res => this.tiposAcesso = res);
     this.arquivosService.getTipos().subscribe();
 
+    this.arquivosService.listFinalizacao.subscribe(res => this.finalizacao = res);
+    this.arquivosService.getFinalizacao().subscribe();
+
 		let get = this.arquivosService.get(this.id).subscribe(res => {
 			this.loadingObject = false;
+      this.objeto = res;
 			setTimeout(() => {
 				this.modal.setOpen(true);
 			}, 200);
-			this.objeto = res;
-			this.objeto.acessoTipo_Origem_Id = 1;
 		});
 
 

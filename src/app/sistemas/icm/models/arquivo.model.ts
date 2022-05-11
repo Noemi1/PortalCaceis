@@ -7,6 +7,7 @@ export class ArquivoRequest {
     acessoTipo_Destino_Id: number = undefined as unknown as number;
     criterio_Id: number = undefined as unknown as number;
     usuarioCadastro_Id: number = 0;
+    finalizacao_Id: number = undefined as unknown as number;
 }
 
 export class ArquivoResponse {
@@ -18,10 +19,12 @@ export class ArquivoResponse {
     caminhoDestino: string = '';
     usuario: string = '';
     dataCadastro: Date = new Date;
-    acessoTipo_Origem_Id: number = undefined as unknown as number;
-    acessoTipo_Destino_Id: number = undefined as unknown as number;
+    finalizacao: string = '';
+    finalizacao_Id: number = undefined as unknown as number;
     acessoTipoOrigem: string = '';
+    acessoTipo_Origem_Id: number = undefined as unknown as number;
     acessoTipoDestino: string = '';
+    acessoTipo_Destino_Id: number = undefined as unknown as number;
     criterio_Id: number = undefined as unknown as number;
     criterio: string = '';
 }
@@ -30,6 +33,7 @@ export class ArquivoUpdateRequest {
 	id: number = 0;
 	nome: string = '';
 	descricao: string = '';
+	finalizacao_Id: number = undefined as unknown as number;
 	acessoTipo_Origem_Id: number = undefined as unknown as number;
 	acessoTipo_Destino_Id: number = undefined as unknown as number;
 	caminhoOrigem: string = '';
@@ -37,6 +41,10 @@ export class ArquivoUpdateRequest {
   criterio_Id: number = undefined as unknown as number;
 }
 
+export class ArquivoFinalizacao {
+  id: number = 0;
+  nome: string = '';
+}
 export class ArquivoAcessoTipoResponse {
   id: number = 0;
   nome: string = '';
@@ -55,8 +63,9 @@ export class ArquivoFiltro {
     usuario?: string;
     acessoTipo_Origem_Id?: number;
     acessoTipo_Destino_Id?: number;
-    origem?: string;
-    destino?: string;
+    finalizacao_Id?: number;
+    caminhoOrigem?: string;
+    caminhoDestino?: string;
     criterio_Id?: number;
 
 }

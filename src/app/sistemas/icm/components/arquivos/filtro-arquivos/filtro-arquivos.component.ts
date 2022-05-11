@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
-import { ArquivoFiltro } from '../../../models/arquivo.model';
+import { ArquivoAcessoTipoResponse, ArquivoFiltro, ArquivoFinalizacao } from '../../../models/arquivo.model';
 import { ArquivosService } from '../../../services/arquivos.service';
 import { MovimentacoesService } from '../../../services/movimentacoes.service';
 
@@ -22,6 +22,8 @@ export class FiltroArquivosComponent implements OnInit, OnDestroy {
 	erro: any[] = [];
 	loading = false;
 	subscription: Subscription[] = [];
+  tiposAcesso: ArquivoAcessoTipoResponse[] = [];
+  finalizacao: ArquivoFinalizacao[] = [];
 
 	constructor(
 		private router: Router,
@@ -38,6 +40,12 @@ export class FiltroArquivosComponent implements OnInit, OnDestroy {
 		this.arquivosService.filtro.subscribe(res => {
 			this.filtro = res ?? new ArquivoFiltro;
 		});
+
+    this.arquivosService.listTipos.subscribe(res => this.tiposAcesso = res);
+    this.arquivosService.getTipos().subscribe();
+
+    this.arquivosService.listFinalizacao.subscribe(res => this.finalizacao = res);
+    this.arquivosService.getFinalizacao().subscribe();
 	 }
 
 	ngOnInit(): void {
@@ -63,10 +71,11 @@ export class FiltroArquivosComponent implements OnInit, OnDestroy {
 	filtrar(form: NgForm){
 		if(
         !this.filtro.nome
+        && !this.filtro.finalizacao_Id
         && !this.filtro.acessoTipo_Destino_Id
         && !this.filtro.acessoTipo_Origem_Id
-        && !this.filtro.origem
-        && !this.filtro.destino
+        && !this.filtro.caminhoOrigem
+        && !this.filtro.caminhoDestino
         && !this.filtro.de
         && !this.filtro.ate
         && !this.filtro.dataCadastro

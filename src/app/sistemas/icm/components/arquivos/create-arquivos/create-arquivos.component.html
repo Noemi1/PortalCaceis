@@ -35,16 +35,13 @@
           </div>
           <div class="form-row">
             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
-
               <label for="acessoTipo_Origem_Id">Tipo de acesso de Origem: <span class="text-red fw-bold">*</span></label>
               <select type="text" class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #acessoTipo_Origem_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Origem_Id" required>
                 <option [ngValue]="undefined">Selecione</option>
-                <!-- <option [ngValue]="1">Diretório da rede</option> -->
                 <option [value]="item.id" *ngFor="let item of tiposAcesso">{{ item.nome }}</option>
               </select>
               <div *ngIf="acessoTipo_Origem_Id.errors">
                 <p class="error text-danger" *ngIf="acessoTipo_Origem_Id.touched && acessoTipo_Origem_Id.errors.required">Esse campo é obrigatório.</p>
-                <p class="error text-danger" *ngIf="acessoTipo_Origem_Id.touched && !acessoTipo_Origem_Id.errors.required">E-mail inválido.</p>
               </div>
             </div>
             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
@@ -52,7 +49,6 @@
               <input type="text" class="form-control" name="caminhoOrigem" id="caminhoOrigem" #caminhoOrigem="ngModel" [(ngModel)]="objeto.caminhoOrigem" required>
               <div *ngIf="caminhoOrigem.errors">
                 <p class="error text-danger" *ngIf="caminhoOrigem.touched && caminhoOrigem.errors.required">Esse campo é obrigatório.</p>
-                <p class="error text-danger" *ngIf="caminhoOrigem.touched && !caminhoOrigem.errors.required">E-mail inválido.</p>
               </div>
             </div>
           </div>
@@ -68,7 +64,6 @@
               </select>
               <div *ngIf="acessoTipo_Destino_Id.errors">
                 <p class="error text-danger" *ngIf="acessoTipo_Destino_Id.touched && acessoTipo_Destino_Id.errors.required">Esse campo é obrigatório.</p>
-                <p class="error text-danger" *ngIf="acessoTipo_Destino_Id.touched && !acessoTipo_Destino_Id.errors.required">E-mail inválido.</p>
               </div>
             </div>
             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
@@ -76,10 +71,25 @@
               <input type="text" class="form-control" name="caminhoDestino" id="caminhoDestino" #caminhoDestino="ngModel" [(ngModel)]="objeto.caminhoDestino" required>
               <div *ngIf="caminhoDestino.errors">
                 <p class="error text-danger" *ngIf="caminhoDestino.touched && caminhoDestino.errors.required">Esse campo é obrigatório.</p>
-                <p class="error text-danger" *ngIf="caminhoDestino.touched && !caminhoDestino.errors.required">E-mail inválido.</p>
               </div>
             </div>
           </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-0 px-0">
+            <label for="finalizacao_Id" class="text-danger fw-bold mb-0">Ação após cópia do arquivo:</label>
+            <p class="small">O que o sistema deverá fazer após a cópia do arquivo.</p>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+              <select type="text" class="form-control" name="finalizacao_Id" id="finalizacao_Id" #finalizacao_Id="ngModel" [(ngModel)]="objeto.finalizacao_Id" required>
+                <option [ngValue]="undefined">Selecione</option>
+                <option [ngValue]="item.id" *ngFor="let item of finalizacao">{{ item.nome }}</option>
+              </select>
+              <div *ngIf="finalizacao_Id.errors">
+                <p class="error text-danger" *ngIf="finalizacao_Id.touched && finalizacao_Id.errors.required">Esse campo é obrigatório.</p>
+              </div>
+            </div>
+          </div>
+
           <div class="form-row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
               <label for="descricao">Observações: <span class="text-red fw-bold">*</span></label>

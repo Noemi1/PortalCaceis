@@ -10,7 +10,7 @@ import { Format } from 'src/app/utils/format';
 import { ModalOpen } from 'src/app/utils/modal-open';
 import * as $ from 'jquery';
 import { ArquivosService } from '../../../services/arquivos.service';
-import { ArquivoAcessoTipoResponse, ArquivoRequest } from '../../../models/arquivo.model';
+import { ArquivoAcessoTipoResponse, ArquivoFinalizacao, ArquivoRequest } from '../../../models/arquivo.model';
 @Component({
 	selector: 'app-create-arquivos',
 	templateUrl: './create-arquivos.component.html',
@@ -23,8 +23,8 @@ export class CreateArquivosComponent implements OnInit, OnDestroy {
 	erro: any[] = [];
 	loading = false;
 	subscription: Subscription[] = [];
-
   tiposAcesso: ArquivoAcessoTipoResponse[] = [];
+  finalizacao: ArquivoFinalizacao[] = [];
 
 	constructor(
 		private router: Router,
@@ -40,6 +40,9 @@ export class CreateArquivosComponent implements OnInit, OnDestroy {
 
     this.arquivosService.listTipos.subscribe(res => this.tiposAcesso = res);
     this.arquivosService.getTipos().subscribe();
+
+    this.arquivosService.listFinalizacao.subscribe(res => this.finalizacao = res);
+    this.arquivosService.getFinalizacao().subscribe();
 
 
 		this.subscription.push(getOpen)

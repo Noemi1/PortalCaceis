@@ -42,34 +42,53 @@
               </select>
             </div>
           </div>
-          <div class="form-row align-items-end">
+
+
+          <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-0 px-0">
+            <p class="text-danger fw-bold mb-0">Origem:</p>
+          </div>
+          <div class="form-row">
             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
-              <strong class="text-danger">Origem:</strong> <br>
-              <label for="acessoTipo_Origem_Id">Tipo:</label>
-              <select class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #movimento_Tipo="ngModel" [(ngModel)]="filtro.acessoTipo_Origem_Id">
+              <label for="acessoTipo_Origem_Id">Tipo de acesso de Origem:</label>
+              <select type="text" class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #acessoTipo_Origem_Id="ngModel" [(ngModel)]="filtro.acessoTipo_Origem_Id">
                 <option [ngValue]="undefined">Selecione</option>
-                <option [ngValue]="item.id" *ngFor="let item of arquivosService.listTipos.value">{{item.nome}}</option>
+                <option [value]="item.id" *ngFor="let item of tiposAcesso">{{ item.nome }}</option>
               </select>
             </div>
             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
-              <label for="origem">Caminho:</label>
-              <input type="text" class="form-control" name="origem" id="origem" #origem="ngModel" [(ngModel)]="filtro.origem">
+              <label for="caminhoOrigem">Caminho de Origem:</label>
+              <input type="text" class="form-control" name="caminhoOrigem" id="caminhoOrigem" #caminhoOrigem="ngModel" [(ngModel)]="filtro.caminhoOrigem">
             </div>
           </div>
-          <div class="form-row align-items-end">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-0 px-0">
+            <p class="text-danger fw-bold mb-0">Destino:</p>
+          </div>
+          <div class="form-row">
             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
-              <strong class="text-danger">Destino:</strong> <br>
-              <label for="acessoTipo_Destino_Id">Tipo:</label>
-              <select class="form-control" name="acessoTipo_Destino_Id" id="acessoTipo_Destino_Id" #acessoTipo_Destino_Id="ngModel" [(ngModel)]="filtro.acessoTipo_Destino_Id">
+              <label for="acessoTipo_Destino_Id">Tipo de acesso de Destino:</label>
+              <select type="text" class="form-control" name="acessoTipo_Destino_Id" id="acessoTipo_Destino_Id" #acessoTipo_Destino_Id="ngModel" [(ngModel)]="filtro.acessoTipo_Destino_Id">
                 <option [ngValue]="undefined">Selecione</option>
-                <option [ngValue]="item.id" *ngFor="let item of arquivosService.listTipos.value">{{item.nome}}</option>
+                <option [ngValue]="item.id" *ngFor="let item of tiposAcesso">{{ item.nome }}</option>
               </select>
             </div>
             <div class="form-group col-lg-8 col-md-8 col-sm-8 col-12">
-              <label for="destino">Caminho:</label>
-              <input type="text" class="form-control" name="destino" id="destino" #destino="ngModel" [(ngModel)]="filtro.destino">
+              <label for="caminhoDestino">Caminho de Destino:</label>
+              <input type="text" class="form-control" name="caminhoDestino" id="caminhoDestino" #caminhoDestino="ngModel" [(ngModel)]="filtro.caminhoDestino">
             </div>
           </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-0 px-0">
+            <label for="finalizacao_Id" class="text-danger fw-bold mb-0">Ação após cópia do arquivo:</label>
+            <p class="small">O que o sistema deverá fazer após a cópia do arquivo.</p>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+              <select type="text" class="form-control" name="finalizacao_Id" id="finalizacao_Id" #finalizacao_Id="ngModel" [(ngModel)]="filtro.finalizacao_Id">
+                <option [ngValue]="undefined">Selecione</option>
+                <option [ngValue]="item.id" *ngFor="let item of finalizacao">{{ item.nome }}</option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
               <label for="usuario">Cadastrado por:</label>

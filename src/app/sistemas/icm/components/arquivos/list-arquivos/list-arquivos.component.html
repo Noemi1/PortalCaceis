@@ -34,6 +34,7 @@
                     <th>Destino</th>
                     <th>Cadastrado por</th>
                     <th>Critério</th>
+                    <th>Finalização</th>
                     <th></th>
                 </tr>
             </thead>
@@ -51,6 +52,7 @@
                       <span *ngIf="!item.usuario">-</span>
                     </td>
                     <td (click)="selectItem(item)">{{ item.criterio }}</td>
+                    <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.finalizacao }}</td>
                     <td class="td-actions">
                         <div class="actions ml-auto">
                             <button class="actions__toggle" [class.active]="item == selected">
