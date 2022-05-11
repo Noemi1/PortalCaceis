@@ -36,8 +36,8 @@
               <label for="acessoTipo_Origem_Id">Tipo de acesso de Origem: <span class="text-red fw-bold">*</span></label>
               <select type="text" class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #acessoTipo_Origem_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Origem_Id" required>
                 <option [ngValue]="undefined">Selecione</option>
-                <option [ngValue]="1">Diretório da rede</option>
-                <!-- <option [value]="item.id" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option> -->
+                <!-- <option [ngValue]="1">Diretório da rede</option> -->
+                <option [value]="item.id" *ngFor="let item of tiposAcesso">{{ item.nome }}</option>
               </select>
               <div *ngIf="acessoTipo_Origem_Id.errors">
                 <p class="error text-danger" *ngIf="acessoTipo_Origem_Id.touched && acessoTipo_Origem_Id.errors.required">Esse campo é obrigatório.</p>
@@ -59,7 +59,7 @@
               <label for="acessoTipo_Destino_Id">Tipo de acesso de Destino: <span class="text-red fw-bold">*</span></label>
               <select type="text" class="form-control" name="acessoTipo_Destino_Id" id="acessoTipo_Destino_Id" #acessoTipo_Destino_Id="ngModel" [(ngModel)]="objeto.acessoTipo_Destino_Id" required>
                 <option [ngValue]="undefined">Selecione</option>
-                <option [ngValue]="item.id" *ngFor="let item of this.arquivosService.listTipos.value">{{ item.nome }}</option>
+                <option [ngValue]="item.id" *ngFor="let item of tiposAcesso">{{ item.nome }}</option>
               </select>
               <div *ngIf="acessoTipo_Destino_Id.errors">
                 <p class="error text-danger" *ngIf="acessoTipo_Destino_Id.touched && acessoTipo_Destino_Id.errors.required">Esse campo é obrigatório.</p>
