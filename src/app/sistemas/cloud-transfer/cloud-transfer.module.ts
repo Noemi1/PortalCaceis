@@ -6,7 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JwPaginationModule } from 'jw-angular-pagination';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
-import { ICMRoutingModule } from './icm.routing';
+import { CloudTransferRoutingModule } from './cloud-transfer.routing';
 import { IcmComponent } from './components/icm.component';
 import { ArquivosService } from './services/arquivos.service';
 import { FiltroComponent } from './components/movimentacoes/filtro/filtro.component';
@@ -31,7 +31,7 @@ import { FiltroArquivosComponent } from './components/arquivos/filtro-arquivos/f
 	],
 	imports: [
 		CommonModule,
-		ICMRoutingModule,
+		CloudTransferRoutingModule,
 		FontAwesomeModule,
 		JwPaginationModule,
 		FormsModule,
@@ -42,4 +42,4 @@ import { FiltroArquivosComponent } from './components/arquivos/filtro-arquivos/f
 		Crypto
 	]
 })
-export class ICMModule { }
+export class CloudTransferModule { }

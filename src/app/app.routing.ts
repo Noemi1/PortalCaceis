@@ -7,7 +7,7 @@ import { HomeComponent } from './parts/home/home.component';
 
 const account = () =>import('./modules/account/account.module').then(x => x.AccountModule);
 const jud = () =>import('./sistemas/jud/jud.module').then(x => x.JudModule);
-const icm = () =>import('./sistemas/icm/icm.module').then(x => x.ICMModule);
+const cloudTransfer = () =>import('./sistemas/cloud-transfer/cloud-transfer.module').then(x => x.CloudTransferModule);
 const corp = () =>import('./sistemas/corp/corp.module').then(x => x.CorpModule);
 
 const routes: Routes = [
@@ -19,7 +19,7 @@ const routes: Routes = [
 		data: {roles:  [ Role.Corp, Role.JUD, Role.ICM]},
 		children: [
 			{ path: 'jud', loadChildren: jud, canActivate: [RoleGuard], data: {roles:  [Role.JUD]} },
-			{ path: 'icm', loadChildren: icm, canActivate: [RoleGuard], data: {roles:  [Role.ICM]} },
+			{ path: 'icm', loadChildren: cloudTransfer, canActivate: [RoleGuard], data: {roles:  [Role.ICM]} },
 			{ path: 'corp', loadChildren: corp, canActivate: [RoleGuard], data: {roles:  [Role.Corp]} },
 		]
 	},

@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { AccountService } from 'src/app/services/account.service';
-import { ArquivosService } from 'src/app/sistemas/icm/services/arquivos.service';
 import { Password } from 'src/app/utils';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { Format } from 'src/app/utils/format';
@@ -60,7 +59,7 @@ export class CreateUsuariosComponent implements OnInit {
 			this.router.navigate(['./corp/accounts']);
 		}, 200);
 	}
-	
+
 	toggleCheckbox(item: PerfilResponse) {
 		item.checked = !item.checked;
 		if(item.checked) {

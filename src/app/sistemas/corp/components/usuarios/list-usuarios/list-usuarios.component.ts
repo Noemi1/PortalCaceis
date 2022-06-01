@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faChevronLeft, faEllipsisV, faFilter, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AccountResponse } from 'src/app/models/account.model';
 import { AccountService } from 'src/app/services/account.service';
-import { ArquivosService } from 'src/app/sistemas/icm/services/arquivos.service';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { PerfilService } from '../../../services/perfil.service';
 

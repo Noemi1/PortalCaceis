@@ -7,7 +7,7 @@ export class ArquivoRequest {
     acessoTipo_Destino_Id: number = undefined as unknown as number;
     criterio_Id: number = undefined as unknown as number;
     usuarioCadastro_Id: number = 0;
-    finalizacao_Id: number = undefined as unknown as number;
+    finalizacao_Id?: number = undefined as unknown as number;
 }
 
 export class ArquivoResponse {
