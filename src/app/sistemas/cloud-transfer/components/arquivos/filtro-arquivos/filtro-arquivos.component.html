@@ -12,21 +12,30 @@
       <div class="modal__body">
         <form #form="ngForm">
           <div class="form-row align-items-end">
-            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12">
               <strong class="text-danger">Data de cadastro:</strong> <br>
+              <div class="d-flex align-items-center">
+                <p for="" class="fw-bold mr-3 small">Filtrar por: </p>
+                <label for="filtrarPorPeriodo" class="mb-0 mr-2">Período</label>
+                <input type="radio" name="filtrarData" id="filtrarPorPeriodo" #filtrarPorPeriodo="ngModel" [(ngModel)]="filtro.filtrarPor" [value]="'periodo'" (change)="filtro.de = ''; filtro.ate; filtro.dataCadastro = '';">
+                <label for="filtrarPorDataFixa" class="mb-0 mr-2 ml-2">Data fixa</label>
+                <input type="radio" name="filtrarData" id="filtrarPorDataFixa" #filtrarPorDataFixa="ngModel" [(ngModel)]="filtro.filtrarPor" [value]="'dataFixa'" (change)="filtro.de = ''; filtro.ate; filtro.dataCadastro = '';">
+              </div>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
               <label for="de"><small>De</small>:</label>
-              <input type="date" class="form-control" name="de" id="de" #de="ngModel" [(ngModel)]="filtro.de">
+              <input type="date" class="form-control" name="de" id="de" #de="ngModel" [(ngModel)]="filtro.de" [disabled]="filtro.filtrarPor.toString() == 'dataFixa'">
             </div>
             <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
               <label for="ate"><small>Até</small>:</label>
-              <input type="date" class="form-control" name="ate" id="ate" #de="ngModel" [(ngModel)]="filtro.ate">
+              <input type="date" class="form-control" name="ate" id="ate" #de="ngModel" [(ngModel)]="filtro.ate" [disabled]="filtro.filtrarPor.toString() == 'dataFixa'">
             </div>
             <div class="form-group col-lg-1 col-md-1 col-sm-12 col-12 d-flex align-items-end justify-content-center text-danger px-0">
               <strong class="py-2 d-block">ou</strong>
             </div>
             <div class="form-group col-lg-5 col-md-5 col-sm-12 col-12">
               <label for="dataCadastro">Data:</label>
-              <input type="date" class="form-control" name="dataCadastro" id="dataCadastro" #de="ngModel" [(ngModel)]="filtro.dataCadastro">
+              <input type="date" class="form-control" name="dataCadastro" id="dataCadastro" #de="ngModel" [(ngModel)]="filtro.dataCadastro" [disabled]="filtro.filtrarPor.toString() == 'periodo'">
             </div>
           </div>
           <div class="form-row">
@@ -37,7 +46,7 @@
             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
               <label for="criterio_Id">Critério:</label>
               <select type="text" class="form-control" name="criterio_Id" id="criterio_Id" #criterio_Id="ngModel" [(ngModel)]="filtro.criterio_Id">
-                <option [ngValue]="undefined">Selecione</option>
+                <option [ngValue]="undefined">Todos</option>
                 <option [ngValue]="item.id" *ngFor="let item of this.arquivosService.listCriterios.value">{{ item.nome }}</option>
               </select>
             </div>
@@ -51,7 +60,7 @@
             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
               <label for="acessoTipo_Origem_Id">Tipo de acesso de Origem:</label>
               <select type="text" class="form-control" name="acessoTipo_Origem_Id" id="acessoTipo_Origem_Id" #acessoTipo_Origem_Id="ngModel" [(ngModel)]="filtro.acessoTipo_Origem_Id">
-                <option [ngValue]="undefined">Selecione</option>
+                <option [ngValue]="undefined">Todos</option>
                 <option [value]="item.id" *ngFor="let item of tiposAcesso">{{ item.nome }}</option>
               </select>
             </div>
@@ -67,7 +76,7 @@
             <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
               <label for="acessoTipo_Destino_Id">Tipo de acesso de Destino:</label>
               <select type="text" class="form-control" name="acessoTipo_Destino_Id" id="acessoTipo_Destino_Id" #acessoTipo_Destino_Id="ngModel" [(ngModel)]="filtro.acessoTipo_Destino_Id">
-                <option [ngValue]="undefined">Selecione</option>
+                <option [ngValue]="undefined">Todos</option>
                 <option [ngValue]="item.id" *ngFor="let item of tiposAcesso">{{ item.nome }}</option>
               </select>
             </div>
@@ -83,7 +92,7 @@
           <div class="form-row">
             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
               <select type="text" class="form-control" name="finalizacao_Id" id="finalizacao_Id" #finalizacao_Id="ngModel" [(ngModel)]="filtro.finalizacao_Id">
-                <option [ngValue]="undefined">Selecione</option>
+                <option [ngValue]="undefined">Todos</option>
                 <option [ngValue]="item.id" *ngFor="let item of finalizacao">{{ item.nome }}</option>
               </select>
             </div>

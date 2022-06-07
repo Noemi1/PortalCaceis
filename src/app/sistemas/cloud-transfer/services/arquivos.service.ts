@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest, ArquivoFiltro, ArquivoCriterioResponse, ArquivoFinalizacao } from '../models/arquivo.model';
+import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest, ArquivoFiltro, ArquivoCriterioResponse, ArquivoFinalizacao, ArquivoFiltroData } from '../models/arquivo.model';
 import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { DatePipe } from '@angular/common';
@@ -85,21 +85,22 @@ export class ArquivosService {
             list = list.filter(x => x.finalizacao_Id == filtro.finalizacao_Id);
           }
 
-          if (filtro.de) {
-            var de = new Date(filtro.de + 'T00:00:00.000');
-            list = list.filter(x => x.dataCadastro >= de);
-          }
+          if (filtro.filtrarPor == ArquivoFiltroData.periodo) {
+            if (filtro.de) {
+              var de = new Date(filtro.de + 'T00:00:00.000');
+              list = list.filter(x => x.dataCadastro >= de);
+            }
 
-          if (filtro.ate) {
-            var ate = new Date(filtro.ate + 'T00:00:00.000');
-            list = list.filter(x => x.dataCadastro <= ate);
+            if (filtro.ate) {
+              var ate = new Date(filtro.ate + 'T00:00:00.000');
+              list = list.filter(x => x.dataCadastro <= ate);
+            }
+          } else {
+            if (filtro.dataCadastro) {
+              var data = this.datePipe.transform(filtro.dataCadastro as string, 'dd/MM/yyyy');
+              list = list.filter(x => this.datePipe.transform(x.dataCadastro, 'dd/MM/yyyy') == data);
+            }
           }
-
-          if ((!filtro.de && !filtro.ate) && filtro.dataCadastro) {
-            var data = this.datePipe.transform(filtro.dataCadastro as string, 'dd/MM/yyyy');
-            list = list.filter(x => this.datePipe.transform(x.dataCadastro, 'dd/MM/yyyy') == data);
-          }
-
           if (filtro?.acessoTipo_Origem_Id) {
             list = list.filter(x => x.acessoTipo_Origem_Id == filtro?.acessoTipo_Origem_Id);
           }

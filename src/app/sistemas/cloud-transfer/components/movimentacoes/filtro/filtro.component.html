@@ -36,7 +36,7 @@
                       <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
                           <label for="criterio">Critério:</label>
                           <select class="form-control" name="criterio" id="criterio" #criterio="ngModel" [(ngModel)]="filtro.criterio">
-                            <option [ngValue]="undefined">Selecione</option>
+                            <option [ngValue]="undefined">Todos</option>
                             <option [ngValue]="item.nome" *ngFor="let item of this.arquivosService.listCriterios.value">{{ item.nome }}</option>
                           </select>
                       </div>
@@ -46,7 +46,7 @@
                           <strong class="text-danger">Origem:</strong> <br>
                           <label for="tipoOrigem">Tipo:</label>
                           <select class="form-control" name="tipoOrigem" id="tipoOrigem" #tipoOrigem="ngModel" [(ngModel)]="filtro.tipoOrigem">
-                            <option [ngValue]="undefined">Selecione</option>
+                            <option [ngValue]="undefined">Todos</option>
                             <option [ngValue]="item.nome" *ngFor="let item of arquivosService.listTipos.value">{{item.nome}}</option>
                           </select>
                         </div>
@@ -60,7 +60,7 @@
                           <strong class="text-danger">Destino:</strong> <br>
                           <label for="tipoDestino">Tipo:</label>
                           <select class="form-control" name="tipoDestino" id="tipoDestino" #tipoDestino="ngModel" [(ngModel)]="filtro.tipoDestino">
-                            <option [ngValue]="undefined">Selecione</option>
+                            <option [ngValue]="undefined">Todos</option>
                             <option [ngValue]="item.nome" *ngFor="let item of arquivosService.listTipos.value">{{item.nome}}</option>
                           </select>
                         </div>

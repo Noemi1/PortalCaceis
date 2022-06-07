@@ -24,7 +24,7 @@
                             <div class="form-group col-lg-8 col-md-7 col-sm-12 col-12">
                                 <label for="sistema">Sistema: <span class="text-red fw-bold">*</span></label>
                                 <select class="form-control selectpicker" name="sistema" id="sistema" #sistema="ngModel" [(ngModel)]="objeto.sistema_Id" required>
-                                    <option value="0">Selecione</option>
+                                    <option value="0">Todos</option>
                                     <option [value]="item.id" *ngFor="let item of sistemaService.list.value">{{item.sigla}}</option>
                                 </select>
                                 <div *ngIf="sistema.errors">
@@ -74,4 +74,4 @@
             </div>
         </div>
     </div>
-</div>  
+</div>

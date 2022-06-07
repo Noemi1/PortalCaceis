@@ -25,6 +25,7 @@ export class FiltroArquivosComponent implements OnInit, OnDestroy {
   tiposAcesso: ArquivoAcessoTipoResponse[] = [];
   finalizacao: ArquivoFinalizacao[] = [];
 
+
 	constructor(
 		private router: Router,
 		private toastr: ToastrService,

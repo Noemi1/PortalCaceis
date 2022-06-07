@@ -17,7 +17,7 @@
     </header>
     <div class="page__body">
      <div class="d-flex justify-content-between">
-        <p><small>{{arquivosService.list.value.length}} resultados</small></p>
+        <p><small>{{list.length}} resultados</small></p>
         <a class="btn btn-filter" [routerLink]="['filtrar']">
             <fa-icon [icon]="faFilter"></fa-icon>
         </a>
@@ -38,20 +38,24 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody *ngIf="!loading && arquivosService.list.value.length > 0">
-                <tr class="table-row" *ngFor="let item of arquivosService.list.value" [class.selected]="item == selected">
+            <tbody *ngIf="!loading && list.length > 0">
+                <tr class="table-row" *ngFor="let item of list" [class.selected]="item == selected">
                   <td></td>
-                  <td (click)="selectItem(item)">{{ item.dataCadastro | date : "dd/MM/yyyy" }}</td>
-                  <td (click)="selectItem(item)">{{ item.nome }}</td>
+                  <td (click)="selectItem(item)" style="white-space: nowrap;">
+                    <span>{{ item.dataCadastro | date : "dd/MM/yyyy" }}</span>
+                    <!-- <br> -->
+                    <!-- <span>{{ item.dataCadastro | date : "hh:mm" }}</span> -->
+                  </td>
+                  <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.nome }}</td>
                   <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.acessoTipoOrigem }}</td>
-                    <td (click)="selectItem(item)">{{ item.caminhoOrigem }}</td>
+                    <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.caminhoOrigem }}</td>
                     <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.acessoTipoDestino }}</td>
-                    <td (click)="selectItem(item)">{{ item.caminhoDestino }}</td>
-                    <td (click)="selectItem(item)">
-                      <span *ngIf="item.usuario">{{ item.usuario }}</span>
+                    <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.caminhoDestino }}</td>
+                    <td (click)="selectItem(item)" style="white-space: nowrap;">
+                      <span *ngIf="item.usuario" style="white-space: nowrap;">{{ item.usuario }}</span>
                       <span *ngIf="!item.usuario">-</span>
                     </td>
-                    <td (click)="selectItem(item)">{{ item.criterio }}</td>
+                    <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.criterio }}</td>
                     <td (click)="selectItem(item)" style="white-space: nowrap;">{{ item.finalizacao }}</td>
                     <td class="td-actions">
                         <div class="actions ml-auto">
@@ -86,7 +90,7 @@
                     <td style="background-color: #f5f5f5;"></td>
                 </tr>
             </tbody>
-            <tbody *ngIf="!loading && arquivosService.list.value.length == 0">
+            <tbody *ngIf="!loading && list.length == 0">
                 <tr>
                     <td></td>
                     <td colspan="8">
