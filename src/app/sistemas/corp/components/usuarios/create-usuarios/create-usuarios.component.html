@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
-                            <label for="documento">Matrícula: <span class="text-red fw-bold">*</span></label>
+                            <label for="documento">Sigla: <span class="text-red fw-bold">*</span></label>
                             <input type="text" class="form-control" name="documento" id="documento" #documento="ngModel" [(ngModel)]="objeto.documento" required>
                             <div *ngIf="documento.errors">
                                 <p class="error text-danger" *ngIf="documento.touched && documento.errors.required">Esse campo é obrigatório.</p>

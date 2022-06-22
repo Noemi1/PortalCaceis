@@ -11,7 +11,14 @@ export class UsuarioFiltro {
     cadastradoPor_Email?: string;
     status?: boolean;
     perfis: UsuarioFiltroPerfil[] = [];
+    filtrarPor: FiltroData = FiltroData.periodo;
 }
+
+export enum FiltroData {
+  periodo = 'periodo',
+  dataFixa = 'dataFixa'
+}
+
 
 export class UsuarioFiltroPerfil {
     id: number = 0;

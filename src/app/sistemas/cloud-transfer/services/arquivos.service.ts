@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest, ArquivoFiltro, ArquivoCriterioResponse, ArquivoFinalizacao, ArquivoFiltroData } from '../models/arquivo.model';
+import { ArquivoRequest, ArquivoResponse, ArquivoAcessoTipoResponse, ArquivoUpdateRequest, ArquivoFiltro, ArquivoCriterioResponse, ArquivoFinalizacao, FiltroData } from '../models/arquivo.model';
 import { map } from 'rxjs/operators';
 import { Crypto } from 'src/app/utils/cryptojs';
 import { DatePipe } from '@angular/common';
@@ -85,7 +85,7 @@ export class ArquivosService {
             list = list.filter(x => x.finalizacao_Id == filtro.finalizacao_Id);
           }
 
-          if (filtro.filtrarPor == ArquivoFiltroData.periodo) {
+          if (filtro.filtrarPor == FiltroData.periodo) {
             if (filtro.de) {
               var de = new Date(filtro.de + 'T00:00:00.000');
               list = list.filter(x => x.dataCadastro >= de);

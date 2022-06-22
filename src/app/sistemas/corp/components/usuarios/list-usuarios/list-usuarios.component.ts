@@ -4,6 +4,7 @@ import { faChevronLeft, faEllipsisV, faFilter, faPlus, faTimes } from '@fortawes
 import { AccountResponse } from 'src/app/models/account.model';
 import { AccountService } from 'src/app/services/account.service';
 import { Crypto } from 'src/app/utils/cryptojs';
+import { UsuarioResponse } from '../../../models/usuario.model';
 import { PerfilService } from '../../../services/perfil.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class ListUsuariosComponent implements OnInit {
 	faFilter = faFilter;
 	loading = true;
 	items: Array<any> = [];
-	pageOfItems: Array<AccountResponse> = [];
+	list: Array<UsuarioResponse> = [];
 	selected?: any;
 
 	constructor(
@@ -33,18 +34,22 @@ export class ListUsuariosComponent implements OnInit {
 			res => {
 				this.loading = false;
 				this.items = res;
+        this.list = res;
 			}
 		)
-    this.accountService.list.subscribe(res => this.items = res);
-		this.items = this.pageOfItems;
-		this.perfilService.getList().subscribe();
+    this.accountService.list.subscribe(res => {
+      this.items = res;
+      this.list = res;
+    });
+
+    this.perfilService.getList().subscribe();
 	}
 
 	ngOnInit(): void {
 	}
 
 	onChangePage(pageOfItems: Array<any>) {
-		this.pageOfItems = pageOfItems;
+		this.list = pageOfItems;
 	}
 
 	selectItem(item: any) {

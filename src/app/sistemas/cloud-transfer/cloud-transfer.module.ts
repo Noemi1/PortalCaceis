@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JwPaginationModule } from 'jw-angular-pagination';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { TableModule } from 'primeng/table';
 
 import { CloudTransferRoutingModule } from './cloud-transfer.routing';
 import { IcmComponent } from './components/icm.component';
@@ -26,8 +27,8 @@ import { FiltroArquivosComponent } from './components/arquivos/filtro-arquivos/f
 		DeleteArquivosComponent,
 		FiltroArquivosComponent,
 		IcmComponent,
-  		MovimentacoesComponent,
-    	FiltroComponent
+    MovimentacoesComponent,
+    FiltroComponent
 	],
 	imports: [
 		CommonModule,
@@ -35,6 +36,7 @@ import { FiltroArquivosComponent } from './components/arquivos/filtro-arquivos/f
 		FontAwesomeModule,
 		JwPaginationModule,
 		FormsModule,
+    TableModule
 	],
 	providers: [
 		ArquivosService,

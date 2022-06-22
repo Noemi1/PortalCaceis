@@ -17,7 +17,7 @@
     </header>
     <div class="page__body">
      <div class="d-flex justify-content-between">
-        <p><small>{{accountService.list.value.length}} resultados</small></p>
+        <p><small>{{list.length}} resultados</small></p>
         <a class="btn btn-filter" [routerLink]="['filtrar']">
             <fa-icon [icon]="faFilter"></fa-icon>
         </a>
@@ -28,14 +28,14 @@
                     <th></th>
                     <th>Nome</th>
                     <th>Email</th>
-                    <th>Matrícula</th>
+                    <th>Sigla</th>
                     <th>Cadastrado por</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody *ngIf="!loading && accountService.list.value.length > 0">
-                <tr class="table-row" *ngFor="let item of accountService.list.value" [class.selected]="item == selected">
+            <tbody *ngIf="!loading && list.length > 0">
+                <tr class="table-row" *ngFor="let item of list" [class.selected]="item == selected">
                     <td></td>
                     <td (click)="selectItem(item)">{{ item.nome }}</td>
                     <td (click)="selectItem(item)">{{ item.email }}</td>
@@ -87,7 +87,7 @@
                     <td style="background-color: #f5f5f5;"></td>
                 </tr>
             </tbody>
-            <tbody *ngIf="!loading && accountService.list.value.length == 0">
+            <tbody *ngIf="!loading && list.length == 0">
                 <tr>
                     <td></td>
                     <td colspan="5">

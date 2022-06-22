@@ -12,21 +12,30 @@
             <div class="modal__body">
              <form #form="ngForm">
                 <div class="form-row align-items-end">
+                  <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                    <strong class="text-danger">Data de cadastro:</strong> <br>
+                    <div class="d-flex align-items-center">
+                      <p for="" class="fw-bold mr-3 small">Filtrar por: </p>
+                      <label for="filtrarPorPeriodo" class="mb-0 mr-2">Período</label>
+                      <input type="radio" name="filtrarData" id="filtrarPorPeriodo" #filtrarPorPeriodo="ngModel" [(ngModel)]="filtro.filtrarPor" [value]="'periodo'" (change)="filtro.de = ''; filtro.ate; filtro.dataCadastro = '';">
+                      <label for="filtrarPorDataFixa" class="mb-0 mr-2 ml-2">Data fixa</label>
+                      <input type="radio" name="filtrarData" id="filtrarPorDataFixa" #filtrarPorDataFixa="ngModel" [(ngModel)]="filtro.filtrarPor" [value]="'dataFixa'" (change)="filtro.de = ''; filtro.ate; filtro.dataCadastro = '';">
+                    </div>
+                  </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
-                        <strong class="text-danger">Data de cadastro:</strong> <br>
                         <label for="de"><small>De</small>:</label>
-                        <input type="date" class="form-control" name="de" id="de" #de="ngModel" [(ngModel)]="filtro.de">
+                        <input type="date" class="form-control" name="de" id="de" #de="ngModel" [(ngModel)]="filtro.de" [disabled]="filtro.filtrarPor.toString() == 'dataFixa'">
                     </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
                         <label for="ate"><small>Até</small>:</label>
-                        <input type="date" class="form-control" name="ate" id="ate" #de="ngModel" [(ngModel)]="filtro.ate">
+                        <input type="date" class="form-control" name="ate" id="ate" #de="ngModel" [(ngModel)]="filtro.ate" [disabled]="filtro.filtrarPor.toString() == 'dataFixa'">
                     </div>
                     <div class="form-group col-lg-1 col-md-1 col-sm-12 col-12 d-flex align-items-end justify-content-center text-danger px-0">
                        <strong class="py-2 d-block">ou</strong>
                     </div>
                     <div class="form-group col-lg-5 col-md-5 col-sm-12 col-12">
                         <label for="dataHora">Data:</label>
-                        <input type="date" class="form-control" name="dataHora" id="dataHora" #de="ngModel" [(ngModel)]="filtro.dataCadastro">
+                        <input type="date" class="form-control" name="dataHora" id="dataHora" #de="ngModel" [(ngModel)]="filtro.dataCadastro" [disabled]="filtro.filtrarPor.toString() == 'periodo'">
                     </div>
                 </div>
                 <div class="form-row align-items-end">
@@ -34,8 +43,8 @@
                         <label for="nome">Nome:</label>
                         <input type="text" class="form-control" name="nome" id="nome" #nome="ngModel" [(ngModel)]="filtro.nome">
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-12">
-                        <label for="documento">Matrícula:</label>
+                    <div class="form-group col-lg-5 col-md-5 col-sm-5 col-12">
+                        <label for="documento">Sigla:</label>
                         <input type="text" class="form-control" name="documento" id="documento" #documento="ngModel" [(ngModel)]="filtro.documento">
                     </div>
                 </div>
@@ -47,6 +56,7 @@
                     <div class="form-group col-lg-4 col-md-4 col-sm-12 col-12">
                         <label for="status">Status:</label>
                         <select name="status" id="status" class="form-control" #status="ngModel" [(ngModel)]="filtro.status">
+                            <option [ngValue]="undefined">Todos</option>
                             <option [ngValue]="true">Ativo</option>
                             <option [ngValue]="false">Inativo</option>
                         </select>

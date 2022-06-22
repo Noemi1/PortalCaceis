@@ -6,7 +6,7 @@ import { Crypto } from '../utils/cryptojs';
 import { Router } from '@angular/router';
 import { AccountRequest, AccountResponse, UserLogado } from '../models/account.model';
 import { ResetPassword } from '../models/account.model';
-import { UpdateUsuarioRequest, UsuarioFiltro, UsuarioRequest, UsuarioResponse } from '../sistemas/corp/models/usuario.model';
+import { FiltroData, UpdateUsuarioRequest, UsuarioFiltro, UsuarioRequest, UsuarioResponse } from '../sistemas/corp/models/usuario.model';
 import { DatePipe } from '@angular/common';
 import { AppConfigService } from './app-config.service';
 
@@ -162,22 +162,25 @@ export class AccountService {
 					this.list.next(list)
 				}
 
-				if (filtro.de != '') {
-					var de = new Date(filtro.de + 'T00:00:00.000');
-					list = list.filter(x => x.created >= de);
-					this.list.next(list);
-				}
+        if (filtro.filtrarPor == FiltroData.periodo) {
+          if (filtro.de != '') {
+            var de = new Date(filtro.de + 'T00:00:00.000');
+            list = list.filter(x => x.created >= de);
+            this.list.next(list);
+          }
 
-				if (filtro.ate != '') {
-					var ate = new Date(filtro.ate + 'T00:00:00.000');
-					list = list.filter(x => x.created <= ate);
-					this.list.next(list);
-				}
-				if (filtro.de == '' && filtro.ate == '' && filtro.dataCadastro != '') {
-					var data = this.datePipe.transform(filtro.dataCadastro as string, 'dd/MM/yyyy');
-					list = list.filter(x => this.datePipe.transform(x.created, 'dd/MM/yyyy') == data);
-					this.list.next(list);
-				}
+          if (filtro.ate != '') {
+            var ate = new Date(filtro.ate + 'T00:00:00.000');
+            list = list.filter(x => x.created <= ate);
+            this.list.next(list);
+          }
+        } else {
+          if (filtro.dataCadastro != '') {
+            var data = this.datePipe.transform(filtro.dataCadastro as string, 'dd/MM/yyyy');
+            list = list.filter(x => this.datePipe.transform(x.created, 'dd/MM/yyyy') == data);
+            this.list.next(list);
+          }
+        }
 
 				if (filtro.perfis && filtro.perfis.length > 0) {
 					filtro.perfis.forEach(item => {

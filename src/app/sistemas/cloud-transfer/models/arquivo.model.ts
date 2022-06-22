@@ -67,11 +67,11 @@ export class ArquivoFiltro {
     caminhoOrigem?: string;
     caminhoDestino?: string;
     criterio_Id?: number;
-    filtrarPor: ArquivoFiltroData = ArquivoFiltroData.periodo;
+    filtrarPor: FiltroData = FiltroData.periodo;
 }
 
-export enum ArquivoFiltroData {
-  periodo,
-  dataFixa
+export enum FiltroData {
+  periodo = 'periodo',
+  dataFixa = 'dataFixa'
 }
 
