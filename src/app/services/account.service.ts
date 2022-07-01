@@ -224,7 +224,7 @@ export class AccountService {
 	}
 
 	forgotPassword(documento: string) {
-		return this.http.post(`${this.url}/account/forgot-password`, { documento: documento});
+		return this.http.post(`${this.url}/account/forgot-password`, { documento: documento });
 	}
 
 	resetPassword(model: ResetPassword) {
